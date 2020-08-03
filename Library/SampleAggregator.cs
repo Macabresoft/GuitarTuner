@@ -1,85 +1,87 @@
-﻿using NAudio.Dsp;
-using NAudio.Wave;
-using System;
+﻿namespace Macabresoft.Zvukosti.Library {
 
-namespace Macabresoft.Zvukosti.Library {
+    using NAudio.Dsp;
+    using NAudio.Wave;
+    using System;
 
+    /// <summary>
+    /// Event arguments for a completed FFT.
+    /// </summary>
+    /// <seealso cref="System.EventArgs"/>
     public class FFTEventArgs : EventArgs {
 
-        public FFTEventArgs(Complex[] result) {
-            Result = result;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FFTEventArgs"/> class.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        /// <param name="sampleRate">The sample rate.</param>
+        public FFTEventArgs(Complex[] result, int sampleRate) {
+            this.Result = result;
+            this.SampleRate = sampleRate;
         }
 
-        public Complex[] Result { get; private set; }
+        /// <summary>
+        /// Gets the result.
+        /// </summary>
+        /// <value>The result.</value>
+        public Complex[] Result { get; }
+
+        /// <summary>
+        /// Gets the sample rate.
+        /// </summary>
+        /// <value>The sample rate.</value>
+        public int SampleRate { get; }
     }
 
-    public class MaxSampleEventArgs : EventArgs {
-
-        public MaxSampleEventArgs(float minValue, float maxValue) {
-            MaxSample = maxValue;
-            MinSample = minValue;
-        }
-
-        public float MaxSample { get; private set; }
-
-        public float MinSample { get; private set; }
-    }
-
+    /// <summary>
+    /// Aggregates samples and provides fast fourier transform values.
+    /// </summary>
     public class SampleAggregator : ISampleProvider {
         private readonly int _channels;
-
         private readonly FFTEventArgs _fftArgs;
-
         private readonly Complex[] _fftBuffer;
-
         private readonly int _fftLength;
-
         private readonly int _m;
 
-        private int _count;
-
         private int _fftPos;
+        private ISampleProvider _source;
 
-        private float _maxValue;
-
-        private float _minValue;
-
-        public SampleAggregator(WaveFormat waveFormat, int fftLength = 1024) {
-            _channels = waveFormat.Channels;
-            WaveFormat = waveFormat;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SampleAggregator"/> class.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="fftLength">Length of the FFT.</param>
+        /// <exception cref="ArgumentException">FFT Length must be a power of two</exception>
+        public SampleAggregator(ISampleProvider source, int fftLength = 1024) {
             if (!IsPowerOfTwo(fftLength)) {
                 throw new ArgumentException("FFT Length must be a power of two");
             }
-            _m = (int)Math.Log(fftLength, 2.0);
+
+            this._source = source;
+            this._channels = 1;
+            this._m = (int)Math.Log(fftLength, 2.0);
             this._fftLength = fftLength;
-            _fftBuffer = new Complex[fftLength];
-            _fftArgs = new FFTEventArgs(_fftBuffer);
+            this._fftBuffer = new Complex[fftLength];
+            this._fftArgs = new FFTEventArgs(_fftBuffer, source.WaveFormat.SampleRate);
         }
 
-        // FFT
+        /// <summary>
+        /// Occurs after the FFT is calculated.
+        /// </summary>
         public event EventHandler<FFTEventArgs> FFTCalculated;
 
-        // volume
-        public event EventHandler<MaxSampleEventArgs> MaximumCalculated;
+        /// <inheritdoc/>
+        public WaveFormat WaveFormat => this._source?.WaveFormat;
 
-        public int NotificationCount { get; set; }
-
-        public bool PerformFFT { get; set; }
-
-        public WaveFormat WaveFormat { get; }
-
+        /// <inheritdoc/>
         public int Read(float[] buffer, int offset, int count) {
-            for (int n = 0; n < count; n += _channels) {
+            var samplesRead = this._source.Read(buffer, offset, count);
+
+            for (int n = 0; n < samplesRead; n += _channels) {
                 Add(buffer[n + offset]);
             }
 
             return count;
-        }
-
-        public void Reset() {
-            _count = 0;
-            _maxValue = _minValue = 0;
         }
 
         private static bool IsPowerOfTwo(int x) {
@@ -87,7 +89,7 @@ namespace Macabresoft.Zvukosti.Library {
         }
 
         private void Add(float value) {
-            if (PerformFFT && FFTCalculated != null) {
+            if (FFTCalculated != null) {
                 _fftBuffer[_fftPos].X = (float)(value * FastFourierTransform.HammingWindow(_fftPos, _fftLength));
                 _fftBuffer[_fftPos].Y = 0;
                 _fftPos++;
@@ -97,14 +99,6 @@ namespace Macabresoft.Zvukosti.Library {
                     FastFourierTransform.FFT(true, _m, _fftBuffer);
                     FFTCalculated(this, _fftArgs);
                 }
-            }
-
-            _maxValue = Math.Max(_maxValue, value);
-            _minValue = Math.Min(_minValue, value);
-            _count++;
-            if (_count >= NotificationCount && NotificationCount > 0) {
-                MaximumCalculated?.Invoke(this, new MaxSampleEventArgs(_minValue, _maxValue));
-                Reset();
             }
         }
     }

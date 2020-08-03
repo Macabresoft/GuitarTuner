@@ -28,7 +28,14 @@
 
             set {
                 this.DataContext = value;
+                if (value != null) {
+                    value.FFTCalculated += this.Value_FFTCalculated;
+                }
             }
+        }
+
+        private void Value_FFTCalculated(object sender, FFTEventArgs e) {
+            this._spectrumAnalyser.Update(e.Result, e.SampleRate);
         }
     }
 }

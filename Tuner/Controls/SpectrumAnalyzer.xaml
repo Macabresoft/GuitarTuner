@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Macabresoft.Zvukosti.Tuner.Controls.SpectrumAnalyzer"
+             x:Name="_control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0"
+                Background="Black">
+            <Polyline x:Name="_polyLine"
+                  Stroke="Green"
+                  StrokeThickness="2" />
+        </Canvas>
+
+        <TextBlock Grid.Row="1"
+                   Text="{Binding Frequency, ElementName=_control}"
+                   Foreground="Green" />
+    </Grid>
+</UserControl>

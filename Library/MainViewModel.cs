@@ -3,41 +3,47 @@
     using NAudio.MediaFoundation;
     using NAudio.Wave;
     using System;
-    using System.Linq;
 
+    /// <summary>
+    /// The main view model.
+    /// </summary>
     public sealed class MainViewModel : NotifyPropertyChanged {
+        private readonly BufferedWaveProvider _bufferedWaveProvider;
         private readonly SampleAggregator _sampleAggregator;
         private readonly IWaveIn _waveIn;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
+        /// <param name="waveIn">The wave in.</param>
         public MainViewModel(IWaveIn waveIn) {
             this._waveIn = waveIn;
-            this._waveIn.WaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(this._waveIn.WaveFormat.SampleRate, 2);
+
+            var device = WaveIn.GetCapabilities(0);
+            this._waveIn.WaveFormat = new WaveFormat(8000, device.Channels);
             this._waveIn.DataAvailable += this.WaveIn_DataAvailable;
+            this._bufferedWaveProvider = new BufferedWaveProvider(this._waveIn.WaveFormat);
+            this._bufferedWaveProvider.DiscardOnBufferOverflow = true;
+            this._bufferedWaveProvider.BufferLength = 1024;
             MediaFoundationApi.Startup();
-            this._sampleAggregator = new SampleAggregator(this._waveIn.WaveFormat);
-            this._sampleAggregator.NotificationCount = waveIn.WaveFormat.SampleRate / 100;
-            this._sampleAggregator.PerformFFT = true;
+            this._sampleAggregator = new SampleAggregator(this._bufferedWaveProvider.ToSampleProvider().ToMono());
             this._sampleAggregator.FFTCalculated += this.SampleProvider_FFTCalculated;
-            this._sampleAggregator.MaximumCalculated += this.SampleProvider_MaximumCalculated;
             this._waveIn.StartRecording();
         }
 
-        private void ReadAudio(WaveBuffer buffer, int samples) {
-            Console.WriteLine($"Recorded '{samples}' samples, with a minimum of '{buffer.FloatBuffer.Min()}' and a maximum of {buffer.FloatBuffer.Max()}");
-        }
+        /// <summary>
+        /// Occurs after the FFT is calculated.
+        /// </summary>
+        public event EventHandler<FFTEventArgs> FFTCalculated;
 
         private void SampleProvider_FFTCalculated(object sender, FFTEventArgs e) {
-            Console.WriteLine(e.Result.Length);
-        }
-
-        private void SampleProvider_MaximumCalculated(object sender, MaxSampleEventArgs e) {
-            Console.WriteLine($"{e.MinSample}  -> {e.MaxSample}");
+            this.FFTCalculated?.Invoke(sender, e);
         }
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e) {
             var waveBuffer = new WaveBuffer(e.Buffer);
-            var samples = this._sampleAggregator.Read(waveBuffer, 0, waveBuffer.FloatBuffer.Length);
-            this.ReadAudio(waveBuffer, samples);
+            this._bufferedWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
+            this._sampleAggregator.Read(waveBuffer.FloatBuffer, 0, e.BytesRecorded / 4);
         }
     }
 }
