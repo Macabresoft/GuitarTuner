@@ -54,13 +54,14 @@ namespace Macabresoft.Zvukosti.Tuner.Controls {
         public void Update(Complex[] fftResults, int sampleRate) {
             // no need to repaint too many frames per second
             if (this._updateCount++ % 4 != 0 && fftResults.Length > 0) {
-                if (fftResults.Length / 2 != _bins) {
-                    this._bins = fftResults.Length / 2;
+                var length = fftResults.Length / 2;
+                if (length / 2 != _bins) {
+                    this._bins = length;
                     this.CalculateXScale();
                 }
 
                 var maximumIndex = 0;
-                for (var n = 0; n < fftResults.Length / 2; n += 1) {
+                for (var n = 0; n < this._bins; n++) {
                     var fftResult = fftResults[n];
 
                     // not entirely sure whether the multiplier should be 10 or 20 in this case.
@@ -80,7 +81,7 @@ namespace Macabresoft.Zvukosti.Tuner.Controls {
                     }
                 }
 
-                this.Frequency = maximumIndex * sampleRate / (float)fftResults.Length;
+                this.Frequency = (maximumIndex * sampleRate) / (float)this._bins;
             }
         }
 

@@ -26,7 +26,7 @@
             this._bufferedWaveProvider.DiscardOnBufferOverflow = true;
             this._bufferedWaveProvider.BufferLength = 1024;
             MediaFoundationApi.Startup();
-            this._sampleAggregator = new SampleAggregator(this._bufferedWaveProvider.ToSampleProvider().ToMono());
+            this._sampleAggregator = new SampleAggregator(this._bufferedWaveProvider.ToSampleProvider().ToMono(1f, 1f));
             this._sampleAggregator.FFTCalculated += this.SampleProvider_FFTCalculated;
             this._waveIn.StartRecording();
         }
