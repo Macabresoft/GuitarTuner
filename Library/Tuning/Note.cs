@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace Macabresoft.Zvukosti.Library.Tuning {
 
-namespace Macabresoft.Zvukosti.Library.Tuning {
+    using System;
 
     /// <summary>
     /// Represents a note inside of a particular <see cref="ITuning"/>.

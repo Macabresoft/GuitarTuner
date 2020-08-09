@@ -1,6 +1,5 @@
-﻿namespace Macabresoft.Zvukosti.Tuner {
+﻿namespace Macabresoft.Zvukosti.Windows {
 
-    using Macabresoft.Zvukosti.Library;
     using System.Windows;
     using Unity;
 
@@ -10,7 +9,7 @@
     public partial class MainWindow : Window {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// Initializes a new instance of the <see cref="MainWindow" /> class.
         /// </summary>
         public MainWindow() {
             this.InitializeComponent();
@@ -28,14 +27,7 @@
 
             set {
                 this.DataContext = value;
-                if (value != null) {
-                    value.FFTCalculated += this.Value_FFTCalculated;
-                }
             }
-        }
-
-        private void Value_FFTCalculated(object sender, FFTEventArgs e) {
-            this._spectrumAnalyser.Update(e.Result, e.SampleRate);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace Macabresoft.Zvukosti.Library.Tuning {
 
-namespace Macabresoft.Zvukosti.Library.Tuning {
+    using System.Collections.Generic;
 
     /// <summary>
     /// A tuning of notes. For example, standard tuning on a guitar or drop D tuning.
@@ -12,6 +12,18 @@ namespace Macabresoft.Zvukosti.Library.Tuning {
         /// </summary>
         /// <value>The display name.</value>
         string DisplayName { get; }
+
+        /// <summary>
+        /// Gets the maxinimum frequency.
+        /// </summary>
+        /// <value>The maxinimum frequency.</value>
+        float MaxinimumFrequency { get; }
+
+        /// <summary>
+        /// Gets the minimum frequency.
+        /// </summary>
+        /// <value>The minimum frequency.</value>
+        float MinimumFrequency { get; }
 
         /// <summary>
         /// Gets the notes.

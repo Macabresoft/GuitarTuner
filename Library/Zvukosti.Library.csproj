@@ -1,13 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <RootNamespace>Macabresoft.Zvukosti.Library</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<RootNamespace>Macabresoft.Zvukosti.Library</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="NAudio" Version="1.10.0" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="NAudio" Version="1.10.0" />
+	</ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zvukosti.Tuner", "Tuner\Zvukosti.Tuner.csproj", "{B65213D7-2EB9-4544-8FBC-8AF69095B836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zvukosti.Windows", "Windows\Zvukosti.Windows.csproj", "{B65213D7-2EB9-4544-8FBC-8AF69095B836}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zvukosti.Library", "Library\Zvukosti.Library.csproj", "{6A306C6F-A379-4582-8AEF-094B63D0B1E1}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zvukosti.Tests", "Tests\Zvukosti.Tests.csproj", "{9E4CA369-2FB4-482E-9A37-240B0449D5D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{6A306C6F-A379-4582-8AEF-094B63D0B1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A306C6F-A379-4582-8AEF-094B63D0B1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A306C6F-A379-4582-8AEF-094B63D0B1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E4CA369-2FB4-482E-9A37-240B0449D5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E4CA369-2FB4-482E-9A37-240B0449D5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E4CA369-2FB4-482E-9A37-240B0449D5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E4CA369-2FB4-482E-9A37-240B0449D5D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

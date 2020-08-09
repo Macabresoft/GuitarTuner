@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Tuner {
+﻿namespace Macabresoft.Zvukosti.Windows {
 
     using NAudio.Wave;
     using System.Windows;
