@@ -65,7 +65,7 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
             return line;
         }
 
-        private void ResetDrawings() {
+        private void ResetCanvas() {
             var scale = ActualWidth / PixelWidth;
             this.Height = scale * PixelHeight;
             this._outline.Points.Clear();
@@ -112,12 +112,12 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
         }
 
         private void SkullControl_Loaded(object sender, RoutedEventArgs e) {
-            this.ResetDrawings();
+            this.ResetCanvas();
             this.Loaded -= this.SkullControl_Loaded;
         }
 
         private void SkullControl_SizeChanged(object sender, SizeChangedEventArgs e) {
-            this.ResetDrawings();
+            this.ResetCanvas();
         }
 
         private void SkullControl_Unloaded(object sender, RoutedEventArgs e) {

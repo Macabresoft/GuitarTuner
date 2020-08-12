@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <SolidColorBrush x:Key="AccentBrush"
+                     Color="Green" />
+
+    <SolidColorBrush x:Key="NeedleBrush"
+                     Color="White" />
+
+    <system:Double x:Key="FontSize">18</system:Double>
+</ResourceDictionary>

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Represents a note inside of a particular <see cref="ITuning"/>.
+    /// Represents a note inside of a particular <see cref="ITuning" />.
     /// </summary>
     public struct Note {
 
@@ -63,7 +63,7 @@
         public float StepUpFrequency;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Note"/> struct.
+        /// Initializes a new instance of the <see cref="Note" /> struct.
         /// </summary>
         /// <param name="frequency">The frequency.</param>
         /// <param name="displayName">The display name.</param>
@@ -79,6 +79,25 @@
             this.StepDownFrequency = stepDownFrequency;
             this.StepUpFrequency = stepUpFrequency;
             this.DisplayName = displayName;
+        }
+
+        public static bool operator !=(Note left, Note right) {
+            return !(left == right);
+        }
+
+        public static bool operator ==(Note left, Note right) {
+            return left.Equals(right);
+        }
+
+        public override bool Equals(object obj) {
+            return obj is Note note &&
+                   this.Frequency == note.Frequency &&
+                   this.StepDownFrequency == note.StepDownFrequency &&
+                   this.StepUpFrequency == note.StepUpFrequency;
+        }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(this.DisplayName, this.Frequency, this.StepDownFrequency, this.StepUpFrequency);
         }
     }
 }

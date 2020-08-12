@@ -4,16 +4,22 @@
         xmlns:controls="clr-namespace:Macabresoft.Zvukosti.Windows.Controls"
         Title="Zvukosti Tuner"
         Width="480"
-        Height="640"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        SizeToContent="Height">
     <Grid Background="Black">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0"
+              Padding="{DynamicResource StandardMarginHorizontal}">
+            <Menu.Resources>
+                <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+                       TargetType="TextBlock" />
+            </Menu.Resources>
             <MenuItem Header="File">
                 <MenuItem Click="Exit_Click"
                           Header="_Exit" />
@@ -25,10 +31,14 @@
         </Menu>
 
         <controls:SkullControl Grid.Row="1"
-                               Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}"
-                               Height="480" />
+                               Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />
 
-        <TextBlock Grid.Row="2"
+        <controls:PitchDisplayControl Grid.Row="2"
+                                      Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}"
+                                      Frequency="{Binding Frequency, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Note="{Binding Note, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="Green"

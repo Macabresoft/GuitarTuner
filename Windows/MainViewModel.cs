@@ -16,6 +16,7 @@
         private readonly DispatcherTimer _timer;
         private readonly WaveIn _waveIn;
         private float _frequency;
+        private Note _note;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel" /> class.
@@ -41,7 +42,7 @@
         }
 
         /// <summary>
-        /// Gets or sets the frequency.
+        /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
         public float Frequency {
@@ -49,8 +50,24 @@
                 return this._frequency;
             }
 
-            set {
-                this.Set(ref this._frequency, value);
+            private set {
+                if (this.Set(ref this._frequency, value)) {
+                    this.Note = this.SelectedTuning.GetNearestNote(this.Frequency);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the note.
+        /// </summary>
+        /// <value>The note.</value>
+        public Note Note {
+            get {
+                return this._note;
+            }
+
+            private set {
+                this.Set(ref this._note, value);
             }
         }
 

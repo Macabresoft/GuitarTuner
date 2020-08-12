@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Macabresoft.Zvukosti.Windows.Controls.PitchDisplayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="_control">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Canvas Grid.Row="0"
+                Grid.ColumnSpan="3"
+                Height="24">
+            <Line x:Name="_needle"
+                  Stroke="{DynamicResource NeedleBrush}"
+                  StrokeThickness="3"
+                  Y1="0"
+                  Y2="24" />
+        </Canvas>
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Style="{DynamicResource ThemeTextBlockStyle}"
+                   Text="♭"
+                   TextAlignment="Left" />
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   Style="{DynamicResource ThemeTextBlockStyle}"
+                   Text="{Binding Note.DisplayName, ElementName=_control, UpdateSourceTrigger=PropertyChanged}"
+                   TextAlignment="Center" />
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="2"
+                   Style="{DynamicResource ThemeTextBlockStyle}"
+                   Text="♯"
+                   TextAlignment="Right" />
+    </Grid>
+</UserControl>
