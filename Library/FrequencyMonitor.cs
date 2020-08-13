@@ -8,24 +8,25 @@
     /// <summary>
     /// Monitors the frequency of a <see cref="IWaveIn" /> device.
     /// </summary>
-    public sealed class FrequencyMonitor : NotifyPropertyChanged {
-        internal const int BufferSizeByte = 2048;
+    public sealed class FrequencyMonitor : NotifyPropertyChanged, IDisposable {
+        internal const int BufferSizeByte = 2048 * 8;
 
         private const int BufferSizeFloat = BufferSizeByte / 4;
         private const float HighestFrequency = 1500f; // May need to make this higher if this tuner goes beyond guitars.
         private const float LowestFrequency = 20f;
         private readonly float[] _buffer = new float[BufferSizeFloat];
+        private readonly BufferedWaveProvider _bufferedWaveProvider;
+        private readonly BiQuadFilter _highPassFilter;
+        private readonly int _highPeriod;
         private readonly object _lock = new object();
-
-        private BufferedWaveProvider _bufferedWaveProvider;
+        private readonly BiQuadFilter _lowPassFilter;
+        private readonly int _lowPeriod;
+        private readonly RollingAverageFrequency _rollingAverageFrequency = new RollingAverageFrequency(5);
+        private readonly ISampleProvider _sampleProvider;
+        private readonly ITuning _tuning;
+        private readonly IWaveIn _waveIn;
         private float _frequency;
-        private BiQuadFilter _highPassFilter;
-        private int _highPeriod;
-        private BiQuadFilter _lowPassFilter;
-        private int _lowPeriod;
-        private ISampleProvider _sampleProvider;
-        private ITuning _tuning;
-        private IWaveIn _waveIn;
+        private bool _isDisposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrequencyMonitor" /> class.
@@ -41,15 +42,16 @@
             this._waveIn.DataAvailable += this.WaveIn_DataAvailable;
             this._bufferedWaveProvider = new BufferedWaveProvider(this._waveIn.WaveFormat) {
                 BufferLength = BufferSizeByte,
-                DiscardOnBufferOverflow = true
+                DiscardOnBufferOverflow = true,
+                ReadFully = false
             };
 
             if (this._waveIn.WaveFormat.Channels == 2) {
                 // adjust the volume of the channels based on selected input later
-                this._sampleProvider = _bufferedWaveProvider.ToSampleProvider().ToMono(1f, 1f);
+                this._sampleProvider = this._bufferedWaveProvider.ToSampleProvider().ToMono(0.5f, 0.5f);
             }
             else if (this._waveIn.WaveFormat.Channels == 1) {
-                this._sampleProvider = _bufferedWaveProvider.ToSampleProvider();
+                this._sampleProvider = this._bufferedWaveProvider.ToSampleProvider();
             }
             else {
                 throw new ArgumentOutOfRangeException("Yo, your input device has way too many channels and I didn't account for it.");
@@ -85,22 +87,14 @@
             }
         }
 
-        /// <summary>
-        /// Updates this instance.
-        /// </summary>
-        public void Update() {
-            lock (this._lock) {
-                this._sampleProvider.Read(this._buffer, 0, BufferSizeFloat);
-
-                if (this._buffer.Length > 0 && this._buffer[BufferSizeFloat - 2] != 0f) {
-                    for (var i = 0; i < this._buffer.Length; i++) {
-                        this._buffer[i] = this._highPassFilter.Transform(this._lowPassFilter.Transform(this._buffer[i])) * (float)FastFourierTransform.HammingWindow(i, BufferSizeFloat);
-                    }
-
-                    var bufferInformation = this.GetBufferInformation();
-                    this.Frequency = bufferInformation.Frequency;
-                }
+        /// <inheritdoc />
+        public void Dispose() {
+            if (!this._isDisposed) {
+                this._waveIn.DataAvailable -= this.WaveIn_DataAvailable;
+                this._isDisposed = true;
             }
+
+            GC.SuppressFinalize(this);
         }
 
         private BufferInformation GetBufferInformation() {
@@ -127,12 +121,32 @@
             var frequency = (float)this.SampleRate / chosenPeriod;
             return frequency < this._tuning.MinimumFrequency || frequency > this._tuning.MaxinimumFrequency ?
                 BufferInformation.Unknown :
-                new BufferInformation(frequency, greatestMagnitude);
+                new BufferInformation((float)frequency, greatestMagnitude);
+        }
+
+        private void Update() {
+            lock (this._lock) {
+                this._sampleProvider.Read(this._buffer, 0, BufferSizeFloat);
+
+                if (this._buffer.Length > 0 && this._buffer[BufferSizeFloat - 2] != 0f) {
+                    for (var i = 0; i < this._buffer.Length; i++) {
+                        this._buffer[i] = this._highPassFilter.Transform(this._lowPassFilter.Transform(this._buffer[i])) * (float)FastFourierTransform.HammingWindow(i, BufferSizeFloat);
+                    }
+
+                    var bufferInformation = this.GetBufferInformation();
+                    this._rollingAverageFrequency.Add(bufferInformation.Frequency);
+                    this.Frequency = this._rollingAverageFrequency.AverageFrequency;
+                    this.Frequency = bufferInformation.Frequency;
+                }
+            }
         }
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e) {
             if (e.BytesRecorded > 0) {
                 this._bufferedWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
+                if (this._bufferedWaveProvider.BufferedBytes >= BufferSizeByte) {
+                    this.Update();
+                }
             }
         }
     }

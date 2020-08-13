@@ -4,16 +4,14 @@
     using Macabresoft.Zvukosti.Library.Tuning;
     using NAudio.MediaFoundation;
     using NAudio.Wave;
-    using System;
     using System.Windows.Threading;
 
     /// <summary>
     /// The main view model.
     /// </summary>
     public sealed class MainViewModel : NotifyPropertyChanged {
-        private const int SampleRate = 8000;
+        private const int SampleRate = 44100;
         private readonly FrequencyMonitor _frequencyMonitor;
-        private readonly DispatcherTimer _timer;
         private readonly WaveIn _waveIn;
         private float _frequency;
         private Note _note;
@@ -32,13 +30,7 @@
             this._frequencyMonitor = new FrequencyMonitor(this._waveIn, this.SelectedTuning);
             MediaFoundationApi.Startup();
             this._waveIn.StartRecording();
-
-            this._timer = new DispatcherTimer() {
-                Interval = new TimeSpan(0, 0, 0, 0, 100)
-            };
-
-            this._timer.Tick += this.Timer_Tick;
-            this._timer.Start();
+            this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;
         }
 
         /// <summary>
@@ -77,14 +69,10 @@
         /// <value>The selected tuning.</value>
         public ITuning SelectedTuning { get; } = new StandardGuitarTuning();
 
-        private void Timer_Tick(object sender, EventArgs e) {
-            this._timer.IsEnabled = false;
-            this._frequencyMonitor.Update();
-            if (this._frequencyMonitor.Frequency > 0f) {
-                this.Frequency = this._frequencyMonitor.Frequency;
+        private void FrequencyMonitor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+            if (e.PropertyName == nameof(FrequencyMonitor.Frequency)) {
+                Dispatcher.CurrentDispatcher.BeginInvoke(() => this.Frequency = this._frequencyMonitor.Frequency);
             }
-
-            this._timer.IsEnabled = true;
         }
     }
 }

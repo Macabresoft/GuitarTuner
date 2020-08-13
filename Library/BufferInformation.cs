@@ -9,7 +9,7 @@
         /// <summary>
         /// An instance of <see cref="BufferInformation" /> returned when the frequency could not be determined.
         /// </summary>
-        public static BufferInformation Unknown = new BufferInformation(float.NegativeInfinity, float.NegativeInfinity);
+        public static BufferInformation Unknown = new BufferInformation();
 
         /// <summary>
         /// The fundamental frequency of the buffer.

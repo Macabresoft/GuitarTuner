@@ -99,5 +99,9 @@
         public override int GetHashCode() {
             return HashCode.Combine(this.DisplayName, this.Frequency, this.StepDownFrequency, this.StepUpFrequency);
         }
+
+        public override string ToString() {
+            return this.DisplayName;
+        }
     }
 }

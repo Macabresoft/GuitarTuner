@@ -42,6 +42,6 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="Green"
-                   Text="{Binding Frequency, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                   Text="{Binding Frequency, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n} Hz}" />
     </Grid>
 </Window>

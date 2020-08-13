@@ -33,7 +33,7 @@
         <TextBlock Grid.Row="1"
                    Grid.Column="1"
                    Style="{DynamicResource ThemeTextBlockStyle}"
-                   Text="{Binding Note.DisplayName, ElementName=_control, UpdateSourceTrigger=PropertyChanged}"
+                   Text="{Binding Note, ElementName=_control, UpdateSourceTrigger=PropertyChanged}"
                    TextAlignment="Center" />
 
         <TextBlock Grid.Row="1"
