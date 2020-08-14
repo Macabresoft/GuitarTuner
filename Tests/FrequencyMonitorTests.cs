@@ -1,7 +1,6 @@
 namespace Macabresoft.Zvukosti.Tests {
 
     using Macabresoft.Zvukosti.Library;
-    using Macabresoft.Zvukosti.Library.Tuning;
     using NAudio.Wave;
     using NAudio.Wave.SampleProviders;
     using NSubstitute;
@@ -17,19 +16,15 @@ namespace Macabresoft.Zvukosti.Tests {
         private IWaveProvider _waveProvider;
 
         [Test]
-        [TestCase(200f, 50f, 300f, 200f)]
-        [TestCase(300f, 100f, 400f, 300f)]
-        [TestCase(150f, 100f, 500f, 150f)]
-        [TestCase(200f, 300f, 400f, 0f)]
-        [TestCase(120f, 100f, 500f, 120f)]
-        public void FrequencyMonitor_Update_SineWaveTest(float actualFrequency, float minimumFrequency, float maximumFrequency, float expectedFrequency) {
+        [TestCase(200f)]
+        [TestCase(300f)]
+        [TestCase(150f)]
+        [TestCase(200f)]
+        [TestCase(120f)]
+        public void FrequencyMonitor_Update_SineWaveTest(float frequency) {
             // Arrange
-            this._signalGenerator.Frequency = actualFrequency;
-            var tuning = Substitute.For<ITuning>();
-            tuning.DisplayName.Returns($"Freq: {actualFrequency} Hz, Min: {minimumFrequency} Hz, Max: {maximumFrequency} Hz");
-            tuning.MinimumFrequency.Returns(minimumFrequency);
-            tuning.MaxinimumFrequency.Returns(maximumFrequency);
-            var frequencyMonitor = new FrequencyMonitor(this._waveIn, tuning);
+            this._signalGenerator.Frequency = frequency;
+            var frequencyMonitor = new FrequencyMonitor(this._waveIn);
 
             // Act
             this._waveProvider.Read(this._buffer, 0, this._buffer.Length);
@@ -40,11 +35,7 @@ namespace Macabresoft.Zvukosti.Tests {
             this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, this._buffer.Length));
 
             // Assert
-            TestContext.Out.WriteLine($"Expected: {expectedFrequency} Hz");
-            TestContext.Out.WriteLine($"Actual: { frequencyMonitor.Frequency} Hz");
-            TestContext.Out.WriteLine($"Min: {minimumFrequency} Hz");
-            TestContext.Out.WriteLine($"Max: {maximumFrequency} Hz");
-            Assert.AreEqual(expectedFrequency, frequencyMonitor.Frequency, Math.Log(actualFrequency));
+            Assert.AreEqual(frequency, frequencyMonitor.Frequency, Math.Log(frequency));
         }
 
         [SetUp]

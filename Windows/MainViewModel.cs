@@ -27,7 +27,7 @@
                 BufferMilliseconds = 100
             };
 
-            this._frequencyMonitor = new FrequencyMonitor(this._waveIn, this.SelectedTuning);
+            this._frequencyMonitor = new FrequencyMonitor(this._waveIn);
             MediaFoundationApi.Startup();
             this._waveIn.StartRecording();
             this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;

@@ -2,7 +2,7 @@
 
     /// <summary>
     /// Information about a buffer of samples that has been processed by the <see
-    /// cref="FrequencyMonitor" />.
+    /// cref="AudioBufferMonitor" />.
     /// </summary>
     public struct BufferInformation {
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,8 +53,6 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
             this.Unloaded += this.SkullControl_Unloaded;
             this.SizeChanged += this.SkullControl_SizeChanged;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private Line CreateLine() {
             var line = new Line();

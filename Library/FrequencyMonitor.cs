@@ -1,6 +1,5 @@
 ﻿namespace Macabresoft.Zvukosti.Library {
 
-    using Macabresoft.Zvukosti.Library.Tuning;
     using NAudio.Dsp;
     using NAudio.Wave;
     using System;
@@ -31,7 +30,6 @@
         private readonly int _lowPeriod;
         private readonly RollingAverageFrequency _rollingAverageFrequency = new RollingAverageFrequency(5);
         private readonly ISampleProvider _sampleProvider;
-        private readonly ITuning _tuning;
         private readonly IWaveIn _waveIn;
         private float _frequency;
         private bool _isDisposed;
@@ -39,9 +37,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="FrequencyMonitor" /> class.
         /// </summary>
-        public FrequencyMonitor(IWaveIn waveIn, ITuning tuning) {
+        public FrequencyMonitor(IWaveIn waveIn) {
             this._waveIn = waveIn ?? throw new ArgumentNullException(nameof(waveIn));
-            this._tuning = tuning ?? throw new ArgumentNullException(nameof(tuning));
 
             this._lowPassFilter = BiQuadFilter.LowPassFilter(this.SampleRate, LowestFrequency, 1f);
             this._highPassFilter = BiQuadFilter.HighPassFilter(this.SampleRate, HighestFrequency, 1f);
@@ -71,7 +68,7 @@
         }
 
         /// <summary>
-        /// Gets or sets the frequency in Hz.
+        /// Gets the frequency in Hz.
         /// </summary>
         /// <value>The frequency in Hz.</value>
         public float Frequency {
@@ -79,7 +76,7 @@
                 return this._frequency;
             }
 
-            set {
+            private set {
                 this.Set(ref this._frequency, value);
             }
         }
@@ -126,7 +123,7 @@
             }
 
             var frequency = (float)this.SampleRate / chosenPeriod;
-            return frequency < this._tuning.MinimumFrequency || frequency > this._tuning.MaxinimumFrequency ?
+            return frequency < LowestFrequency || frequency > HighestFrequency ?
                 BufferInformation.Unknown :
                 new BufferInformation((float)frequency, greatestMagnitude);
         }
