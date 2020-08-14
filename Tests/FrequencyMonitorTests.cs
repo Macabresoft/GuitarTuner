@@ -11,7 +11,7 @@ namespace Macabresoft.Zvukosti.Tests {
     public class FrequencyMonitorTests {
         private const int Channels = 2;
         private const int SampleRate = 44100;
-        private readonly byte[] _buffer = new byte[FrequencyMonitor.BufferSizeByte];
+        private byte[] _buffer;
         private SignalGenerator _signalGenerator;
         private IWaveIn _waveIn;
         private IWaveProvider _waveProvider;
@@ -32,12 +32,12 @@ namespace Macabresoft.Zvukosti.Tests {
             var frequencyMonitor = new FrequencyMonitor(this._waveIn, tuning);
 
             // Act
-            this._waveProvider.Read(this._buffer, 0, FrequencyMonitor.BufferSizeByte);
-            this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, FrequencyMonitor.BufferSizeByte));
-            this._waveProvider.Read(this._buffer, 0, FrequencyMonitor.BufferSizeByte);
-            this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, FrequencyMonitor.BufferSizeByte));
-            this._waveProvider.Read(this._buffer, 0, FrequencyMonitor.BufferSizeByte);
-            this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, FrequencyMonitor.BufferSizeByte));
+            this._waveProvider.Read(this._buffer, 0, this._buffer.Length);
+            this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, this._buffer.Length));
+            this._waveProvider.Read(this._buffer, 0, this._buffer.Length);
+            this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, this._buffer.Length));
+            this._waveProvider.Read(this._buffer, 0, this._buffer.Length);
+            this._waveIn.DataAvailable += Raise.EventWith(this._waveIn, new WaveInEventArgs(this._buffer, this._buffer.Length));
 
             // Assert
             TestContext.Out.WriteLine($"Expected: {expectedFrequency} Hz");
@@ -49,7 +49,8 @@ namespace Macabresoft.Zvukosti.Tests {
 
         [SetUp]
         public void Setup() {
-            Array.Clear(this._buffer, 0, FrequencyMonitor.BufferSizeByte);
+            this._buffer = new byte[((int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 2) * 4];
+
             this._signalGenerator = new SignalGenerator(SampleRate, Channels) {
                 Gain = 1f,
                 Type = SignalGeneratorType.Sin
