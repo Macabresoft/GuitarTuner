@@ -6,6 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Macabresoft.Core" Version="1.0.2" />
 		<PackageReference Include="NAudio" Version="1.10.0" />
 	</ItemGroup>
 </Project>

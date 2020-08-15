@@ -1,5 +1,6 @@
 ﻿namespace Macabresoft.Zvukosti.Windows {
 
+    using Macabresoft.Core;
     using Macabresoft.Zvukosti.Library;
     using Macabresoft.Zvukosti.Library.Tuning;
     using NAudio.MediaFoundation;
@@ -9,7 +10,7 @@
     /// <summary>
     /// The main view model.
     /// </summary>
-    public sealed class MainViewModel : NotifyPropertyChanged {
+    public sealed class MainViewModel : PropertyChangedNotifier {
         private const int SampleRate = 44100;
         private readonly FrequencyMonitor _frequencyMonitor;
         private readonly WaveIn _waveIn;

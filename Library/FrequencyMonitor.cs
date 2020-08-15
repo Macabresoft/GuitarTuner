@@ -1,5 +1,6 @@
 ﻿namespace Macabresoft.Zvukosti.Library {
 
+    using Macabresoft.Core;
     using NAudio.Dsp;
     using NAudio.Wave;
     using System;
@@ -7,7 +8,7 @@
     /// <summary>
     /// Monitors the frequency of a <see cref="IWaveIn" /> device.
     /// </summary>
-    public sealed class FrequencyMonitor : NotifyPropertyChanged, IDisposable {
+    public sealed class FrequencyMonitor : PropertyChangedNotifier, IDisposable {
 
         /// <summary>
         /// The highest frequency this monitor can detect. May need to be increased or customizable
@@ -28,7 +29,7 @@
         private readonly object _lock = new object();
         private readonly BiQuadFilter _lowPassFilter;
         private readonly int _lowPeriod;
-        private readonly RollingAverageFrequency _rollingAverageFrequency = new RollingAverageFrequency(5);
+        private readonly RollingMeanFloat _rollingAverageFrequency = new RollingMeanFloat(5);
         private readonly ISampleProvider _sampleProvider;
         private readonly IWaveIn _waveIn;
         private float _frequency;
@@ -139,7 +140,7 @@
 
                     var bufferInformation = this.GetBufferInformation();
                     this._rollingAverageFrequency.Add(bufferInformation.Frequency);
-                    this.Frequency = this._rollingAverageFrequency.AverageFrequency;
+                    this.Frequency = this._rollingAverageFrequency.MeanValue;
                     this.Frequency = bufferInformation.Frequency;
                 }
             }
