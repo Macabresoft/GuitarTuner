@@ -6,8 +6,7 @@
             VerticalAlignment="Stretch">
         <Canvas x:Name="_canvas"
                 Height="Auto"
-                HorizontalAlignment="Stretch"
-                Background="Black">
+                HorizontalAlignment="Stretch">
             <Polyline x:Name="_outline"
                       Stroke="{DynamicResource AccentBrush}"
                       StrokeThickness="1" />

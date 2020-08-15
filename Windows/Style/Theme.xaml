@@ -10,5 +10,8 @@
     <SolidColorBrush x:Key="NeedleBrush"
                      Color="#E3DAC9" />
 
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="#1E0F0F" />
+
     <system:Double x:Key="FontSize">18</system:Double>
 </ResourceDictionary>

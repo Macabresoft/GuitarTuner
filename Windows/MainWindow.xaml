@@ -6,7 +6,7 @@
         Width="480"
         ResizeMode="CanMinimize"
         SizeToContent="Height">
-    <Grid Background="Black">
+    <Grid Background="{DynamicResource BackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
