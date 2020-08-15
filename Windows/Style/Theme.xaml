@@ -2,10 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <SolidColorBrush x:Key="AccentBrush"
-                     Color="Green" />
+                     Color="#71ED64" />
+
+    <SolidColorBrush x:Key="TransparentAccentBrush"
+                     Color="#6671ED64" />
 
     <SolidColorBrush x:Key="NeedleBrush"
-                     Color="White" />
+                     Color="#E3DAC9" />
 
     <system:Double x:Key="FontSize">18</system:Double>
 </ResourceDictionary>

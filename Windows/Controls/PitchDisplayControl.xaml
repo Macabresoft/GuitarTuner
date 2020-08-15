@@ -14,15 +14,18 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Row="0"
+        <Border Grid.Row="0"
                 Grid.ColumnSpan="3"
-                Height="24">
-            <Line x:Name="_needle"
-                  Stroke="{DynamicResource NeedleBrush}"
-                  StrokeThickness="3"
-                  Y1="0"
-                  Y2="24" />
-        </Canvas>
+                BorderBrush="{DynamicResource TransparentAccentBrush}"
+                BorderThickness="0 1 0 1">
+            <Canvas Height="32">
+                <Line x:Name="_needle"
+                      Stroke="{DynamicResource NeedleBrush}"
+                      StrokeThickness="3"
+                      Y1="0"
+                      Y2="32" />
+            </Canvas>
+        </Border>
 
         <TextBlock Grid.Row="1"
                    Grid.Column="0"

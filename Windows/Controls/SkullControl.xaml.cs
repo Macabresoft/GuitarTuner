@@ -57,7 +57,6 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
         private Line CreateLine() {
             var line = new Line();
             this._canvas.Children.Add(line);
-            line.Stroke = SkullControl._transparentGreen;
             line.StrokeThickness = 1;
             return line;
         }
@@ -89,6 +88,8 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
                 this._horizontalGridLines.Add(this.CreateLine());
             }
 
+            var stroke = App.Current.Resources["TransparentAccentBrush"] as Brush;
+
             var height = PixelHeight * scale;
             for (var x = 1; x < PixelWidth; x++) {
                 var line = this._verticalGridLines.ElementAt(x - 1);
@@ -96,6 +97,7 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
                 line.X2 = line.X1;
                 line.Y1 = 0f;
                 line.Y2 = height;
+                line.Stroke = stroke;
             }
 
             var width = PixelWidth * scale;
@@ -105,6 +107,7 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
                 line.X2 = width;
                 line.Y1 = y * scale;
                 line.Y2 = line.Y1;
+                line.Stroke = stroke;
             }
         }
 

@@ -41,7 +41,7 @@
         <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Foreground="Green"
+                   Foreground="{DynamicResource AccentBrush}"
                    Text="{Binding Frequency, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n} Hz}" />
     </Grid>
 </Window>

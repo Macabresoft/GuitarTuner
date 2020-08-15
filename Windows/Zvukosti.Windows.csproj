@@ -10,6 +10,7 @@
     <Version>0.0.1</Version>
     <Authors>Brett Story</Authors>
     <Company>Macabresoft</Company>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
