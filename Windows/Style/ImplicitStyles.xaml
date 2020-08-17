@@ -7,4 +7,9 @@
     <Style TargetType="TextBlock">
         <Setter Property="Margin" Value="{DynamicResource StandardMarginAll}" />
     </Style>
+
+    <Style TargetType="Polyline">
+        <Setter Property="StrokeEndLineCap" Value="Square" />
+        <Setter Property="StrokeStartLineCap" Value="Square" />
+    </Style>
 </ResourceDictionary>

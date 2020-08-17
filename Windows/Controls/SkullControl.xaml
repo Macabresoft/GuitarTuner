@@ -9,13 +9,13 @@
                 HorizontalAlignment="Stretch">
             <Polyline x:Name="_outline"
                       Stroke="{DynamicResource AccentBrush}"
-                      StrokeThickness="1" />
+                      StrokeThickness="5" />
             <Polyline x:Name="_leftEye"
                       Stroke="{DynamicResource AccentBrush}"
-                      StrokeThickness="1" />
+                      StrokeThickness="5" />
             <Polyline x:Name="_rightEye"
                       Stroke="{DynamicResource AccentBrush}"
-                      StrokeThickness="1" />
+                      StrokeThickness="5" />
         </Canvas>
     </Border>
 </UserControl>
