@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 x:Class="Zvukosti.Desktop.Controls.PitchDisplayControl">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+
+		<Border Grid.Row="0"
+                Grid.ColumnSpan="3"
+                BorderBrush="{DynamicResource TransparentAccentBrush}"
+                BorderThickness="0 1 0 1">
+			<Canvas Height="32">
+				<Line Name="_needle"
+                      Stroke="{DynamicResource NeedleBrush}"
+                      StrokeThickness="3" />
+			</Canvas>
+		</Border>
+
+		<TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Classes="ThemeTextBlockStyle"
+                   Text="♭"
+                   TextAlignment="Left" />
+
+		<TextBlock Grid.Row="1"
+                   Grid.Column="1"
+				   Classes="ThemeTextBlockStyle"
+                   Text="{Binding Note, ElementName=_control}"
+                   TextAlignment="Center" />
+
+		<TextBlock Grid.Row="1"
+                   Grid.Column="2"
+				   Classes="ThemeTextBlockStyle"
+                   Text="♯"
+                   TextAlignment="Right" />
+	</Grid>
+</UserControl>

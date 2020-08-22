@@ -39,6 +39,23 @@
         /// Initializes a new instance of the <see cref="FrequencyMonitor" /> class.
         /// </summary>
         public FrequencyMonitor(IWaveIn waveIn) {
+            ////ALCaptureDevice captureDevice = ALC.CaptureOpenDevice(null, 44100, ALFormat.Mono16, 1024);
+            ////{
+            ////    ALC.CaptureStart(captureDevice);
+
+            ////    int current = 0;
+            ////    while (current < recording.Length) {
+            ////        int samplesAvailable = ALC.GetAvailableSamples(captureDevice);
+            ////        if (samplesAvailable > 512) {
+            ////            int samplesToRead = Math.Min(samplesAvailable, recording.Length - current);
+            ////            ALC.CaptureSamples(captureDevice, ref recording[current], samplesToRead);
+            ////            current += samplesToRead;
+            ////        }
+            ////        Thread.Yield();
+            ////    }
+
+            ////    ALC.CaptureStop(captureDevice);
+            ////}
             this._waveIn = waveIn ?? throw new ArgumentNullException(nameof(waveIn));
 
             this._lowPassFilter = BiQuadFilter.LowPassFilter(this.SampleRate, LowestFrequency, 1f);

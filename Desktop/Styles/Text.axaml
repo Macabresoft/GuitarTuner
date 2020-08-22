@@ -1,0 +1,8 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style Selector="TextBlock.ThemeTextBlockStyle">
+		<Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+		<Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+		<Setter Property="Margin" Value="{DynamicResource DoubleMarginAll}" />
+	</Style>
+</Styles>

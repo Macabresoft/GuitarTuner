@@ -1,0 +1,19 @@
+﻿<Styles xmlns="https://github.com/avaloniaui">
+	<Style Selector="Menu">
+		<Setter Property="Padding" Value="{DynamicResource StandardMarginVertical}" />
+		<Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
+	</Style>
+
+	<Style Selector="MenuItem">
+		<Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
+	</Style>
+
+	<Style Selector="TextBlock">
+		<Setter Property="Margin" Value="{DynamicResource StandardMarginAll}" />
+	</Style>
+
+	<!--<Style Selector="Polyline">
+		<Setter Property="StrokeEndLineCap" Value="Square" />
+		<Setter Property="StrokeStartLineCap" Value="Square" />
+	</Style>-->
+</Styles>

@@ -1,0 +1,22 @@
+﻿<Style xmlns="https://github.com/avaloniaui"
+	   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	   xmlns:system="clr-namespace:System;assembly=System.Runtime">
+	<Style.Resources>
+		<SolidColorBrush x:Key="AccentBrush"
+						 Color="#71ED64" />
+
+		<SolidColorBrush x:Key="TransparentAccentBrush"
+						 Color="#6671ED64" />
+
+		<SolidColorBrush x:Key="NeedleBrush"
+						 Color="#E3DAC9" />
+
+		<SolidColorBrush x:Key="BackgroundBrush"
+						 Color="#1E0F0F" />
+
+		<SolidColorBrush x:Key="MenuBackgroundBrush"
+						 Color="#E3DAC9" />
+
+		<system:Double x:Key="FontSize">18</system:Double>
+	</Style.Resources>
+</Style>
