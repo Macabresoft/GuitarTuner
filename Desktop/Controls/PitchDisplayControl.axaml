@@ -1,6 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 x:Class="Macabresoft.Zvukosti.Desktop.Controls.PitchDisplayControl">
+			 x:Class="Macabresoft.Zvukosti.Desktop.Controls.PitchDisplayControl"
+			 Name="_control">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -33,7 +34,7 @@
 		<TextBlock Grid.Row="1"
                    Grid.Column="1"
 				   Classes="ThemeTextBlockStyle"
-                   Text="{Binding Note, ElementName=_control}"
+                   Text="{Binding #_control.Note}"
                    TextAlignment="Center" />
 
 		<TextBlock Grid.Row="1"

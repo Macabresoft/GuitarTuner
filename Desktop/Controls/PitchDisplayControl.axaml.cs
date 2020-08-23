@@ -62,14 +62,16 @@
         }
 
         private void MoveNeedle() {
-            if (this.Frequency == this.Note.Frequency) {
-                this.SetNeedlePosition(this._halfWidth);
-            }
-            else if (this.Frequency < this.Note.Frequency) {
-                this.SetNeedlePosition((float)Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
-            }
-            else {
-                this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + ((this.Frequency - this.Note.Frequency) * this._sharpScale)));
+            if (this.Width > 0f) {
+                if (this.Frequency == this.Note.Frequency) {
+                    this.SetNeedlePosition(this._halfWidth);
+                }
+                else if (this.Frequency < this.Note.Frequency) {
+                    this.SetNeedlePosition((float)Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
+                }
+                else {
+                    this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + ((this.Frequency - this.Note.Frequency) * this._sharpScale)));
+                }
             }
         }
 
@@ -90,7 +92,7 @@
         }
 
         private void ResetCanvas() {
-            if (this.Note != Note.Empty) {
+            if (this.Note != Note.Empty && this.Width > 0f) {
                 this._needle.IsVisible = true;
                 this._halfWidth = (float)this.Width * 0.5f;
                 var flatDifference = this.Note.Frequency - this.Note.StepDownFrequency;
@@ -105,8 +107,8 @@
         }
 
         private void SetNeedlePosition(float x) {
-            this._needle.StartPoint = new Point(x, 0d);
-            this._needle.StartPoint = new Point(x, this.Height);
+            this._needle.StartPoint = new Point(x - this._halfWidth, 0d);
+            this._needle.EndPoint = new Point(x - this._halfWidth, this.Height);
         }
     }
 }

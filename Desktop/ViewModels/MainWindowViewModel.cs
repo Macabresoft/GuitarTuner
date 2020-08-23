@@ -1,29 +1,27 @@
-﻿using Avalonia.Threading;
-using Macabresoft.Zvukosti.Library;
-using Macabresoft.Zvukosti.Library.Tuning;
-using NAudio.Wave;
+﻿namespace Zvukosti.Desktop.ViewModels {
 
-namespace Zvukosti.Desktop.ViewModels {
+    using Avalonia.Threading;
+    using Macabresoft.Zvukosti.Library;
+    using Macabresoft.Zvukosti.Library.Input;
+    using Macabresoft.Zvukosti.Library.Tuning;
+    using OpenToolkit.Audio.OpenAL;
+    using System;
 
     public class MainWindowViewModel : ViewModelBase {
         private const int SampleRate = 44100;
         private readonly FrequencyMonitor _frequencyMonitor;
-        private readonly WaveIn _waveIn;
+        private readonly ISampleProvider _sampleProvider;
         private float _frequency;
         private Note _note;
 
         public MainWindowViewModel() {
-            ////var device = WaveIn.GetCapabilities(0);
-            ////this._waveIn = new WaveIn {
-            ////    WaveFormat = new WaveFormat(SampleRate, device.Channels),
-            ////    DeviceNumber = 0,
-            ////    BufferMilliseconds = 100
-            ////};
+            var lowPeriod = (int)Math.Floor(SampleRate / FrequencyMonitor.HighestFrequency);
+            var highPeriod = (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency);
+            this._sampleProvider = new MicrophoneListener(null, SampleRate, ALFormat.Mono16, highPeriod * 2);
+            this._frequencyMonitor = new FrequencyMonitor(this._sampleProvider, highPeriod, lowPeriod);
+            this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;
 
-            ////this._frequencyMonitor = new FrequencyMonitor(this._waveIn);
-            ////MediaFoundationApi.Startup();
-            ////this._waveIn.StartRecording();
-            ////this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;
+            this._sampleProvider.Start();
         }
 
         public float Frequency {
