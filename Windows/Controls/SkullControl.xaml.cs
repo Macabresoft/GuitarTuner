@@ -43,7 +43,6 @@ namespace Macabresoft.Zvukosti.Windows.Controls {
             new Point(5, 2)
         };
 
-        private static readonly Brush _transparentGreen = new SolidColorBrush(Color.FromArgb(50, 0, 255, 0));
         private readonly List<Line> _horizontalGridLines = new List<Line>();
         private readonly List<Line> _verticalGridLines = new List<Line>();
 

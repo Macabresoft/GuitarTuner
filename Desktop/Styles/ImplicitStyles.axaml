@@ -12,8 +12,7 @@
 		<Setter Property="Margin" Value="{DynamicResource StandardMarginAll}" />
 	</Style>
 
-	<!--<Style Selector="Polyline">
-		<Setter Property="StrokeEndLineCap" Value="Square" />
-		<Setter Property="StrokeStartLineCap" Value="Square" />
-	</Style>-->
+	<Style Selector="Polygon">
+		<Setter Property="StrokeLineCap" Value="Square" />
+	</Style>
 </Styles>

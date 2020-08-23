@@ -1,0 +1,20 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Macabresoft.Zvukosti.Desktop.Controls.SkullControl">
+	<Border HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+		<Canvas Name="_canvas"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+			<Polygon Name="_outline"
+					 Stroke="{DynamicResource AccentBrush}"
+					 StrokeThickness="5" />
+			<Polygon Name="_leftEye"
+					 Stroke="{DynamicResource AccentBrush}"
+					 StrokeThickness="5" />
+			<Polygon Name="_rightEye"
+					 Stroke="{DynamicResource AccentBrush}"
+					 StrokeThickness="5" />
+		</Canvas>
+	</Border>
+</UserControl>

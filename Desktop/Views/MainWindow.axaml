@@ -1,6 +1,6 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:controls="clr-namespace:Zvukosti.Desktop.Controls"
+		xmlns:controls="clr-namespace:Macabresoft.Zvukosti.Desktop.Controls"
         x:Class="Zvukosti.Desktop.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="Zvukosti Tuner"
@@ -28,8 +28,8 @@
 			</MenuItem>
 		</Menu>
 
-		<!--<controls:SkullControl Grid.Row="1"
-                               Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}" />-->
+		<controls:SkullControl Grid.Row="1"
+							   Width="480" />
 
 		<controls:PitchDisplayControl Grid.Row="2"
                                       Frequency="{Binding Frequency, Mode=OneWay}"
