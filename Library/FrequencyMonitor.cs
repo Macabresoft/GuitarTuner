@@ -31,11 +31,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="FrequencyMonitor" /> class.
         /// </summary>
-        public FrequencyMonitor(ISampleProvider sampleProvider, int highPeriod, int lowPeriod) {
-            this._highPeriod = highPeriod;
-            this._lowPeriod = lowPeriod;
+        public FrequencyMonitor(ISampleProvider sampleProvider) {
             this._sampleProvider = sampleProvider ?? throw new ArgumentNullException(nameof(sampleProvider));
             this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
+            this._lowPeriod = (int)Math.Floor(this.SampleRate / FrequencyMonitor.HighestFrequency);
+            this._highPeriod = (int)Math.Ceiling(this.SampleRate / FrequencyMonitor.LowestFrequency);
         }
 
         /// <summary>
