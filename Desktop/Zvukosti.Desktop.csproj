@@ -8,11 +8,20 @@
 		<Version>0.0.1</Version>
 		<Authors>Brett Story</Authors>
 		<Company>Macabresoft</Company>
+		<ApplicationIcon>icon.ico</ApplicationIcon>
+		<AssemblyName>Zvukosti.Desktop</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Folder Include="Models\" />
-		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="icon.ico" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="0.9.12" />
