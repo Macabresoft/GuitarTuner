@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Library.Input {
+﻿namespace Macabresoft.Tuner.Library.Input {
 
     using System;
 

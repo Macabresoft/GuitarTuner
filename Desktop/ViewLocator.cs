@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Zvukosti.Desktop.ViewModels;
+using Macabresoft.Tuner.Desktop.ViewModels;
 
-namespace Zvukosti.Desktop {
+namespace Macabresoft.Tuner.Desktop {
     public class ViewLocator : IDataTemplate {
         public bool SupportsRecycling => false;
 

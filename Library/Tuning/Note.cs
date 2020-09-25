@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Library.Tuning {
+﻿namespace Macabresoft.Tuner.Library.Tuning {
 
     using System;
 

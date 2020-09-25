@@ -1,7 +1,7 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Zvukosti.Desktop"
-             x:Class="Zvukosti.Desktop.App">
+             xmlns:local="clr-namespace:Macabresoft.Tuner.Desktop"
+             x:Class="Macabresoft.Tuner.Desktop.App">
 	<Application.DataTemplates>
 		<local:ViewLocator />
 	</Application.DataTemplates>
@@ -10,9 +10,9 @@
 		<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
 		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
 
-		<StyleInclude Source="avares://Zvukosti.Desktop/Styles/Theme.axaml" />
-		<StyleInclude Source="avares://Zvukosti.Desktop/Styles/Margins.axaml" />
-		<StyleInclude Source="avares://Zvukosti.Desktop/Styles/Text.axaml" />
-		<StyleInclude Source="avares://Zvukosti.Desktop/Styles/ImplicitStyles.axaml" />
+		<StyleInclude Source="avares://Macabresoft.Tuner.Desktop/Styles/Theme.axaml" />
+		<StyleInclude Source="avares://Macabresoft.Tuner.Desktop/Styles/Margins.axaml" />
+		<StyleInclude Source="avares://Macabresoft.Tuner.Desktop/Styles/Text.axaml" />
+		<StyleInclude Source="avares://Macabresoft.Tuner.Desktop/Styles/ImplicitStyles.axaml" />
 	</Application.Styles>
 </Application>

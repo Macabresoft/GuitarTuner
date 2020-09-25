@@ -1,8 +1,8 @@
-﻿namespace Macabresoft.Zvukosti.Tests {
+﻿namespace Macabresoft.Tuner.Tests {
 
     using Macabresoft.Core;
-    using Macabresoft.Zvukosti.Library;
-    using Macabresoft.Zvukosti.Library.Input;
+    using Macabresoft.Tuner.Library;
+    using Macabresoft.Tuner.Library.Input;
     using OpenToolkit.Audio.OpenAL;
     using System;
 

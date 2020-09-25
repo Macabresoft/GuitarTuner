@@ -1,9 +1,9 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:controls="clr-namespace:Macabresoft.Zvukosti.Desktop.Controls"
-        x:Class="Zvukosti.Desktop.Views.MainWindow"
+		xmlns:controls="clr-namespace:Macabresoft.Tuner.Desktop.Controls"
+        x:Class="Macabresoft.Tuner.Desktop.Views.MainWindow"
         Icon="/icon.ico"
-        Title="Zvukosti Tuner"
+        Title="Tuner by Macabresoft"
         Width="480"
         CanResize="False"
         SizeToContent="Height">

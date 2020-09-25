@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Library {
+﻿namespace Macabresoft.Tuner.Library {
 
     /// <summary>
     /// Information about a buffer of samples that has been processed by the <see
@@ -21,6 +21,11 @@
         /// </summary>
         public float Magnitude;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BufferInformation" /> struct.
+        /// </summary>
+        /// <param name="frequency">The frequency.</param>
+        /// <param name="magnitude">The magnitude.</param>
         public BufferInformation(float frequency, float magnitude) {
             this.Frequency = frequency;
             this.Magnitude = magnitude;

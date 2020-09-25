@@ -1,7 +1,7 @@
-﻿namespace Macabresoft.Zvukosti.Library {
+﻿namespace Macabresoft.Tuner.Library {
 
     using Macabresoft.Core;
-    using Macabresoft.Zvukosti.Library.Input;
+    using Macabresoft.Tuner.Library.Input;
     using System;
 
     /// <summary>
