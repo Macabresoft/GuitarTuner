@@ -1,9 +1,9 @@
-﻿namespace Macabresoft.Tuner.Library.Tuning {
+﻿namespace Macabresoft.Zvukosti.Library.Tuning {
 
     /// <summary>
     /// Provides a tuning for standard guitars.
     /// </summary>
-    /// <seealso cref="Macabresoft.Tuner.Library.Tuning.GenericTuning"/>
+    /// <seealso cref="Macabresoft.Zvukosti.Library.Tuning.GenericTuning"/>
     public sealed class StandardGuitarTuning : GenericTuning {
 
         /// <summary>

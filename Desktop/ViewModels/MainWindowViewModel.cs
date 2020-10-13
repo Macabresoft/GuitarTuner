@@ -1,9 +1,9 @@
-﻿namespace Macabresoft.Tuner.Desktop.ViewModels {
+﻿namespace Macabresoft.Zvukosti.Desktop.ViewModels {
 
     using Avalonia.Threading;
-    using Macabresoft.Tuner.Library;
-    using Macabresoft.Tuner.Library.Input;
-    using Macabresoft.Tuner.Library.Tuning;
+    using Macabresoft.Zvukosti.Library;
+    using Macabresoft.Zvukosti.Library.Input;
+    using Macabresoft.Zvukosti.Library.Tuning;
     using OpenToolkit.Audio.OpenAL;
     using System;
 

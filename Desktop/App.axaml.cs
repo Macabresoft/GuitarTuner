@@ -1,10 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Macabresoft.Tuner.Desktop.ViewModels;
-using Macabresoft.Tuner.Desktop.Views;
+using Macabresoft.Zvukosti.Desktop.ViewModels;
+using Macabresoft.Zvukosti.Desktop.Views;
 
-namespace Macabresoft.Tuner.Desktop {
+namespace Macabresoft.Zvukosti.Desktop {
     public class App : Application {
         public override void Initialize() {
             AvaloniaXamlLoader.Load(this);

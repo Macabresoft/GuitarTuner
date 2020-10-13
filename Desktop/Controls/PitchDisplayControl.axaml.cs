@@ -1,10 +1,10 @@
-﻿namespace Macabresoft.Tuner.Desktop.Controls {
+﻿namespace Macabresoft.Zvukosti.Desktop.Controls {
 
     using Avalonia;
     using Avalonia.Controls;
     using Avalonia.Controls.Shapes;
     using Avalonia.Markup.Xaml;
-    using Macabresoft.Tuner.Library.Tuning;
+    using Macabresoft.Zvukosti.Library.Tuning;
     using System;
 
     public class PitchDisplayControl : UserControl {

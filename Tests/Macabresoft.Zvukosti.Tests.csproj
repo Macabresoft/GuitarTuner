@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Macabresoft.Tuner.Tests</RootNamespace>
+    <RootNamespace>Macabresoft.Zvukosti.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Library\Macabresoft.Tuner.Library.csproj" />
+    <ProjectReference Include="..\Library\Macabresoft.Zvukosti.Library.csproj" />
   </ItemGroup>
 </Project>

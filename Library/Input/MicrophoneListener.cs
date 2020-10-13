@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Tuner.Library.Input {
+﻿namespace Macabresoft.Zvukosti.Library.Input {
 
     using Macabresoft.Core;
     using OpenToolkit.Audio.OpenAL;

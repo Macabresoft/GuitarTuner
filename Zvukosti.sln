@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.Tuner.Library", "Library\Macabresoft.Tuner.Library.csproj", "{6A306C6F-A379-4582-8AEF-094B63D0B1E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.Zvukosti.Library", "Library\Macabresoft.Zvukosti.Library.csproj", "{6A306C6F-A379-4582-8AEF-094B63D0B1E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{54BB9E91-D937-47E6-8AC7-48BA96C452CB}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Settings.XamlStyler = Settings.XamlStyler
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.Tuner.Tests", "Tests\Macabresoft.Tuner.Tests.csproj", "{9E4CA369-2FB4-482E-9A37-240B0449D5D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.Zvukosti.Tests", "Tests\Macabresoft.Zvukosti.Tests.csproj", "{9E4CA369-2FB4-482E-9A37-240B0449D5D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.Tuner.Desktop", "Desktop\Macabresoft.Tuner.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.Zvukosti.Desktop", "Desktop\Macabresoft.Zvukosti.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

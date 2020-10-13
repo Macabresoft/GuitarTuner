@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Tuner.Desktop {
+﻿namespace Macabresoft.Zvukosti.Desktop {
 
     using Avalonia;
     using Avalonia.Logging.Serilog;

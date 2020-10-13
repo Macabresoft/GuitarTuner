@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Tuner.Desktop.Views {
+﻿namespace Macabresoft.Zvukosti.Desktop.Views {
 
     using Avalonia.Controls;
     using Avalonia.Interactivity;
@@ -21,7 +21,7 @@
         }
 
         private void ViewSource_Click(object sender, RoutedEventArgs e) {
-            var url = "https://github.com/Macabresoft/Macabresoft.Tuner";
+            var url = "https://github.com/Macabresoft/Macabresoft.Zvukosti";
 
             try {
                 Process.Start(url);

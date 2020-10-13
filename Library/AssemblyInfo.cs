@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Macabresoft.Tuner.Desktop.Tests")]
+[assembly: InternalsVisibleTo("Macabresoft.Zvukosti.Desktop.Tests")]

@@ -1,6 +1,6 @@
-namespace Macabresoft.Tuner.Tests {
+namespace Macabresoft.Zvukosti.Tests {
 
-    using Macabresoft.Tuner.Library;
+    using Macabresoft.Zvukosti.Library;
     using NUnit.Framework;
     using System;
 
