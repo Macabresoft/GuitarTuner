@@ -27,7 +27,7 @@
 		<PackageReference Include="Avalonia" Version="0.9.12" />
 		<PackageReference Include="Avalonia.Desktop" Version="0.9.12" />
 		<PackageReference Include="Avalonia.ReactiveUI" Version="0.9.12" />
-		<PackageReference Include="Macabresoft.Core" Version="1.0.3" />
+		<PackageReference Include="Macabresoft.Core" Version="1.0.5" />
 		<PackageReference Include="System.Runtime" Version="4.3.1" />
 	</ItemGroup>
 	<ItemGroup>

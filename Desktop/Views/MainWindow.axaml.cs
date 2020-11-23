@@ -5,6 +5,7 @@
     using Avalonia.Markup.Xaml;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
+    using Macabresoft.Core.Utilities;
 
     public class MainWindow : Window {
 
@@ -21,27 +22,7 @@
         }
 
         private void ViewSource_Click(object sender, RoutedEventArgs e) {
-            var url = "https://github.com/Macabresoft/Macabresoft.Zvukosti";
-
-            try {
-                Process.Start(url);
-            }
-            catch {
-                // hack because of this: https://github.com/dotnet/corefx/issues/10361
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-                    url = url.Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
-                    Process.Start("open", url);
-                }
-                else {
-                    throw;
-                }
-            }
+            WebHelper.OpenInBrowser("https://github.com/Macabresoft/zvukosti-tuner");
         }
     }
 }
