@@ -4,9 +4,8 @@
         x:Class="Macabresoft.Zvukosti.Desktop.Views.MainWindow"
         Icon="/icon.ico"
         Title="Tuner by Macabresoft"
-        Width="480"
         CanResize="False"
-        SizeToContent="Height">
+        SizeToContent="WidthAndHeight">
 
 	<Grid Background="{DynamicResource BackgroundBrush}">
 		<Grid.RowDefinitions>

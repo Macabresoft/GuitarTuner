@@ -13,10 +13,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="icon.ico" />
 	</ItemGroup>
 
