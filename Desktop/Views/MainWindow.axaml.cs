@@ -3,9 +3,7 @@
     using Avalonia.Controls;
     using Avalonia.Interactivity;
     using Avalonia.Markup.Xaml;
-    using System.Diagnostics;
-    using System.Runtime.InteropServices;
-    using Macabresoft.Core.Utilities;
+    using Macabresoft.Core;
 
     public class MainWindow : Window {
 
