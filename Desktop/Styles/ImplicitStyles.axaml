@@ -6,6 +6,7 @@
 
 	<Style Selector="MenuItem">
 		<Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
+		<Setter Property="Padding" Value="{DynamicResource DoubleMarginAll}" />
 	</Style>
 
 	<Style Selector="TextBlock">

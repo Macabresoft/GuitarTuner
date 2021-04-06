@@ -1,22 +1,24 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:controls="clr-namespace:Macabresoft.Zvukosti.Desktop.Controls"
+        xmlns:viewModels="clr-namespace:Macabresoft.Zvukosti.Desktop.ViewModels"
         x:Class="Macabresoft.Zvukosti.Desktop.Views.MainWindow"
         Icon="/icon.ico"
-        Title="Tuner by Macabresoft"
+        Width="480"
         CanResize="False"
-        SizeToContent="WidthAndHeight">
-
+        Title="Zvkukosti Tuner by Macabresoft">
+	<Design.DataContext>
+		<viewModels:MainWindowViewModel />
+	</Design.DataContext>
 	<Grid Background="{DynamicResource BackgroundBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Menu Grid.Row="0"
-              Padding="{DynamicResource StandardMarginHorizontal}">
+		<Menu Grid.Row="0">
 			<MenuItem Header="File">
 				<MenuItem Click="Exit_Click"
                           Header="_Exit" />
