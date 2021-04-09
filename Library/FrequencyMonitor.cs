@@ -68,8 +68,6 @@
                 this._sampleProvider.SamplesAvailable -= this.SampleProvider_SamplesAvailable;
                 this._isDisposed = true;
             }
-
-            GC.SuppressFinalize(this);
         }
 
         private BufferInformation GetBufferInformation(float[] samples) {
@@ -99,7 +97,7 @@
                 new BufferInformation((float)frequency, greatestMagnitude);
         }
 
-        private void SampleProvider_SamplesAvailable(object sender, SamplesAvailableEventArgs e) {
+        private void SampleProvider_SamplesAvailable(object? sender, SamplesAvailableEventArgs e) {
             if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                 lock (this._lock) {
                     var bufferInformation = this.GetBufferInformation(e.Samples);

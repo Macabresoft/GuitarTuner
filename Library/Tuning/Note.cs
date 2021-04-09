@@ -45,28 +45,30 @@
         /// <summary>
         /// The display name.
         /// </summary>
-        public string DisplayName;
+        public readonly string DisplayName;
 
         /// <summary>
         /// The frequency.
         /// </summary>
-        public float Frequency;
+        public readonly float Frequency;
 
         /// <summary>
         /// The frequency a single step down from this note.
         /// </summary>
-        public float StepDownFrequency;
+        public readonly float StepDownFrequency;
 
         /// <summary>
         /// The frequency a single step up from this note.
         /// </summary>
-        public float StepUpFrequency;
+        public readonly float StepUpFrequency;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Note" /> struct.
         /// </summary>
         /// <param name="frequency">The frequency.</param>
+        /// <param name="stepUpFrequency">The frequency one step up from this note.</param>
         /// <param name="displayName">The display name.</param>
+        /// <param name="stepDownFrequency">The frequency one step down from this note.</param>
         public Note(float frequency, float stepDownFrequency, float stepUpFrequency, string displayName) {
             if (stepDownFrequency > frequency) {
                 throw new ArgumentOutOfRangeException(nameof(stepDownFrequency), "Note's step down frequency must be less than its actual frequency.");
@@ -89,7 +91,7 @@
             return left.Equals(right);
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object? obj) {
             return obj is Note note &&
                    this.Frequency == note.Frequency &&
                    this.StepDownFrequency == note.StepDownFrequency &&

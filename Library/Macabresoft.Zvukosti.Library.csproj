@@ -4,8 +4,15 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<RootNamespace>Macabresoft.Zvukosti.Library</RootNamespace>
 		<LangVersion>default</LangVersion>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>Macabresoft.Zvukosti.Desktop.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Macabresoft.Core" Version="1.0.8" />
 		<PackageReference Include="OpenToolkit.OpenAL" Version="4.0.0-pre9.3" />

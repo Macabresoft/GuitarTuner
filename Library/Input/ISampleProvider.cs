@@ -12,7 +12,7 @@
         /// Occurs when samples are available, which is generally when the buffer is filled to <see
         /// cref="BufferSize" />.
         /// </summary>
-        event EventHandler<SamplesAvailableEventArgs> SamplesAvailable;
+        event EventHandler<SamplesAvailableEventArgs>? SamplesAvailable;
 
         /// <summary>
         /// Gets the size of the buffer.

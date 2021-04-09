@@ -1,10 +1,9 @@
 ﻿namespace Macabresoft.Zvukosti.Library.Input {
-
-    using Macabresoft.Core;
-    using OpenToolkit.Audio.OpenAL;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Macabresoft.Core;
+    using OpenToolkit.Audio.OpenAL;
 
     /// <summary>
     /// A <see cref="ISampleProvider" /> that listens in on a recording device and provides samples
@@ -12,10 +11,13 @@
     /// </summary>
     public class MicrophoneListener : ISampleProvider, IDisposable {
         private readonly ALCaptureDevice _captureDevice;
-        private int _halfBufferSize;
+        private readonly int _halfBufferSize;
         private bool _isDisposed;
         private bool _isEnabled;
-        private Task _listenTask;
+        private Task? _listenTask;
+
+        /// <inheritdoc />
+        public event EventHandler<SamplesAvailableEventArgs>? SamplesAvailable;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MicrophoneListener" /> class.
@@ -41,9 +43,6 @@
         }
 
         /// <inheritdoc />
-        public event EventHandler<SamplesAvailableEventArgs> SamplesAvailable;
-
-        /// <inheritdoc />
         public int BufferSize { get; }
 
         /// <inheritdoc />
@@ -55,9 +54,6 @@
         /// <inheritdoc />
         public void Dispose() {
             if (!this._isDisposed) {
-                // TODO: dispose managed state (managed objects)
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
                 this.Stop();
                 this.SamplesAvailable = null;
                 this._isDisposed = true;
@@ -66,29 +62,29 @@
             GC.SuppressFinalize(this);
         }
 
+        /// <inheritdoc />
         public void Start() {
             this._isEnabled = true;
             this._listenTask = this.Listen();
         }
 
+        /// <inheritdoc />
         public void Stop() {
             this._isEnabled = false;
-            if (this._listenTask != null) {
-                this._listenTask.Wait();
-            }
+            this._listenTask?.Wait();
         }
 
         private Task Listen() {
             return Task.Run(() => {
                 while (this._isEnabled && !this._isDisposed) {
-                    int index = 0;
+                    var index = 0;
                     var buffer = new short[this.BufferSize];
                     ALC.CaptureStart(this._captureDevice);
 
                     while (index < buffer.Length) {
-                        int samplesAvailable = ALC.GetAvailableSamples(this._captureDevice);
+                        var samplesAvailable = ALC.GetAvailableSamples(this._captureDevice);
                         if (samplesAvailable > this._halfBufferSize) {
-                            int samplesToRead = Math.Min(samplesAvailable, buffer.Length - index);
+                            var samplesToRead = Math.Min(samplesAvailable, buffer.Length - index);
                             ALC.CaptureSamples(this._captureDevice, ref buffer[index], samplesToRead);
                             index += samplesToRead;
                         }
