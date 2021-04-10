@@ -10,19 +10,32 @@
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
 	</Design.DataContext>
-	<Grid Background="{DynamicResource BackgroundBrush}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
+	<Grid RowDefinitions="Auto, Auto, Auto, Auto"
+	      Background="{DynamicResource BackgroundBrush}">
 
 		<Menu Grid.Row="0">
 			<MenuItem Header="File">
 				<MenuItem Click="Exit_Click"
                           Header="_Exit" />
 			</MenuItem>
+			
+			<MenuItem Header="Devices"
+			          Items="{Binding AvailableDevices}">
+				<MenuItem.Styles>
+					<Style Selector="MenuItem">
+						<Setter Property="Header" Value="{Binding}" />
+						<Setter Property="Icon">
+							<Setter.Value>
+								// TODO: Check mark if checked
+							</Setter.Value>
+						</Setter>
+						<Setter Property="Command" />
+						<Setter Property="CommandParameter" />
+					</Style>
+				</MenuItem.Styles>
+
+			</MenuItem>
+			
 			<MenuItem Header="Help">
 				<MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
