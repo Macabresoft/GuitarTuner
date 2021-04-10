@@ -138,7 +138,7 @@ namespace Macabresoft.Zvukosti.Library {
 
                 if (this._stopwatch.IsRunning) {
                     if (this._stopwatch.Elapsed.TotalSeconds > HoldTime) {
-                        // TODO: if the rolling average frequency is ever updated with a Clear(), use that here.
+                        this._rollingAverageFrequency.Clear();
                         this.Frequency = 0f;
                     }
                 }
