@@ -36,7 +36,6 @@ namespace Macabresoft.Zvukosti.Library {
         private readonly RollingMeanFloat _rollingAverageFrequency = new(5);
         private readonly ISampleProvider _sampleProvider;
         private readonly Stopwatch _stopwatch = new();
-        private float _timeElapsed;
         private float _frequency;
         private bool _isDisposed;
 
