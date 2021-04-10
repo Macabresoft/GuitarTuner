@@ -1,4 +1,7 @@
-﻿namespace Macabresoft.Zvukosti.Library {
+﻿using System.Diagnostics;
+using System.Threading;
+
+namespace Macabresoft.Zvukosti.Library {
 
     using Macabresoft.Core;
     using Macabresoft.Zvukosti.Library.Input;
@@ -20,11 +23,20 @@
         /// </summary>
         public const float LowestFrequency = 20f;
 
+        /// <summary>
+        /// The hold time for a note in seconds. For instance, if a user hits the note E and
+        /// then provides no sound for 3 seconds, the frequency will continue to report E
+        /// until those 3 seconds are up.
+        /// </summary>
+        public const float HoldTime = 3f;
+
         private readonly int _highPeriod;
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
         private readonly int _lowPeriod;
-        private readonly RollingMeanFloat _rollingAverageFrequency = new RollingMeanFloat(5);
+        private readonly RollingMeanFloat _rollingAverageFrequency = new(5);
         private readonly ISampleProvider _sampleProvider;
+        private readonly Stopwatch _stopwatch = new();
+        private float _timeElapsed;
         private float _frequency;
         private bool _isDisposed;
 
@@ -92,19 +104,51 @@
             }
 
             var frequency = (float)this.SampleRate / chosenPeriod;
-            return frequency < LowestFrequency || frequency > HighestFrequency ?
+            return frequency is < LowestFrequency or > HighestFrequency ?
                 BufferInformation.Unknown :
-                new BufferInformation((float)frequency, greatestMagnitude);
+                new BufferInformation(frequency, greatestMagnitude);
         }
 
         private void SampleProvider_SamplesAvailable(object? sender, SamplesAvailableEventArgs e) {
             if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                 lock (this._lock) {
                     var bufferInformation = this.GetBufferInformation(e.Samples);
-                    this._rollingAverageFrequency.Add(bufferInformation.Frequency);
-                    this.Frequency = this._rollingAverageFrequency.MeanValue;
-                    this.Frequency = bufferInformation.Frequency;
+
+                    if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude == 0f) {
+                        this.HoldForReset();
+                    }
+                    else {
+                        this._stopwatch.Stop();
+                        
+                        this._rollingAverageFrequency.Add(bufferInformation.Frequency);
+                        this.Frequency = this._rollingAverageFrequency.MeanValue;
+                        this.Frequency = bufferInformation.Frequency;
+                    }
                 }
+            }
+            else {
+                lock (this._lock) {
+                    this.HoldForReset();
+                }
+            }
+        }
+
+        private void HoldForReset() {
+            if (this.Frequency > 0f) {
+                this._rollingAverageFrequency.Remove();
+
+                if (this._stopwatch.IsRunning) {
+                    if (this._stopwatch.Elapsed.TotalSeconds > HoldTime) {
+                        // TODO: if the rolling average frequency is ever updated with a Clear(), use that here.
+                        this.Frequency = 0f;
+                    }
+                }
+                else {
+                    this._stopwatch.Restart();
+                }
+            }
+            else {
+                this._rollingAverageFrequency.Add(this.Frequency);
             }
         }
     }
