@@ -136,7 +136,7 @@ namespace Macabresoft.Zvukosti.Library {
                     this._timeElapsed += sampleCount / (float)this._sampleProvider.SampleRate;
                     this._rollingAverageFrequency.Remove();
 
-                    if (this._timeElapsed > HoldTime) {
+                    if (this._timeElapsed >= HoldTime) {
                         this.ClearFrequency();
                     }
                 }

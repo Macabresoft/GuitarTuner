@@ -11,13 +11,31 @@ namespace Macabresoft.Zvukosti.Tests {
         private SineWaveSampleProvider _sampleProvider;
 
         [Test]
+        [TestCase(110f)]
+        [TestCase(97.99f)]
+        [TestCase(123.47f)]
+        [TestCase(246.94f)]
+        [TestCase(233.08f)]
+        [TestCase(261.63f)]
+        [TestCase(146.83f)]
+        [TestCase(138.59f)]
+        [TestCase(155.56f)]
+        [TestCase(82.407f)]
+        [TestCase(77.782f)]
+        [TestCase(87.307f)]
+        [TestCase(329.63f)]
+        [TestCase(311.13f)]
+        [TestCase(349.23f)]
+        [TestCase(196f)]
+        [TestCase(185f)]
+        [TestCase(207.65f)]
         [TestCase(1000f)]
         [TestCase(500f)]
         [TestCase(300f)]
         [TestCase(200f)]
         [TestCase(150f)]
         [TestCase(120f)]
-        [TestCase(80f)] // TODO: figure out why this test is failing
+        [TestCase(80f)]
         public void SineWaveSample_Should_ProcessToSameFrequency(float frequency) {
             this._sampleProvider.Frequency = frequency;
             var frequencyMonitor = new FrequencyMonitor(this._sampleProvider);

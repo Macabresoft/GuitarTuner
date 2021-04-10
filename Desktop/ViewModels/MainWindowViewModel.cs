@@ -15,7 +15,7 @@
         private Note _note;
 
         public MainWindowViewModel() {
-            this._sampleProvider = new MicrophoneListener(null, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 2);
+            this._sampleProvider = new MicrophoneListener(null, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
             this._frequencyMonitor = new FrequencyMonitor(this._sampleProvider);
             this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;
 
