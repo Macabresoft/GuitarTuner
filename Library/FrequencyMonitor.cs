@@ -25,17 +25,17 @@ namespace Macabresoft.Zvukosti.Library {
 
         /// <summary>
         /// The hold time for a note in seconds. For instance, if a user hits the note E and
-        /// then provides no sound for 3 seconds, the frequency will continue to report E
-        /// until those 3 seconds are up.
+        /// then provides no sound for 2 seconds, the frequency will continue to report E
+        /// until those 2 seconds are up.
         /// </summary>
-        public const float HoldTime = 3f;
+        public const float HoldTime = 2f;
 
         private readonly int _highPeriod;
         private readonly object _lock = new();
         private readonly int _lowPeriod;
         private readonly RollingMeanFloat _rollingAverageFrequency = new(5);
         private readonly ISampleProvider _sampleProvider;
-        private readonly Stopwatch _stopwatch = new();
+        private float _timeElapsed;
         private float _frequency;
         private bool _isDisposed;
 
@@ -114,11 +114,9 @@ namespace Macabresoft.Zvukosti.Library {
                     var bufferInformation = this.GetBufferInformation(e.Samples);
 
                     if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude == 0f) {
-                        this.HoldForReset();
+                        this.HoldForReset(e.Samples.Length);
                     }
                     else {
-                        this._stopwatch.Stop();
-                        
                         this._rollingAverageFrequency.Add(bufferInformation.Frequency);
                         this.Frequency = this._rollingAverageFrequency.MeanValue;
                         this.Frequency = bufferInformation.Frequency;
@@ -127,28 +125,31 @@ namespace Macabresoft.Zvukosti.Library {
             }
             else {
                 lock (this._lock) {
-                    this.HoldForReset();
+                    this.HoldForReset(e.Samples.Length);
                 }
             }
         }
 
-        private void HoldForReset() {
-            if (this.Frequency > 0f) {
-                this._rollingAverageFrequency.Remove();
+        private void HoldForReset(int sampleCount) {
+            if (this.Frequency != 0f && sampleCount > 0) {
+                if (this._sampleProvider.SampleRate > 0) {
+                    this._timeElapsed += sampleCount / (float)this._sampleProvider.SampleRate;
+                    this._rollingAverageFrequency.Remove();
 
-                if (this._stopwatch.IsRunning) {
-                    if (this._stopwatch.Elapsed.TotalSeconds > HoldTime) {
-                        this._rollingAverageFrequency.Clear();
-                        this.Frequency = 0f;
+                    if (this._timeElapsed > HoldTime) {
+                        this.ClearFrequency();
                     }
                 }
                 else {
-                    this._stopwatch.Restart();
+                    this.ClearFrequency();
                 }
             }
-            else {
-                this._rollingAverageFrequency.Add(this.Frequency);
-            }
+        }
+
+        private void ClearFrequency() {
+            this._rollingAverageFrequency.Clear();
+            this._timeElapsed = 0f;
+            this.Frequency = 0f;
         }
     }
 }

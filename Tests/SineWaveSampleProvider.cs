@@ -27,6 +27,14 @@
         public float Frequency { get; set; }
         public int SampleRate { get; }
 
+        public void ProvideEmptySamples(int roundsOfSamples) {
+            var samples = new float[this.BufferSize];
+
+            for (var i = 0; i < roundsOfSamples; i++) {
+                this.SamplesAvailable.SafeInvoke(this, new SamplesAvailableEventArgs(samples, samples.Length));
+            }
+        }
+        
         public void Start() {
             var samples = new float[this.BufferSize];
             for (var i = 0; i < samples.Length; i++) {
