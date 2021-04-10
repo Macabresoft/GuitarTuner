@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="notes">The notes.</param>
         protected GenericTuning(params Note[] notes) {
-            this.Notes = notes.Any() ? notes.OrderBy(x => x.Frequency).ToList() : throw new ArgumentOutOfRangeException("A tuning requires at least one note.");
+            this.Notes = notes.Any() ? notes.OrderBy(x => x.Frequency).ToList() : throw new ArgumentOutOfRangeException(nameof(notes));
 
             this.MaxinimumFrequency = notes.Select(x => x.StepUpFrequency).Max();
             this.MinimumFrequency = notes.Select(x => x.StepDownFrequency).Min();

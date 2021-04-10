@@ -26,7 +26,7 @@
         /// <param name="sampleRate">The sample rate.</param>
         /// <param name="format">The format.</param>
         /// <param name="bufferSize">Size of the buffer.</param>
-        public MicrophoneListener(string deviceName, int sampleRate, ALFormat format, int bufferSize) {
+        public MicrophoneListener(string? deviceName, int sampleRate, ALFormat format, int bufferSize) {
             if (sampleRate < 8000) {
                 throw new ArgumentOutOfRangeException(nameof(sampleRate));
             }

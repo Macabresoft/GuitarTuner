@@ -1,14 +1,11 @@
-﻿using System.Diagnostics;
-using System.Threading;
-
-namespace Macabresoft.Zvukosti.Library {
+﻿namespace Macabresoft.Zvukosti.Library {
 
     using Macabresoft.Core;
     using Macabresoft.Zvukosti.Library.Input;
     using System;
 
     /// <summary>
-    /// Monitors the frequency of a <see cref="IWaveIn" /> device.
+    /// Monitors the frequency of a <see cref="ISampleProvider" /> device.
     /// </summary>
     public sealed class FrequencyMonitor : PropertyChangedNotifier, IDisposable {
 

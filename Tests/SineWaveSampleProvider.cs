@@ -45,7 +45,7 @@
         }
 
         public void Stop() {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

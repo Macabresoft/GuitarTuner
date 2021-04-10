@@ -10,16 +10,15 @@
     public class MainWindowViewModel : ViewModelBase {
         private const int SampleRate = 44100;
         private readonly FrequencyMonitor _frequencyMonitor;
-        private readonly ISampleProvider _sampleProvider;
         private float _frequency;
         private Note _note;
 
         public MainWindowViewModel() {
-            this._sampleProvider = new MicrophoneListener(null, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
-            this._frequencyMonitor = new FrequencyMonitor(this._sampleProvider);
+            var sampleProvider = new MicrophoneListener(null, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
+            this._frequencyMonitor = new FrequencyMonitor(sampleProvider);
             this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;
 
-            this._sampleProvider.Start();
+            sampleProvider.Start();
         }
 
         public float Frequency {

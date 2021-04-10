@@ -67,7 +67,7 @@
                     this.SetNeedlePosition(this._halfWidth);
                 }
                 else if (this.Frequency < this.Note.Frequency) {
-                    this.SetNeedlePosition((float)Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
+                    this.SetNeedlePosition(Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
                 }
                 else {
                     this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + ((this.Frequency - this.Note.Frequency) * this._sharpScale)));
