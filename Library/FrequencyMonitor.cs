@@ -1,24 +1,17 @@
 ﻿namespace Macabresoft.Zvukosti.Library {
-
+    using System;
     using Macabresoft.Core;
     using Macabresoft.Zvukosti.Library.Input;
-    using System;
 
     /// <summary>
     /// Monitors the frequency of a <see cref="ISampleProvider" /> device.
     /// </summary>
     public sealed class FrequencyMonitor : PropertyChangedNotifier, IDisposable {
-
         /// <summary>
         /// The highest frequency this monitor can detect. May need to be increased or customizable
         /// if the tuner begins supporting custom tunings.
         /// </summary>
         public const float HighestFrequency = 1500f;
-
-        /// <summary>
-        /// The lowest frequency this monitor can detect.
-        /// </summary>
-        public const float LowestFrequency = 20f;
 
         /// <summary>
         /// The hold time for a note in seconds. For instance, if a user hits the note E and
@@ -27,47 +20,43 @@
         /// </summary>
         public const float HoldTime = 2f;
 
+        /// <summary>
+        /// The lowest frequency this monitor can detect.
+        /// </summary>
+        public const float LowestFrequency = 20f;
+
         private readonly int _highPeriod;
         private readonly object _lock = new();
         private readonly int _lowPeriod;
         private readonly RollingMeanFloat _rollingAverageFrequency = new(5);
-        private readonly ISampleProvider _sampleProvider;
-        private float _timeElapsed;
         private float _frequency;
         private bool _isDisposed;
+        private ISampleProvider _sampleProvider;
+        private float _timeElapsed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrequencyMonitor" /> class.
         /// </summary>
         public FrequencyMonitor(ISampleProvider sampleProvider) {
-            this._sampleProvider = sampleProvider ?? throw new ArgumentNullException(nameof(sampleProvider));
+            this._sampleProvider = sampleProvider;
             this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
-            this._lowPeriod = (int)Math.Floor(this.SampleRate / FrequencyMonitor.HighestFrequency);
-            this._highPeriod = (int)Math.Ceiling(this.SampleRate / FrequencyMonitor.LowestFrequency);
-        }
-
-        /// <summary>
-        /// Gets the frequency in Hz.
-        /// </summary>
-        /// <value>The frequency in Hz.</value>
-        public float Frequency {
-            get {
-                return this._frequency;
-            }
-
-            private set {
-                this.Set(ref this._frequency, value);
-            }
+            this._lowPeriod = (int)Math.Floor(this.SampleRate / HighestFrequency);
+            this._highPeriod = (int)Math.Ceiling(this.SampleRate / LowestFrequency);
         }
 
         /// <summary>
         /// Gets the sample rate this frequency monitor is currently using.
         /// </summary>
         /// <value>The sample rate this frequency monitor is currently using.</value>
-        public int SampleRate {
-            get {
-                return this._sampleProvider.SampleRate;
-            }
+        public int SampleRate => this._sampleProvider.SampleRate;
+
+        /// <summary>
+        /// Gets the frequency in Hz.
+        /// </summary>
+        /// <value>The frequency in Hz.</value>
+        public float Frequency {
+            get => this._frequency;
+            private set => this.Set(ref this._frequency, value);
         }
 
         /// <inheritdoc />
@@ -76,6 +65,28 @@
                 this._sampleProvider.SamplesAvailable -= this.SampleProvider_SamplesAvailable;
                 this._isDisposed = true;
             }
+        }
+
+        /// <summary>
+        /// Sets the sample provider.
+        /// </summary>
+        /// <param name="sampleProvider">The sample provider.</param>
+        public void SetSampleProvider(ISampleProvider sampleProvider) {
+            lock (this._lock) {
+                if (this._sampleProvider != sampleProvider) {
+                    this._sampleProvider.SamplesAvailable -= this.SampleProvider_SamplesAvailable;
+                    this._sampleProvider = sampleProvider;
+                    this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
+                    this._rollingAverageFrequency.Clear();
+                    this.Frequency = 0f;
+                }
+            }
+        }
+
+        private void ClearFrequency() {
+            this._rollingAverageFrequency.Clear();
+            this._timeElapsed = 0f;
+            this.Frequency = 0f;
         }
 
         private BufferInformation GetBufferInformation(float[] samples) {
@@ -100,31 +111,7 @@
             }
 
             var frequency = (float)this.SampleRate / chosenPeriod;
-            return frequency is < LowestFrequency or > HighestFrequency ?
-                BufferInformation.Unknown :
-                new BufferInformation(frequency, greatestMagnitude);
-        }
-
-        private void SampleProvider_SamplesAvailable(object? sender, SamplesAvailableEventArgs e) {
-            if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
-                lock (this._lock) {
-                    var bufferInformation = this.GetBufferInformation(e.Samples);
-
-                    if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude == 0f) {
-                        this.HoldForReset(e.Samples.Length);
-                    }
-                    else {
-                        this._rollingAverageFrequency.Add(bufferInformation.Frequency);
-                        this.Frequency = this._rollingAverageFrequency.MeanValue;
-                        this.Frequency = bufferInformation.Frequency;
-                    }
-                }
-            }
-            else {
-                lock (this._lock) {
-                    this.HoldForReset(e.Samples.Length);
-                }
-            }
+            return frequency is < LowestFrequency or > HighestFrequency ? BufferInformation.Unknown : new BufferInformation(frequency, greatestMagnitude);
         }
 
         private void HoldForReset(int sampleCount) {
@@ -143,10 +130,26 @@
             }
         }
 
-        private void ClearFrequency() {
-            this._rollingAverageFrequency.Clear();
-            this._timeElapsed = 0f;
-            this.Frequency = 0f;
+        private void SampleProvider_SamplesAvailable(object? sender, SamplesAvailableEventArgs e) {
+            lock (this._lock) {
+                if (sender == this._sampleProvider) {
+                    if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
+                        var bufferInformation = this.GetBufferInformation(e.Samples);
+
+                        if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude == 0f) {
+                            this.HoldForReset(e.Samples.Length);
+                        }
+                        else {
+                            this._rollingAverageFrequency.Add(bufferInformation.Frequency);
+                            this.Frequency = this._rollingAverageFrequency.MeanValue;
+                            this.Frequency = bufferInformation.Frequency;
+                        }
+                    }
+                    else {
+                        this.HoldForReset(e.Samples.Length);
+                    }
+                }
+            }
         }
     }
 }

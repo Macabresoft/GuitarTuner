@@ -18,6 +18,7 @@
         private readonly ObservableCollectionExtended<string> _availableDevices = new();
         private readonly FrequencyMonitor _frequencyMonitor;
         private readonly ReactiveCommand<string, Unit> _selectDeviceCommand;
+        private MicrophoneListener _listener;
         private float _frequency;
         private Note _note;
         private string _selectedDevice;
@@ -29,10 +30,14 @@
             this.SelectedDevice = this._availableDevices.FirstOrDefault();
             this._selectDeviceCommand = ReactiveCommand.Create<string, Unit>(this.SelectDevice);
 
-            var sampleProvider = new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
-            this._frequencyMonitor = new FrequencyMonitor(sampleProvider);
+            this._listener = this.CreateListener();
+            this._frequencyMonitor = new FrequencyMonitor(this._listener);
             this._frequencyMonitor.PropertyChanged += this.FrequencyMonitor_PropertyChanged;
-            sampleProvider.Start();
+            this._listener.Start();
+        }
+
+        private MicrophoneListener CreateListener() {
+            return new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
         }
 
         public IReadOnlyCollection<string> AvailableDevices => this._availableDevices;
@@ -68,7 +73,13 @@
         }
 
         private Unit SelectDevice(string deviceName) {
-            this.SelectedDevice = deviceName;
+            if (deviceName != this.SelectedDevice) {
+                this.SelectedDevice = deviceName;
+                this._listener.Stop();
+                this._listener = this.CreateListener();
+                this._frequencyMonitor.SetSampleProvider(this._listener);
+                this._listener.Start();
+            }
 
             return Unit.Default;
         }
