@@ -5,11 +5,17 @@ namespace Macabresoft.Zvukosti.Desktop.Views {
     using Avalonia.Controls;
     using Avalonia.Interactivity;
     using Avalonia.Markup.Xaml;
+    using Avalonia.Platform;
     using Macabresoft.Core;
 
     public class MainWindow : Window {
 
         public MainWindow() {
+            var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
+            if (platform != OperatingSystemType.OSX) {
+                this.SizeToContent = SizeToContent.WidthAndHeight;
+            }
+            
             InitializeComponent();
         }
 
@@ -19,7 +25,10 @@ namespace Macabresoft.Zvukosti.Desktop.Views {
             // This can't be set in the window's XAML because of an issue with
             // AvaloniaUI not sizing content correctly unless the rest of the
             // window is loaded first.
-            this.SizeToContent = SizeToContent.Height;
+            var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
+            if (platform == OperatingSystemType.OSX) {
+                this.SizeToContent = SizeToContent.Height;
+            }
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e) {
