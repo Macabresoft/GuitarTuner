@@ -3,17 +3,21 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Reactive;
+    using System.Windows.Input;
     using Avalonia.Threading;
     using Macabresoft.Core;
     using Macabresoft.Zvukosti.Library;
     using Macabresoft.Zvukosti.Library.Input;
     using Macabresoft.Zvukosti.Library.Tuning;
     using OpenToolkit.Audio.OpenAL;
+    using ReactiveUI;
 
     public class MainWindowViewModel : ViewModelBase {
         private const int SampleRate = 44100;
         private readonly ObservableCollectionExtended<string> _availableDevices = new();
         private readonly FrequencyMonitor _frequencyMonitor;
+        private readonly ReactiveCommand<string, Unit> _selectDeviceCommand;
         private float _frequency;
         private Note _note;
         private string _selectedDevice;
@@ -23,6 +27,7 @@
 
             // TODO: save the previously selected available device and load that here if possible.
             this.SelectedDevice = this._availableDevices.FirstOrDefault();
+            this._selectDeviceCommand = ReactiveCommand.Create<string, Unit>(this.SelectDevice);
 
             var sampleProvider = new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
             this._frequencyMonitor = new FrequencyMonitor(sampleProvider);
@@ -31,6 +36,8 @@
         }
 
         public IReadOnlyCollection<string> AvailableDevices => this._availableDevices;
+
+        public ICommand SelectDeviceCommand => this._selectDeviceCommand;
 
         public ITuning SelectedTuning { get; } = new StandardGuitarTuning();
 
@@ -58,6 +65,12 @@
             if (e.PropertyName == nameof(FrequencyMonitor.Frequency)) {
                 Dispatcher.UIThread.Post(() => this.Frequency = this._frequencyMonitor.Frequency);
             }
+        }
+
+        private Unit SelectDevice(string deviceName) {
+            this.SelectedDevice = deviceName;
+
+            return Unit.Default;
         }
     }
 }

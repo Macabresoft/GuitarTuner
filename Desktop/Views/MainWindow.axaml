@@ -1,12 +1,17 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:controls="clr-namespace:Macabresoft.Zvukosti.Desktop.Controls"
+        xmlns:converters="clr-namespace:Macabresoft.Zvukosti.Desktop.Converters"
         xmlns:viewModels="clr-namespace:Macabresoft.Zvukosti.Desktop.ViewModels"
         x:Class="Macabresoft.Zvukosti.Desktop.Views.MainWindow"
+        Name="_mainWindow"
         Icon="/icon.ico"
         Width="480"
         CanResize="False"
         Title="Zvkukosti Tuner by Macabresoft">
+	<Window.Resources>
+		<converters:EqualsConverter x:Key="EqualsConverter" />
+	</Window.Resources>
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
 	</Design.DataContext>
@@ -22,18 +27,31 @@
 			<MenuItem Header="Devices"
 			          Items="{Binding AvailableDevices}">
 				<MenuItem.Styles>
-					<Style Selector="MenuItem">
-						<Setter Property="Header" Value="{Binding}" />
+					<Style Selector="MenuItem MenuItem">
+						<Setter Property="Header" 
+						        Value="{Binding}" />
 						<Setter Property="Icon">
 							<Setter.Value>
-								// TODO: Check mark if checked
+								<Template>
+								<TextBlock Text="●">
+									<TextBlock.IsVisible>
+										<MultiBinding Converter="{StaticResource EqualsConverter}">
+											<Binding Path="$parent[MenuItem].Header" />
+											<Binding Path="#_mainWindow.DataContext.SelectedDevice"></Binding>
+										</MultiBinding>
+									</TextBlock.IsVisible>
+								</TextBlock>
+								</Template>
 							</Setter.Value>
 						</Setter>
-						<Setter Property="Command" />
-						<Setter Property="CommandParameter" Value="{Binding}" />
+						<!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+						<!-- ReSharper disable once Xaml.PossibleNullReferenceException -->
+						<Setter Property="Command" 
+						        Value="{Binding #_mainWindow.DataContext.SelectDeviceCommand}" />
+						<Setter Property="CommandParameter" 
+						        Value="{Binding}"  />
 					</Style>
 				</MenuItem.Styles>
-
 			</MenuItem>
 			
 			<MenuItem Header="Help">
