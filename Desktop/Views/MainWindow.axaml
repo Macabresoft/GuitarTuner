@@ -30,7 +30,7 @@
 							</Setter.Value>
 						</Setter>
 						<Setter Property="Command" />
-						<Setter Property="CommandParameter" />
+						<Setter Property="CommandParameter" Value="{Binding}" />
 					</Style>
 				</MenuItem.Styles>
 
