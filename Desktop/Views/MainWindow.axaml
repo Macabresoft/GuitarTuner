@@ -33,7 +33,11 @@
 						<Setter Property="Icon">
 							<Setter.Value>
 								<Template>
-								<TextBlock Text="●">
+								<TextBlock VerticalAlignment="Center"
+								           HorizontalAlignment="Center"
+								           Margin="0"
+								           Padding="0"
+								           Text="●">
 									<TextBlock.IsVisible>
 										<MultiBinding Converter="{StaticResource EqualsConverter}">
 											<Binding Path="$parent[MenuItem].Header" />
@@ -44,8 +48,6 @@
 								</Template>
 							</Setter.Value>
 						</Setter>
-						<!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-						<!-- ReSharper disable once Xaml.PossibleNullReferenceException -->
 						<Setter Property="Command" 
 						        Value="{Binding #_mainWindow.DataContext.SelectDeviceCommand}" />
 						<Setter Property="CommandParameter" 
