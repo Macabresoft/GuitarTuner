@@ -11,7 +11,7 @@
         public SineWaveSampleProvider(float frequency, int sampleRate) {
             this.Frequency = frequency;
             this.SampleRate = sampleRate;
-            this.BufferSize = (int)Math.Ceiling(this.SampleRate / FrequencyMonitor.LowestFrequency) * 8;
+            this.BufferSize = (int)Math.Ceiling(this.SampleRate / FrequencyMonitor.LowestFrequency) * 15;
         }
 
         public event EventHandler<SamplesAvailableEventArgs> SamplesAvailable;

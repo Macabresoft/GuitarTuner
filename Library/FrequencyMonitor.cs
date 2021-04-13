@@ -11,7 +11,7 @@
         /// The highest frequency this monitor can detect. May need to be increased or customizable
         /// if the tuner begins supporting custom tunings.
         /// </summary>
-        public const float HighestFrequency = 1500f;
+        public const float HighestFrequency = 600f;
 
         /// <summary>
         /// The hold time for a note in seconds. For instance, if a user hits the note E and
@@ -23,7 +23,7 @@
         /// <summary>
         /// The lowest frequency this monitor can detect.
         /// </summary>
-        public const float LowestFrequency = 20f;
+        public const float LowestFrequency = 30f;
 
         private readonly int _highPeriod;
         private readonly object _lock = new();
@@ -40,15 +40,9 @@
         public FrequencyMonitor(ISampleProvider sampleProvider) {
             this._sampleProvider = sampleProvider;
             this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
-            this._lowPeriod = (int)Math.Floor(this.SampleRate / HighestFrequency);
-            this._highPeriod = (int)Math.Ceiling(this.SampleRate / LowestFrequency);
+            this._lowPeriod = (int)Math.Floor(this._sampleProvider.SampleRate / HighestFrequency);
+            this._highPeriod = (int)Math.Ceiling(this._sampleProvider.SampleRate / LowestFrequency);
         }
-
-        /// <summary>
-        /// Gets the sample rate this frequency monitor is currently using.
-        /// </summary>
-        /// <value>The sample rate this frequency monitor is currently using.</value>
-        public int SampleRate => this._sampleProvider.SampleRate;
 
         /// <summary>
         /// Gets the frequency in Hz.
@@ -110,7 +104,7 @@
                 }
             }
 
-            var frequency = (float)this.SampleRate / chosenPeriod;
+            var frequency = (float)this._sampleProvider.SampleRate / chosenPeriod;
             return frequency is < LowestFrequency or > HighestFrequency ? BufferInformation.Unknown : new BufferInformation(frequency, greatestMagnitude);
         }
 

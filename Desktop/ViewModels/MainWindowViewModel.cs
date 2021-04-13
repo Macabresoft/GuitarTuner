@@ -37,7 +37,7 @@
         }
 
         private MicrophoneListener CreateListener() {
-            return new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 8);
+            return new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 15);
         }
 
         public IReadOnlyCollection<string> AvailableDevices => this._availableDevices;
