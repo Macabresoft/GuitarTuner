@@ -1,6 +1,6 @@
-namespace Macabresoft.Zvukosti.Tests {
+namespace Macabresoft.GuitarTuner.Tests {
 
-    using Macabresoft.Zvukosti.Library;
+    using Macabresoft.GuitarTuner.Library;
     using NUnit.Framework;
     using System;
     using FluentAssertions;

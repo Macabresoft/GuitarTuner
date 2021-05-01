@@ -1,6 +1,6 @@
 ﻿using Avalonia;
 
-namespace Macabresoft.Zvukosti.Desktop.Views {
+namespace Macabresoft.GuitarTuner.Desktop.Views {
 
     using Avalonia.Controls;
     using Avalonia.Interactivity;
@@ -40,7 +40,7 @@ namespace Macabresoft.Zvukosti.Desktop.Views {
         }
 
         private void ViewSource_Click(object sender, RoutedEventArgs e) {
-            WebHelper.OpenInBrowser("https://github.com/Macabresoft/zvukosti-tuner");
+            WebHelper.OpenInBrowser("https://github.com/Macabresoft/GuitarTuner-tuner");
         }
     }
 }

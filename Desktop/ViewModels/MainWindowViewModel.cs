@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Desktop.ViewModels {
+﻿namespace Macabresoft.GuitarTuner.Desktop.ViewModels {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -7,9 +7,9 @@
     using System.Windows.Input;
     using Avalonia.Threading;
     using Macabresoft.Core;
-    using Macabresoft.Zvukosti.Library;
-    using Macabresoft.Zvukosti.Library.Input;
-    using Macabresoft.Zvukosti.Library.Tuning;
+    using Macabresoft.GuitarTuner.Library;
+    using Macabresoft.GuitarTuner.Library.Input;
+    using Macabresoft.GuitarTuner.Library.Tuning;
     using OpenToolkit.Audio.OpenAL;
     using ReactiveUI;
 

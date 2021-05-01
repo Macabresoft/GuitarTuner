@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Desktop.Controls {
+﻿namespace Macabresoft.GuitarTuner.Desktop.Controls {
 
     using Avalonia;
     using Avalonia.Collections;

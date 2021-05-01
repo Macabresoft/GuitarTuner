@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Macabresoft.Zvukosti.Desktop.ViewModels;
+using Macabresoft.GuitarTuner.Desktop.ViewModels;
 
-namespace Macabresoft.Zvukosti.Desktop {
+namespace Macabresoft.GuitarTuner.Desktop {
     public class ViewLocator : IDataTemplate {
         public bool SupportsRecycling => false;
 

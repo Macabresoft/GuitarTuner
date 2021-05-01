@@ -1,7 +1,7 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Macabresoft.Zvukosti.Desktop"
-             x:Class="Macabresoft.Zvukosti.Desktop.App">
+             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
+             x:Class="Macabresoft.GuitarTuner.Desktop.App">
 	<Application.DataTemplates>
 		<local:ViewLocator />
 	</Application.DataTemplates>
@@ -10,9 +10,9 @@
 		<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
 		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
 
-		<StyleInclude Source="avares://Macabresoft.Zvukosti.Desktop/Styles/Theme.axaml" />
-		<StyleInclude Source="avares://Macabresoft.Zvukosti.Desktop/Styles/Margins.axaml" />
-		<StyleInclude Source="avares://Macabresoft.Zvukosti.Desktop/Styles/Text.axaml" />
-		<StyleInclude Source="avares://Macabresoft.Zvukosti.Desktop/Styles/ImplicitStyles.axaml" />
+		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Theme.axaml" />
+		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Margins.axaml" />
+		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Text.axaml" />
+		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/ImplicitStyles.axaml" />
 	</Application.Styles>
 </Application>

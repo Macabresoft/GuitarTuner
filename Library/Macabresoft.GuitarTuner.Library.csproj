@@ -2,14 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
-		<RootNamespace>Macabresoft.Zvukosti.Library</RootNamespace>
+		<RootNamespace>Macabresoft.GuitarTuner.Library</RootNamespace>
 		<LangVersion>default</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>Macabresoft.Zvukosti.Desktop.Tests</_Parameter1>
+			<_Parameter1>Macabresoft.GuitarTuner.Desktop.Tests</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 	

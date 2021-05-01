@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Library.Input {
+﻿namespace Macabresoft.GuitarTuner.Library.Input {
     using System;
     using System.Threading;
     using System.Threading.Tasks;

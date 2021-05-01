@@ -1,3 +1,3 @@
-# Zvukosti Tuner
+# Guitar Tuner
 
-An instrument tuning app for PC without ads or cost.
+A guitar tuning app for PC.

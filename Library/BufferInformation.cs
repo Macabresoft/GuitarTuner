@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Library {
+﻿namespace Macabresoft.GuitarTuner.Library {
 
     /// <summary>
     /// Information about a buffer of samples that has been processed by the <see

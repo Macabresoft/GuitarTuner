@@ -1,7 +1,7 @@
-﻿namespace Macabresoft.Zvukosti.Library {
+﻿namespace Macabresoft.GuitarTuner.Library {
     using System;
     using Macabresoft.Core;
-    using Macabresoft.Zvukosti.Library.Input;
+    using Macabresoft.GuitarTuner.Library.Input;
 
     /// <summary>
     /// Monitors the frequency of a <see cref="ISampleProvider" /> device.

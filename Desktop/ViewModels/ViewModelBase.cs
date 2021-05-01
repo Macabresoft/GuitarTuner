@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.Zvukosti.Desktop.ViewModels {
+﻿namespace Macabresoft.GuitarTuner.Desktop.ViewModels {
 
     using ReactiveUI;
     using System.Runtime.CompilerServices;
