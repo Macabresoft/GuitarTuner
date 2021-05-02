@@ -20,7 +20,7 @@
         private readonly ReactiveCommand<string, Unit> _selectDeviceCommand;
         private MicrophoneListener _listener;
         private float _frequency;
-        private Note _note;
+        private PitchNote _note;
         private string _selectedDevice;
 
         public MainWindowViewModel() {
@@ -56,7 +56,7 @@
             }
         }
 
-        public Note Note {
+        public PitchNote Note {
             get => this._note;
             private set => this.Set(ref this._note, value);
         }

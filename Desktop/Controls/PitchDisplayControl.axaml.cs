@@ -6,6 +6,7 @@
     using Avalonia.Markup.Xaml;
     using Macabresoft.GuitarTuner.Library.Tuning;
     using System;
+    using Macabresoft.GuitarTuner.Library;
 
     public class PitchDisplayControl : UserControl {
 
@@ -14,7 +15,7 @@
             x => x.Frequency,
             (x, v) => x.Frequency = v);
 
-        public static readonly DirectProperty<PitchDisplayControl, Note> NoteProperty = AvaloniaProperty.RegisterDirect<PitchDisplayControl, Note>(
+        public static readonly DirectProperty<PitchDisplayControl, PitchNote> NoteProperty = AvaloniaProperty.RegisterDirect<PitchDisplayControl, PitchNote>(
             nameof(Note),
             x => x.Note,
             (x, v) => x.Note = v);
@@ -23,7 +24,7 @@
         private float _frequency;
         private float _halfWidth;
         private Line _needle;
-        private Note _note;
+        private PitchNote _note;
         private float _sharpScale;
 
         public PitchDisplayControl() {
@@ -45,7 +46,7 @@
             }
         }
 
-        public Note Note {
+        public PitchNote Note {
             get {
                 return this._note;
             }
@@ -67,7 +68,7 @@
                     this.SetNeedlePosition(this._halfWidth);
                 }
                 else if (this.Frequency < this.Note.Frequency) {
-                    this.SetNeedlePosition(Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
+                    //this.SetNeedlePosition(Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
                 }
                 else {
                     this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + ((this.Frequency - this.Note.Frequency) * this._sharpScale)));
@@ -92,7 +93,7 @@
         }
 
         private void ResetCanvas() {
-            if (this.Note != Note.Empty && this.Width > 0f) {
+            /*if (this.Note != Note.Empty && this.Width > 0f) {
                 this._needle.IsVisible = true;
                 this._halfWidth = (float)this.Width * 0.5f;
                 var flatDifference = this.Note.Frequency - this.Note.StepDownFrequency;
@@ -103,7 +104,7 @@
             }
             else {
                 this._needle.IsVisible = false;
-            }
+            }*/
         }
 
         private void SetNeedlePosition(float x) {

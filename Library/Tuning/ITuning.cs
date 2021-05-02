@@ -14,28 +14,28 @@
         string DisplayName { get; }
 
         /// <summary>
-        /// Gets the maxinimum frequency.
+        /// Gets the maximum frequency.
         /// </summary>
-        /// <value>The maxinimum frequency.</value>
-        float MaxinimumFrequency { get; }
+        /// <value>The maximum frequency.</value>
+        double MaximumFrequency { get; }
 
         /// <summary>
         /// Gets the minimum frequency.
         /// </summary>
         /// <value>The minimum frequency.</value>
-        float MinimumFrequency { get; }
+        double MinimumFrequency { get; }
 
         /// <summary>
         /// Gets the notes.
         /// </summary>
         /// <value>The notes.</value>
-        IReadOnlyCollection<Note> Notes { get; }
+        IReadOnlyCollection<PitchNote> Notes { get; }
 
         /// <summary>
         /// Gets the nearest note to the provided frequency in this tuning.
         /// </summary>
         /// <param name="frequency">The frequency.</param>
         /// <returns>The nearest note.</returns>
-        Note GetNearestNote(float frequency);
+        PitchNote GetNearestNote(float frequency);
     }
 }

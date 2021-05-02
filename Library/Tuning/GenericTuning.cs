@@ -8,33 +8,34 @@
     /// A generic tuning that class that gives a default implementation of <see cref="GetNearestNote(float)"/>.
     /// </summary>
     public abstract class GenericTuning : ITuning {
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericTuning"/> class.
         /// </summary>
         /// <param name="notes">The notes.</param>
-        protected GenericTuning(params Note[] notes) {
-            this.Notes = notes.Any() ? notes.OrderBy(x => x.Frequency).ToList() : throw new ArgumentOutOfRangeException(nameof(notes));
+        protected GenericTuning(IEnumerable<PitchNote> notes) {
+            this.Notes = notes.OrderBy(x => x.Frequency).ToList();
 
-            this.MaxinimumFrequency = notes.Select(x => x.StepUpFrequency).Max();
-            this.MinimumFrequency = notes.Select(x => x.StepDownFrequency).Min();
+            this.MaximumFrequency = this.Notes.Select(x => x.Frequency).Max();
+            this.MinimumFrequency = this.Notes.Select(x => x.Frequency).Min();
         }
 
         /// <inheritdoc/>
         public abstract string DisplayName { get; }
 
         /// <inheritdoc/>
-        public float MaxinimumFrequency { get; }
+        public double MaximumFrequency { get; }
 
         /// <inheritdoc/>
-        public float MinimumFrequency { get; }
+        public double MinimumFrequency { get; }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<Note> Notes { get; }
+        public IReadOnlyCollection<PitchNote> Notes { get; }
 
         /// <inheritdoc/>
-        public virtual Note GetNearestNote(float frequency) {
-            return Notes.FirstOrDefault(x => (frequency > x.StepDownFrequency && frequency <= x.Frequency) || (frequency < x.StepUpFrequency && frequency >= x.Frequency));
+        public virtual PitchNote GetNearestNote(float frequency) {
+            return this.Notes.FirstOrDefault();
+            //return Notes.FirstOrDefault(x => (frequency > x.StepDownFrequency && frequency <= x.Frequency) || (frequency < x.StepUpFrequency && frequency >= x.Frequency));
         }
     }
 }
