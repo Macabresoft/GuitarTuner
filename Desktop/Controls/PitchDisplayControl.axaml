@@ -34,7 +34,7 @@
 		<TextBlock Grid.Row="1"
                    Grid.Column="1"
 				   Classes="ThemeTextBlockStyle"
-                   Text="{Binding #_control.Note}"
+                   Text="{Binding #_control.Note.Name}"
                    TextAlignment="Center" />
 
 		<TextBlock Grid.Row="1"
