@@ -13,7 +13,7 @@
         /// Initializes a new instance of the <see cref="GenericTuning"/> class.
         /// </summary>
         /// <param name="notes">The notes.</param>
-        protected GenericTuning(IEnumerable<PitchNote> notes) {
+        protected GenericTuning(IEnumerable<NaturalNote> notes) {
             this.Notes = notes.OrderBy(x => x.Frequency).ToList();
 
             this.MaximumFrequency = this.Notes.Select(x => x.Frequency).Max();
@@ -30,12 +30,11 @@
         public double MinimumFrequency { get; }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<PitchNote> Notes { get; }
+        public IReadOnlyCollection<NaturalNote> Notes { get; }
 
         /// <inheritdoc/>
-        public virtual PitchNote GetNearestNote(float frequency) {
-            return this.Notes.FirstOrDefault();
-            //return Notes.FirstOrDefault(x => (frequency > x.StepDownFrequency && frequency <= x.Frequency) || (frequency < x.StepUpFrequency && frequency >= x.Frequency));
+        public virtual NaturalNote GetNearestNote(float frequency) {
+            return Notes.FirstOrDefault(x => (frequency > x.StepDownFrequency && frequency <= x.Frequency) || (frequency < x.StepUpFrequency && frequency >= x.Frequency));
         }
     }
 }

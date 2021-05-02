@@ -9,7 +9,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardGuitarTuning"/> class.
         /// </summary>
-        public StandardGuitarTuning() : base(PitchNote.GetRange(2, Library.Notes.D, 4, Library.Notes.E)) {
+        public StandardGuitarTuning() : base(NaturalNote.GetRange(2, Library.Notes.D, 4, Library.Notes.E)) {
             
         }
 

@@ -29,13 +29,13 @@
         /// Gets the notes.
         /// </summary>
         /// <value>The notes.</value>
-        IReadOnlyCollection<PitchNote> Notes { get; }
+        IReadOnlyCollection<NaturalNote> Notes { get; }
 
         /// <summary>
         /// Gets the nearest note to the provided frequency in this tuning.
         /// </summary>
         /// <param name="frequency">The frequency.</param>
         /// <returns>The nearest note.</returns>
-        PitchNote GetNearestNote(float frequency);
+        NaturalNote GetNearestNote(float frequency);
     }
 }

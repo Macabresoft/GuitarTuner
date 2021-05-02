@@ -1,21 +1,18 @@
 ﻿namespace Macabresoft.GuitarTuner.Desktop.Controls {
-
+    using System;
     using Avalonia;
     using Avalonia.Controls;
     using Avalonia.Controls.Shapes;
     using Avalonia.Markup.Xaml;
-    using Macabresoft.GuitarTuner.Library.Tuning;
-    using System;
     using Macabresoft.GuitarTuner.Library;
 
     public class PitchDisplayControl : UserControl {
-
         public static readonly DirectProperty<PitchDisplayControl, float> FrequencyProperty = AvaloniaProperty.RegisterDirect<PitchDisplayControl, float>(
             nameof(Frequency),
             x => x.Frequency,
             (x, v) => x.Frequency = v);
 
-        public static readonly DirectProperty<PitchDisplayControl, PitchNote> NoteProperty = AvaloniaProperty.RegisterDirect<PitchDisplayControl, PitchNote>(
+        public static readonly DirectProperty<PitchDisplayControl, NaturalNote> NoteProperty = AvaloniaProperty.RegisterDirect<PitchDisplayControl, NaturalNote>(
             nameof(Note),
             x => x.Note,
             (x, v) => x.Note = v);
@@ -24,7 +21,7 @@
         private float _frequency;
         private float _halfWidth;
         private Line _needle;
-        private PitchNote _note;
+        private NaturalNote _note;
         private float _sharpScale;
 
         public PitchDisplayControl() {
@@ -35,9 +32,7 @@
         }
 
         public float Frequency {
-            get {
-                return this._frequency;
-            }
+            get => this._frequency;
 
             set {
                 if (this.SetAndRaise(FrequencyProperty, ref this._frequency, value)) {
@@ -46,10 +41,8 @@
             }
         }
 
-        public PitchNote Note {
-            get {
-                return this._note;
-            }
+        public NaturalNote Note {
+            get => this._note;
             set {
                 if (this.SetAndRaise(NoteProperty, ref this._note, value)) {
                     this.ResetCanvas();
@@ -64,14 +57,14 @@
 
         private void MoveNeedle() {
             if (this.Width > 0f) {
-                if (this.Frequency == this.Note.Frequency) {
+                if (Math.Abs(this.Frequency - this.Note.Frequency) < 0.01f) {
                     this.SetNeedlePosition(this._halfWidth);
                 }
                 else if (this.Frequency < this.Note.Frequency) {
-                    //this.SetNeedlePosition(Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
+                    this.SetNeedlePosition((float)Math.Max(0f, (this.Frequency - this.Note.StepDownFrequency) * this._flatScale));
                 }
                 else {
-                    this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + ((this.Frequency - this.Note.Frequency) * this._sharpScale)));
+                    this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + (this.Frequency - this.Note.Frequency) * this._sharpScale));
                 }
             }
         }
@@ -93,18 +86,18 @@
         }
 
         private void ResetCanvas() {
-            /*if (this.Note != Note.Empty && this.Width > 0f) {
+            if (this.Note.Frequency != 0f && this.Width > 0f) {
                 this._needle.IsVisible = true;
                 this._halfWidth = (float)this.Width * 0.5f;
                 var flatDifference = this.Note.Frequency - this.Note.StepDownFrequency;
-                this._flatScale = flatDifference > 0f ? this._halfWidth / (flatDifference) : 0f;
+                this._flatScale = flatDifference > 0f ? this._halfWidth / (float)flatDifference : 0f;
                 var sharpDifference = this.Note.StepUpFrequency - this.Note.Frequency;
-                this._sharpScale = sharpDifference > 0f ? this._halfWidth / (sharpDifference) : 0f;
+                this._sharpScale = sharpDifference > 0f ? this._halfWidth / (float)sharpDifference : 0f;
                 this.MoveNeedle();
             }
             else {
                 this._needle.IsVisible = false;
-            }*/
+            }
         }
 
         private void SetNeedlePosition(float x) {
