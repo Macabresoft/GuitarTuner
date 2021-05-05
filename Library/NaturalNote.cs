@@ -4,13 +4,10 @@
     /// <summary>
     /// An instance of a note that contains information important to its pitch, including its octave and frequency.
     /// </summary>
-    public struct NaturalNote {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NaturalNote" /> struct.
-        /// </summary>
-        /// <param name="note">The note.</param>
-        /// <param name="octave">The octave.</param>
-        internal NaturalNote(Notes note, byte octave) {
+    public sealed class NaturalNote {
+        public static readonly NaturalNote Empty = new();
+        
+        private NaturalNote(Notes note, byte octave) {
             this.Note = note;
             this.Octave = octave;
             this.Name = this.Note.ToDisplayName(this.Octave);
@@ -19,35 +16,39 @@
             this.StepUpFrequency = FrequencyCalculator.GetStepUpFrequency(note, octave);
         }
 
+        private NaturalNote() {
+            this.Name = string.Empty;
+        }
+
         /// <summary>
-        /// The frequency.
+        /// Gets the frequency.
         /// </summary>
-        public double Frequency;
+        public double Frequency { get; }
         
         /// <summary>
-        /// The name.
+        /// Gets the name.
         /// </summary>
-        public string Name;
+        public string Name { get; }
 
         /// <summary>
-        /// The note.
+        /// Gets the note.
         /// </summary>
-        public Notes Note;
+        public Notes Note { get; }
         
         /// <summary>
-        /// The octave.
+        /// Gets the octave.
         /// </summary>
-        public byte Octave;
+        public byte Octave { get; }
 
         /// <summary>
-        /// The frequency of a note one semitone lower.
+        /// GEts the frequency of a note one semitone lower.
         /// </summary>
-        public double StepDownFrequency;
+        public double StepDownFrequency { get; }
 
         /// <summary>
-        /// The frequency of a note one semitone higher.
+        /// Gets the frequency of a note one semitone higher.
         /// </summary>
-        public double StepUpFrequency;
+        public double StepUpFrequency { get; }
 
         /// <summary>
         /// Gets a range of <see cref="NaturalNote" />.

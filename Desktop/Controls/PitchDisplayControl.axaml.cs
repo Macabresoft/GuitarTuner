@@ -4,6 +4,7 @@
     using Avalonia.Controls;
     using Avalonia.Controls.Shapes;
     using Avalonia.Markup.Xaml;
+    using Avalonia.Threading;
     using Macabresoft.GuitarTuner.Library;
 
     public class PitchDisplayControl : UserControl {
@@ -21,13 +22,10 @@
         private float _frequency;
         private float _halfWidth;
         private Line _needle;
-        private NaturalNote _note;
+        private NaturalNote _note = NaturalNote.Empty;
         private float _sharpScale;
 
         public PitchDisplayControl() {
-            this.AttachedToVisualTree += this.PitchDisplayControl_AttachedToVisualTree;
-            this.PropertyChanged += this.PitchDisplayControl_PropertyChanged;
-            this.DetachedFromVisualTree += this.PitchDisplayControl_DetachedFromVisualTree;
             this.InitializeComponent();
         }
 
@@ -41,12 +39,26 @@
             }
         }
 
+
         public NaturalNote Note {
             get => this._note;
             set {
                 if (this.SetAndRaise(NoteProperty, ref this._note, value)) {
-                    this.ResetCanvas();
+                    Dispatcher.UIThread.Post(this.ResetCanvas, DispatcherPriority.Render);
                 }
+            }
+        }
+
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e) {
+            base.OnAttachedToVisualTree(e);
+            this.ResetCanvas();
+        }
+
+        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change) {
+            base.OnPropertyChanged(change);
+
+            if (change.Property.Name == nameof(this.Width)) {
+                this.ResetCanvas();
             }
         }
 
@@ -56,7 +68,7 @@
         }
 
         private void MoveNeedle() {
-            if (this.Width > 0f) {
+            if (this.Width > 0f && this._halfWidth > 0f) {
                 if (Math.Abs(this.Frequency - this.Note.Frequency) < 0.01f) {
                     this.SetNeedlePosition(this._halfWidth);
                 }
@@ -66,22 +78,6 @@
                 else {
                     this.SetNeedlePosition((float)Math.Min(this.Width, this._halfWidth + (this.Frequency - this.Note.Frequency) * this._sharpScale));
                 }
-            }
-        }
-
-        private void PitchDisplayControl_AttachedToVisualTree(object sender, VisualTreeAttachmentEventArgs e) {
-            this.ResetCanvas();
-            this.AttachedToVisualTree -= this.PitchDisplayControl_AttachedToVisualTree;
-        }
-
-        private void PitchDisplayControl_DetachedFromVisualTree(object sender, VisualTreeAttachmentEventArgs e) {
-            this.PropertyChanged -= this.PitchDisplayControl_PropertyChanged;
-            this.DetachedFromVisualTree -= this.PitchDisplayControl_DetachedFromVisualTree;
-        }
-
-        private void PitchDisplayControl_PropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e) {
-            if (e.Property.Name == nameof(this.Width)) {
-                this.ResetCanvas();
             }
         }
 
@@ -95,14 +91,14 @@
                 this._sharpScale = sharpDifference > 0f ? this._halfWidth / (float)sharpDifference : 0f;
                 this.MoveNeedle();
             }
-            else {
+            else if (this._needle != null) {
                 this._needle.IsVisible = false;
             }
         }
 
         private void SetNeedlePosition(float x) {
-            this._needle.StartPoint = new Point(x - this._halfWidth, 0d);
-            this._needle.EndPoint = new Point(x - this._halfWidth, this.Height);
+            /*this._needle.StartPoint = new Point(x - this._halfWidth, 0d);
+            this._needle.EndPoint = new Point(x - this._halfWidth, this.Height);*/
         }
     }
 }
