@@ -34,8 +34,15 @@
 
         /// <inheritdoc/>
         public virtual NaturalNote GetNearestNote(float frequency) {
-            return Notes.OrderBy(note => Math.Abs(frequency - note.Frequency)).FirstOrDefault() ?? NaturalNote.Empty;
-            // return Notes.FirstOrDefault(x => (frequency > x.StepDownFrequency && frequency <= x.Frequency) || (frequency < x.StepUpFrequency && frequency >= x.Frequency));
+            NaturalNote result;
+            if (frequency < this.MinimumFrequency || frequency > this.MaximumFrequency) {
+                result = NaturalNote.Empty;
+            }
+            else {
+                result = Notes.OrderBy(note => Math.Abs(frequency - note.Frequency)).FirstOrDefault() ?? NaturalNote.Empty;
+            }
+
+            return result;
         }
     }
 }
