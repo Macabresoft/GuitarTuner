@@ -40,7 +40,7 @@ namespace Macabresoft.GuitarTuner.Desktop.Views {
         }
 
         private void ViewSource_Click(object sender, RoutedEventArgs e) {
-            WebHelper.OpenInBrowser("https://github.com/Macabresoft/GuitarTuner-tuner");
+            WebHelper.OpenInBrowser("https://github.com/Macabresoft/guitar-tuner");
         }
     }
 }

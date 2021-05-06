@@ -1,12 +1,12 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:controls="clr-namespace:Macabresoft.GuitarTuner.Desktop.Controls"
         xmlns:converters="clr-namespace:Macabresoft.GuitarTuner.Desktop.Converters"
         xmlns:viewModels="clr-namespace:Macabresoft.GuitarTuner.Desktop.ViewModels"
         x:Class="Macabresoft.GuitarTuner.Desktop.Views.MainWindow"
         Name="_mainWindow"
         Icon="/icon.ico"
         Width="480"
+        MinWidth="256"
         CanResize="False"
         Title="Guitar Tuner by Macabresoft">
 	<Window.Resources>
@@ -15,8 +15,8 @@
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="Auto, Auto, Auto, Auto"
-	      Background="{DynamicResource BackgroundBrush}">
+	<Grid RowDefinitions="Auto, Auto, Auto"
+	      Background="{StaticResource BackgroundBrush}">
 
 		<Menu Grid.Row="0">
 			<MenuItem Header="File">
@@ -61,18 +61,43 @@
                           Header="View _Source" />
 			</MenuItem>
 		</Menu>
+		
+		<Grid Grid.Row="1" 
+		      ColumnDefinitions="Auto, *, Auto"
+		      RowDefinitions="Auto, Auto" >
 
-		<controls:SkullControl Grid.Row="1"
-							   Width="480" />
+			<Border Grid.Row="0"
+			        Grid.ColumnSpan="3"
+			        BorderBrush="{StaticResource ForegroundBrush}"
+			        BorderThickness="0 1 0 1">
+				<Canvas Height="32">
+					<Line Name="_needle"
+					      Stroke="{StaticResource HighlightBrush}"
+					      StrokeThickness="3" />
+				</Canvas>
+			</Border>
 
-		<controls:PitchDisplayControl Grid.Row="2"
-                                      Frequency="{Binding Frequency, Mode=OneWay}"
-                                      Note="{Binding Note, Mode=OneWay}" />
+			<TextBlock Grid.Row="1"
+			           Grid.Column="0"
+			           Text="♭"
+			           TextAlignment="Left" />
 
-		<TextBlock Grid.Row="3"
+			<TextBlock Grid.Row="1"
+			           Grid.Column="1"
+			           Foreground="{StaticResource ForegroundBrush}"
+			           Text="{Binding Note.Name}"
+			           TextAlignment="Center" />
+
+			<TextBlock Grid.Row="1"
+			           Grid.Column="2"
+			           Text="♯"
+			           TextAlignment="Right" />
+		</Grid>
+
+		<TextBlock Grid.Row="2"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Foreground="{DynamicResource AccentBrush}"
+                   Foreground="{StaticResource ForegroundBrush}"
                    Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
 	</Grid>
 </Window>

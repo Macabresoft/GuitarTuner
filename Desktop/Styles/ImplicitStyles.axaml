@@ -1,16 +1,19 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui">
 	<Style Selector="Menu">
-		<Setter Property="Padding" Value="{DynamicResource StandardMarginVertical}" />
-		<Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
+		<Setter Property="Padding" Value="{StaticResource StandardMarginVertical}" />
+		<Setter Property="Background" Value="{StaticResource MenuBackgroundBrush}" />
 	</Style>
 
 	<Style Selector="MenuItem">
-		<Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
-		<Setter Property="Padding" Value="{DynamicResource DoubleMarginAll}" />
+		<Setter Property="Background" Value="{StaticResource MenuBackgroundBrush}" />
+		<Setter Property="Padding" Value="{StaticResource DoubleMarginAll}" />
+		<Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
 	</Style>
 
 	<Style Selector="TextBlock">
-		<Setter Property="Margin" Value="{DynamicResource StandardMarginAll}" />
+		<Setter Property="FontSize" Value="{StaticResource FontSize}" />
+		<Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+		<Setter Property="Margin" Value="{StaticResource DoubleMarginAll}" />
 	</Style>
 
 	<Style Selector="Polygon">

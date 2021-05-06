@@ -12,7 +12,6 @@
 
 		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Theme.axaml" />
 		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Margins.axaml" />
-		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Text.axaml" />
 		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/ImplicitStyles.axaml" />
 	</Application.Styles>
 </Application>

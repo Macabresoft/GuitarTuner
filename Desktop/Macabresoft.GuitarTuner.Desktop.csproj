@@ -30,4 +30,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Library\Macabresoft.GuitarTuner.Library.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Controls\PitchDisplayControl.axaml" />
+	  <UpToDateCheckInput Remove="Controls\SkullControl.axaml" />
+	</ItemGroup>
 </Project>
