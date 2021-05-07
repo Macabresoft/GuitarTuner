@@ -34,6 +34,8 @@
 
         /// <inheritdoc/>
         public virtual NaturalNote GetNearestNote(float frequency) {
+            // Perhaps do the opposite of 2^x here and get the frequency's
+            // steps away from A4 and compare?
             NaturalNote result;
             if (frequency < this.MinimumFrequency || frequency > this.MaximumFrequency) {
                 result = NaturalNote.Empty;
