@@ -4,7 +4,7 @@
     /// <summary>
     /// The 12 notes in an octave, with C as the base because for some reason that's the convention.
     /// </summary>
-    public enum Notes : byte {
+    public enum NamedNotes : byte {
         C = 0,
         CSharp = 1,
         DFlat = CSharp,
@@ -25,27 +25,27 @@
     }
 
     /// <summary>
-    /// Extensions methods for <see cref="Notes" />.
+    /// Extensions methods for <see cref="NamedNotes" />.
     /// </summary>
     public static class NotesExtensions {
-        private static readonly HashSet<Notes> NaturalNotes = new() { Notes.A, Notes.B, Notes.C, Notes.D, Notes.E, Notes.F, Notes.G };
+        private static readonly HashSet<NamedNotes> NaturalNotes = new() { NamedNotes.A, NamedNotes.B, NamedNotes.C, NamedNotes.D, NamedNotes.E, NamedNotes.F, NamedNotes.G };
 
         /// <summary>
         /// Gets a value indicating whether not the note is natural.
         /// </summary>
-        /// <param name="note"></param>
+        /// <param name="namedNote"></param>
         /// <returns>A value indicating whether not the note is natural.</returns>
-        public static bool IsNatural(this Notes note) {
-            return NaturalNotes.Contains(note);
+        public static bool IsNatural(this NamedNotes namedNote) {
+            return NaturalNotes.Contains(namedNote);
         }
 
         /// <summary>
         /// Converts a note into a display name.
         /// </summary>
-        /// <param name="note">The note.</param>
+        /// <param name="namedNote">The note.</param>
         /// <returns>The display name.</returns>
-        public static string ToDisplayName(this Notes note) {
-            var noteName = note.ToString();
+        public static string ToDisplayName(this NamedNotes namedNote) {
+            var noteName = namedNote.ToString();
 
             if (noteName.Length > 1) {
                 noteName = noteName.Replace("Sharp", "#");
@@ -58,11 +58,11 @@
         /// <summary>
         /// Converts a note and its octave into a display name.
         /// </summary>
-        /// <param name="note">The note.</param>
+        /// <param name="namedNote">The note.</param>
         /// <param name="octave">The octave,</param>
         /// <returns>The display name.</returns>
-        public static string ToDisplayName(this Notes note, byte octave) {
-            return $"{note.ToDisplayName()}{octave}";
+        public static string ToDisplayName(this NamedNotes namedNote, byte octave) {
+            return $"{namedNote.ToDisplayName()}{octave}";
         }
     }
 }

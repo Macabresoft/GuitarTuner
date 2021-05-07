@@ -1,55 +1,58 @@
 ﻿namespace Macabresoft.GuitarTuner.Library {
     using System;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
-    /// Calculates notes given a <see cref="Notes" /> and an octave.
+    /// Calculates notes given a <see cref="NamedNotes" /> and an octave.
     /// </summary>
     public static class FrequencyCalculator {
         internal const double BaseFrequency = 440d;
-        internal const Notes BaseNote = Notes.A;
+        internal const NamedNotes BaseNote = NamedNotes.A;
         internal const byte BaseOctave = 4;
         internal const byte NumberOfNotes = 12;
+        private static readonly double FrequencyConstant = Math.Pow(2d, 1d / NumberOfNotes);
+        private static readonly double FrequencyConstantLog = Math.Log(FrequencyConstant);
+
+        /// <summary>
+        /// Gets the distance in semitones from the base note, which is A4 at 440Hz in this instance.
+        /// </summary>
+        /// <param name="namedNote">The note.</param>
+        /// <param name="octave">The octave.</param>
+        /// <returns>The distance in semitones from A4 at 440Hz.</returns>
+        public static int GetDistanceFromBase(NamedNotes namedNote, byte octave) {
+            var octavesAway = octave - BaseOctave;
+            var noteDifference = (int)namedNote - (int)BaseNote;
+            return octavesAway * NumberOfNotes + noteDifference;
+        }
+
+        /// <summary>
+        /// Gets the distance in semitones from the base note, which is A4 at 440Hz in this instance.
+        /// This method returns a float, because a frequency may lie between two semitones.
+        /// </summary>
+        /// <param name="frequency">The frequency.</param>
+        /// <returns>The distance in semitones from A4 at 440Hz.</returns>
+        public static double GetDistanceFromBase(double frequency) {
+            // This is the inverse of the formula to get a frequency.
+            return frequency > 0d ? Math.Log(frequency / BaseFrequency) / FrequencyConstantLog : 0d;
+        }
 
         /// <summary>
         /// Gets the frequency given a note and its octave.
         /// </summary>
-        /// <param name="note">The note.</param>
+        /// <param name="namedNote">The note.</param>
         /// <param name="octave">The octave.</param>
         /// <returns>The frequency.</returns>
-        public static double GetFrequency(Notes note, byte octave) {
-            var distance = GetDistanceFromBase(note, octave);
-            return BaseFrequency * Math.Pow(2, distance / (double)NumberOfNotes);
+        public static double GetFrequency(NamedNotes namedNote, byte octave) {
+            var distance = GetDistanceFromBase(namedNote, octave);
+            return GetFrequency(distance);
         }
 
         /// <summary>
-        /// Gets the frequency one semitone down given a note and its octave.
+        /// Gets the frequency given the distance in semitones from A4 at 440Hz.
         /// </summary>
-        /// <param name="note">The note.</param>
-        /// <param name="octave">The octave.</param>
+        /// <param name="distanceFromBase">The distance in semitones from A4 at 440Hz.</param>
         /// <returns>The frequency.</returns>
-        public static double GetStepDownFrequency(Notes note, byte octave) {
-            return note == Notes.C ? 
-                GetFrequency(Notes.B, (byte)(octave - 1)) : 
-                GetFrequency(note - 1, octave);
-        }
-        
-        /// <summary>
-        /// Gets the frequency one semitone down given a note and its octave.
-        /// </summary>
-        /// <param name="note">The note.</param>
-        /// <param name="octave">The octave.</param>
-        /// <returns>The frequency.</returns>
-        public static double GetStepUpFrequency(Notes note, byte octave) {
-            return note == Notes.B ? 
-                GetFrequency(Notes.C, (byte)(octave + 1)) : 
-                GetFrequency(note + 1, octave);
-        }
-
-        internal static int GetDistanceFromBase(Notes note, byte octave) {
-            var octavesAway = octave - BaseOctave;
-            var noteDifference = (int)note - (int)BaseNote;
-            return octavesAway * 12 + noteDifference;
+        public static double GetFrequency(int distanceFromBase) {
+            return BaseFrequency * Math.Pow(FrequencyConstant, distanceFromBase);
         }
     }
 }

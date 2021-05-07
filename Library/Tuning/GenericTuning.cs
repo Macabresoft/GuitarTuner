@@ -13,7 +13,7 @@
         /// Initializes a new instance of the <see cref="GenericTuning"/> class.
         /// </summary>
         /// <param name="notes">The notes.</param>
-        protected GenericTuning(IEnumerable<NaturalNote> notes) {
+        protected GenericTuning(IEnumerable<Note> notes) {
             this.Notes = notes.OrderBy(x => x.Frequency).ToList();
 
             this.MaximumFrequency = this.Notes.Select(x => x.Frequency).Max();
@@ -30,18 +30,18 @@
         public double MinimumFrequency { get; }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<NaturalNote> Notes { get; }
+        public IReadOnlyCollection<Note> Notes { get; }
 
         /// <inheritdoc/>
-        public virtual NaturalNote GetNearestNote(float frequency) {
+        public virtual Note GetNearestNote(float frequency) {
             // Perhaps do the opposite of 2^x here and get the frequency's
             // steps away from A4 and compare?
-            NaturalNote result;
+            Note result;
             if (frequency < this.MinimumFrequency || frequency > this.MaximumFrequency) {
-                result = NaturalNote.Empty;
+                result = Note.Empty;
             }
             else {
-                result = Notes.OrderBy(note => Math.Abs(frequency - note.Frequency)).FirstOrDefault() ?? NaturalNote.Empty;
+                result = Notes.OrderBy(note => Math.Abs(frequency - note.Frequency)).FirstOrDefault() ?? Note.Empty;
             }
 
             return result;
