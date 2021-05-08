@@ -1,11 +1,11 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui">
 	<Style Selector="Menu">
 		<Setter Property="Padding" Value="{StaticResource StandardMarginVertical}" />
-		<Setter Property="Background" Value="{StaticResource MenuBackgroundBrush}" />
+		<Setter Property="Background" Value="{StaticResource AccentBrush}" />
 	</Style>
 
 	<Style Selector="MenuItem">
-		<Setter Property="Background" Value="{StaticResource MenuBackgroundBrush}" />
+		<Setter Property="Background" Value="{StaticResource AccentBrush}" />
 		<Setter Property="Padding" Value="{StaticResource DoubleMarginAll}" />
 		<Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
 	</Style>

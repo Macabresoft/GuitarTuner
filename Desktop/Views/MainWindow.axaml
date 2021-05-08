@@ -15,9 +15,8 @@
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="Auto, Auto, Auto"
+	<Grid RowDefinitions="Auto, Auto, Auto, Auto"
 	      Background="{StaticResource BackgroundBrush}">
-
 		<Menu Grid.Row="0">
 			<MenuItem Header="File">
 				<MenuItem Click="Exit_Click"
@@ -41,7 +40,7 @@
 									<TextBlock.IsVisible>
 										<MultiBinding Converter="{StaticResource EqualsConverter}">
 											<Binding Path="$parent[MenuItem].Header" />
-											<Binding Path="#_mainWindow.DataContext.SelectedDevice"></Binding>
+											<Binding Path="#_mainWindow.DataContext.SelectedDevice" />
 										</MultiBinding>
 									</TextBlock.IsVisible>
 								</TextBlock>
@@ -62,47 +61,48 @@
 			</MenuItem>
 		</Menu>
 		
-		<Grid Grid.Row="1" 
-		      ColumnDefinitions="Auto, *, Auto"
-		      RowDefinitions="Auto, Auto" >
+		<Grid Grid.Row="1"
+		      Height="128"
+		      ColumnDefinitions="Auto, *, Auto">
 
-			<Border Grid.Row="0"
-			        Grid.ColumnSpan="3"
-			        BorderBrush="{StaticResource ForegroundBrush}"
-			        BorderThickness="0 1 0 1">
-				<Canvas Height="32" 
-				        HorizontalAlignment="Stretch">
-					<Line Canvas.Top="15"
-					      StartPoint="{Binding $parent.Bounds.TopLeft}"
-					      EndPoint="{Binding $parent.Bounds.TopRight}"
-					      Stroke="{StaticResource ForegroundBrush}"
-					      StrokeThickness="1">
-					</Line>
-					<Line Name="_needle"
-					      Height="32"
-					      Stroke="{StaticResource HighlightBrush}"
-					      StrokeThickness="3" />
-				</Canvas>
-			</Border>
-
-			<TextBlock Grid.Row="1"
-			           Grid.Column="0"
+			<TextBlock Grid.Column="0"
 			           Text="♭"
-			           TextAlignment="Left" />
+			           FontSize="24"
+			           TextAlignment="Left"
+			           VerticalAlignment="Bottom"/>
 
-			<TextBlock Grid.Row="1"
-			           Grid.Column="1"
+			<TextBlock Grid.Column="1"
 			           Foreground="{StaticResource ForegroundBrush}"
 			           Text="{Binding Note.Name}"
-			           TextAlignment="Center" />
+			           FontSize="48"
+			           TextAlignment="Center"
+			           VerticalAlignment="Bottom"/>
 
-			<TextBlock Grid.Row="1"
-			           Grid.Column="2"
+			<TextBlock Grid.Column="2"
 			           Text="♯"
-			           TextAlignment="Right" />
+			           FontSize="24"
+			           TextAlignment="Right"
+			           VerticalAlignment="Bottom"/>
 		</Grid>
+		
+		<Border Grid.Row="2"
+		        BorderBrush="{StaticResource ForegroundBrush}"
+		        BorderThickness="0 1 0 1">
+			<Canvas Height="32" 
+			        HorizontalAlignment="Stretch">
+				<Line Canvas.Top="15"
+				      StartPoint="{Binding $parent.Bounds.TopLeft}"
+				      EndPoint="{Binding $parent.Bounds.TopRight}"
+				      Stroke="{StaticResource ForegroundBrush}"
+				      StrokeThickness="1" />
+				<Line Name="_needle"
+				      Height="32"
+				      Stroke="{StaticResource HighlightBrush}"
+				      StrokeThickness="3" />
+			</Canvas>
+		</Border>
 
-		<TextBlock Grid.Row="2"
+		<TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="{StaticResource ForegroundBrush}"
