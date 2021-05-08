@@ -5,7 +5,7 @@
         x:Class="Macabresoft.GuitarTuner.Desktop.Views.MainWindow"
         Name="_mainWindow"
         Icon="/icon.ico"
-        Width="480"
+        Width="420"
         MinWidth="256"
         CanResize="False"
         Title="Guitar Tuner by Macabresoft">
@@ -70,8 +70,16 @@
 			        Grid.ColumnSpan="3"
 			        BorderBrush="{StaticResource ForegroundBrush}"
 			        BorderThickness="0 1 0 1">
-				<Canvas Height="32">
+				<Canvas Height="32" 
+				        HorizontalAlignment="Stretch">
+					<Line Canvas.Top="15"
+					      StartPoint="{Binding $parent.Bounds.TopLeft}"
+					      EndPoint="{Binding $parent.Bounds.TopRight}"
+					      Stroke="{StaticResource ForegroundBrush}"
+					      StrokeThickness="1">
+					</Line>
 					<Line Name="_needle"
+					      Height="32"
 					      Stroke="{StaticResource HighlightBrush}"
 					      StrokeThickness="3" />
 				</Canvas>
