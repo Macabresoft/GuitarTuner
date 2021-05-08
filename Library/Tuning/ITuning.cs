@@ -36,6 +36,6 @@
         /// </summary>
         /// <param name="frequency">The frequency.</param>
         /// <returns>The nearest note.</returns>
-        Note GetNearestNote(float frequency);
+        Note GetNearestNote(double frequency);
     }
 }

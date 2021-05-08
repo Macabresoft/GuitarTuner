@@ -90,7 +90,7 @@
             return result;
         }
 
-        private static void AddNotesForRange(IList<Note> notes, byte octave, NamedNotes lowestNamedNote, NamedNotes highestNamedNote) {
+        private static void AddNotesForRange(ICollection<Note> notes, byte octave, NamedNotes lowestNamedNote, NamedNotes highestNamedNote) {
             for (var noteByte = (byte)lowestNamedNote; noteByte <= (byte)highestNamedNote; noteByte++) {
                 var note = (NamedNotes)noteByte;
                 if (note.IsNatural()) {

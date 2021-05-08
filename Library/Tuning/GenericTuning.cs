@@ -33,15 +33,14 @@
         public IReadOnlyCollection<Note> Notes { get; }
 
         /// <inheritdoc/>
-        public virtual Note GetNearestNote(float frequency) {
-            // Perhaps do the opposite of 2^x here and get the frequency's
-            // steps away from A4 and compare?
+        public virtual Note GetNearestNote(double frequency) {
             Note result;
             if (frequency < this.MinimumFrequency || frequency > this.MaximumFrequency) {
                 result = Note.Empty;
             }
             else {
-                result = Notes.OrderBy(note => Math.Abs(frequency - note.Frequency)).FirstOrDefault() ?? Note.Empty;
+                var distanceFromBase = FrequencyCalculator.GetDistanceFromBase(frequency);
+                result = Notes.OrderBy(note => Math.Abs(distanceFromBase - note.DistanceFromBase)).FirstOrDefault() ?? Note.Empty;
             }
 
             return result;
