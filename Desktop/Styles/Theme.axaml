@@ -14,5 +14,8 @@
 		
 		<SolidColorBrush x:Key="HighlightBrush"
 		                 Color="#C8AB37" />
+		
+		<SolidColorBrush x:Key="MenuBackground"
+		                 Color="#AAAAAA" />
 	</Style.Resources>
 </Style>

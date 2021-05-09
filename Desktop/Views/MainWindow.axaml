@@ -7,7 +7,7 @@
         Icon="/icon.ico"
         Width="420"
         MinWidth="420"
-        MinHeight="256"
+        MinHeight="500"
         Title="Guitar Tuner by Macabresoft">
 	<Window.Resources>
 		<converters:EqualsConverter x:Key="EqualsConverter" />
@@ -37,6 +37,7 @@
 								           HorizontalAlignment="Center"
 								           Margin="0"
 								           Padding="0"
+								           Foreground="{StaticResource BackgroundBrush}"
 								           Text="●">
 									<TextBlock.IsVisible>
 										<MultiBinding Converter="{StaticResource EqualsConverter}">
@@ -68,59 +69,58 @@
 			<TextBlock Grid.Column="0"
 			           Text="♭"
 			           FontSize="64"
+			           FontWeight="Bold"
 			           TextAlignment="Left"
 			           VerticalAlignment="Bottom"/>
 
 			<TextBlock Grid.Column="1"
 			           Foreground="{StaticResource ForegroundBrush}"
 			           Text="{Binding Note.Name}"
-			           FontSize="128"
+			           FontSize="196"
+			           FontWeight="Bold"
 			           TextAlignment="Center"
 			           VerticalAlignment="Bottom"/>
 
 			<TextBlock Grid.Column="2"
 			           Text="♯"
 			           FontSize="64"
+			           FontWeight="Bold"
 			           TextAlignment="Right"
 			           VerticalAlignment="Bottom"/>
 		</Grid>
 		
-		<Border Grid.Row="3"
-		        BorderBrush="{StaticResource ForegroundBrush}"
-		        BorderThickness="0 1 0 1"
-		        Padding="{StaticResource DoubleMarginHorizontal}"
-		        Width="{Binding $parent.Width}">
-			<Grid Margin="{StaticResource DoubleMarginAll}">
-				<Canvas Height="32"
-				        Width="{Binding $parent.Width}">
-					<Line Canvas.Top="16"
-					      StartPoint="{Binding $parent.Bounds.TopLeft}"
-					      EndPoint="{Binding $parent.Bounds.TopRight}"
-					      Stroke="{StaticResource ForegroundBrush}"
-					      StrokeThickness="1" />
-					
-					<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
-					      EndPoint="{Binding $parent.Bounds.BottomLeft}"
-					      Stroke="{StaticResource ForegroundBrush}"
-					      StrokeThickness="1" />
-					
-					<Line StartPoint="{Binding $parent.Bounds.TopRight}"
-					      EndPoint="{Binding $parent.Bounds.BottomRight}"
-					      Stroke="{StaticResource ForegroundBrush}"
-					      StrokeThickness="1" />
-					
-					<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
-					      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}"
-					      Stroke="{StaticResource ForegroundBrush}"
-					      StrokeThickness="1" />
-					
-					<Line Name="_needle"
-					      Height="32"
-					      Stroke="{StaticResource HighlightBrush}"
-					      StrokeThickness="3" />
-				</Canvas>
-			</Grid>
-		</Border>
+
+		<Grid Grid.Row="3"
+		      Margin="{StaticResource LargeMarginHorizontal}">
+			<Canvas Height="32"
+			        Width="{Binding $parent.Width}">
+				<Line Canvas.Top="16"
+				      StartPoint="{Binding $parent.Bounds.TopLeft}"
+				      EndPoint="{Binding $parent.Bounds.TopRight}"
+				      Stroke="{StaticResource ForegroundBrush}"
+				      StrokeThickness="1" />
+				
+				<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
+				      EndPoint="{Binding $parent.Bounds.BottomLeft}"
+				      Stroke="{StaticResource ForegroundBrush}"
+				      StrokeThickness="1" />
+				
+				<Line StartPoint="{Binding $parent.Bounds.TopRight}"
+				      EndPoint="{Binding $parent.Bounds.BottomRight}"
+				      Stroke="{StaticResource ForegroundBrush}"
+				      StrokeThickness="1" />
+				
+				<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
+				      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}"
+				      Stroke="{StaticResource ForegroundBrush}"
+				      StrokeThickness="1" />
+				
+				<Line Name="_needle"
+				      Height="32"
+				      Stroke="{StaticResource HighlightBrush}"
+				      StrokeThickness="3" />
+			</Canvas>
+		</Grid>
 
 		<TextBlock Grid.Row="4"
                    HorizontalAlignment="Center"
