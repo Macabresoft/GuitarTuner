@@ -11,13 +11,14 @@
         Title="Guitar Tuner by Macabresoft">
 	<Window.Resources>
 		<converters:EqualsConverter x:Key="EqualsConverter" />
-		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter"></converters:HalfWidthPointConverter>
+		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
+		<converters:MagnitudeToRelativeConverter x:Key="MagnitudeToRelativeConverter" />
 		<converters:NeedlePositionConverter x:Key="NeedlePositionConverter" />
 	</Window.Resources>
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="Auto, *, Auto, Auto, Auto"
+	<Grid RowDefinitions="Auto, *"
 	      Background="{StaticResource BackgroundBrush}">
 		<Menu Grid.Row="0">
 			<MenuItem Header="File">
@@ -64,66 +65,80 @@
 			</MenuItem>
 		</Menu>
 		
-		<Grid Grid.Row="2"
-		      ColumnDefinitions="Auto, *, Auto">
-
-			<TextBlock Grid.Column="0"
-			           Text="♭"
-			           FontSize="64"
-			           FontWeight="Bold"
-			           TextAlignment="Left"
-			           VerticalAlignment="Bottom"/>
-
-			<TextBlock Grid.Column="1"
-			           Foreground="{StaticResource ForegroundBrush}"
-			           Text="{Binding Note.Name}"
-			           FontSize="196"
-			           FontWeight="Bold"
-			           TextAlignment="Center"
-			           VerticalAlignment="Bottom"/>
-
-			<TextBlock Grid.Column="2"
-			           Text="♯"
-			           FontSize="64"
-			           FontWeight="Bold"
-			           TextAlignment="Right"
-			           VerticalAlignment="Bottom"/>
-		</Grid>
+		<Grid Grid.Row="1"
+		      RowDefinitions="*, Auto, Auto, Auto">
+			<Grid.Background>
+				<LinearGradientBrush StartPoint="0%,100%"
+				                     EndPoint="{Binding Magnitude, Converter={StaticResource MagnitudeToRelativeConverter}}">
+					<GradientStop Offset="0"
+					              Color="{StaticResource AccentColor}"/>
+					<GradientStop Offset="1"
+					              Color="{StaticResource BackgroundColor}"/>
+				</LinearGradientBrush>
+			</Grid.Background>
 		
+			<Grid Grid.Row="1"
+			      ColumnDefinitions="Auto, *, Auto">
 
-		<Grid Grid.Row="3"
-		      Margin="{StaticResource LargeMarginHorizontal}">
-			<Canvas Height="32"
-			        Width="{Binding $parent.Width}">
-				<Line Canvas.Top="16"
-				      StartPoint="{Binding $parent.Bounds.TopLeft}"
-				      EndPoint="{Binding $parent.Bounds.TopRight}" />
-				
-				<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
-				      EndPoint="{Binding $parent.Bounds.BottomLeft}" />
-				
-				<Line StartPoint="{Binding $parent.Bounds.TopRight}"
-				      EndPoint="{Binding $parent.Bounds.BottomRight}" />
-				
-				<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
-				      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
-				<Polygon Name="_needle"
-				         Points="-5,0 5,0 0,15">
-					<Canvas.Left>
-						<MultiBinding Converter="{StaticResource NeedlePositionConverter}">
-							<Binding Path="Note" />
-							<Binding Path="Frequency" />
-							<Binding Path="$parent.Bounds" />
-						</MultiBinding>					
-					</Canvas.Left>
-				</Polygon>
-			</Canvas>
+
+				<TextBlock Grid.Column="0"
+				           Text="♭"
+				           FontSize="64"
+				           FontWeight="Bold"
+				           TextAlignment="Left"
+				           VerticalAlignment="Bottom"/>
+
+				<TextBlock Grid.Column="1"
+				           Foreground="{StaticResource ForegroundBrush}"
+				           Text="{Binding Note.Name}"
+				           FontSize="196"
+				           FontWeight="Bold"
+				           TextAlignment="Center"
+				           VerticalAlignment="Bottom"/>
+
+				<TextBlock Grid.Column="2"
+				           Text="♯"
+				           FontSize="64"
+				           FontWeight="Bold"
+				           TextAlignment="Right"
+				           VerticalAlignment="Bottom"/>
+			</Grid>
+			
+
+			<Grid Grid.Row="2"
+			      Margin="{StaticResource LargeMarginHorizontal}">
+				<Canvas Height="32"
+				        Width="{Binding $parent.Width}">
+					<Line Canvas.Top="16"
+					      StartPoint="{Binding $parent.Bounds.TopLeft}"
+					      EndPoint="{Binding $parent.Bounds.TopRight}" />
+					
+					<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
+					      EndPoint="{Binding $parent.Bounds.BottomLeft}" />
+					
+					<Line StartPoint="{Binding $parent.Bounds.TopRight}"
+					      EndPoint="{Binding $parent.Bounds.BottomRight}" />
+					
+					<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
+					      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
+					<Polygon Name="_needle"
+					         Points="-5,0 5,0 0,15">
+						<Canvas.Left>
+							<MultiBinding Converter="{StaticResource NeedlePositionConverter}">
+								<Binding Path="Note" />
+								<Binding Path="Frequency" />
+								<Binding Path="$parent.Bounds" />
+							</MultiBinding>					
+						</Canvas.Left>
+					</Polygon>
+				</Canvas>
+			</Grid>
+
+			<TextBlock Grid.Row="3"
+	                   HorizontalAlignment="Center"
+	                   VerticalAlignment="Center"
+	                   Foreground="{StaticResource ForegroundBrush}"
+	                   Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
 		</Grid>
-
-		<TextBlock Grid.Row="4"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Foreground="{StaticResource ForegroundBrush}"
-                   Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
 	</Grid>
 </Window>

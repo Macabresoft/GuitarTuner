@@ -29,7 +29,6 @@ namespace Macabresoft.GuitarTuner.Tests {
         [TestCase(196f)]
         [TestCase(185f)]
         [TestCase(207.65f)]
-        [TestCase(500f)]
         [TestCase(300f)]
         [TestCase(200f)]
         [TestCase(150f)]
@@ -38,6 +37,7 @@ namespace Macabresoft.GuitarTuner.Tests {
         [TestCase(50f)]
         [TestCase(40f)]
         [TestCase(35f)]
+        [TestCase(26f)]
         public void SineWaveSample_Should_ProcessToSameFrequency(float frequency) {
             this._sampleProvider.Frequency = frequency;
             var frequencyMonitor = new FrequencyMonitor(this._sampleProvider);

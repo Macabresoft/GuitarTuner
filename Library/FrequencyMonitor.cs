@@ -11,7 +11,7 @@
         /// The highest frequency this monitor can detect. May need to be increased or customizable
         /// if the tuner begins supporting custom tunings.
         /// </summary>
-        public const float HighestFrequency = 600f;
+        public const float HighestFrequency = 350f;
 
         /// <summary>
         /// The hold time for a note in seconds. For instance, if a user hits the note E and
@@ -23,13 +23,13 @@
         /// <summary>
         /// The lowest frequency this monitor can detect.
         /// </summary>
-        public const float LowestFrequency = 30f;
+        public const float LowestFrequency = 25f;
 
         private readonly int _highPeriod;
         private readonly object _lock = new();
         private readonly int _lowPeriod;
-        private readonly RollingMeanFloat _rollingAverageFrequency = new(5);
         private float _frequency;
+        private float _magnitude;
         private bool _isDisposed;
         private ISampleProvider _sampleProvider;
         private float _timeElapsed;
@@ -53,6 +53,14 @@
             private set => this.Set(ref this._frequency, value);
         }
 
+        /// <summary>
+        /// Gets the magnitude between 0 and 1.
+        /// </summary>
+        public float Magnitude {
+            get => this._magnitude;
+            private set => this.Set(ref this._magnitude, value);
+        }
+
         /// <inheritdoc />
         public void Dispose() {
             if (!this._isDisposed) {
@@ -71,16 +79,15 @@
                     this._sampleProvider.SamplesAvailable -= this.SampleProvider_SamplesAvailable;
                     this._sampleProvider = sampleProvider;
                     this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
-                    this._rollingAverageFrequency.Clear();
                     this.Frequency = 0f;
                 }
             }
         }
 
         private void ClearFrequency() {
-            this._rollingAverageFrequency.Clear();
             this._timeElapsed = 0f;
             this.Frequency = 0f;
+            this.Magnitude = 0f;
         }
 
         private BufferInformation GetBufferInformation(float[] samples) {
@@ -112,8 +119,7 @@
             if (this.Frequency != 0f && sampleCount > 0) {
                 if (this._sampleProvider.SampleRate > 0) {
                     this._timeElapsed += sampleCount / (float)this._sampleProvider.SampleRate;
-                    this._rollingAverageFrequency.Remove();
-
+                    
                     if (this._timeElapsed >= HoldTime) {
                         this.ClearFrequency();
                     }
@@ -129,17 +135,16 @@
                 if (sender == this._sampleProvider) {
                     if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                         var bufferInformation = this.GetBufferInformation(e.Samples);
-
-                        if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude == 0f) {
+                        this.Magnitude = bufferInformation.Magnitude;
+                        if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude < 0.25f) {
                             this.HoldForReset(e.Samples.Length);
                         }
                         else {
-                            this._rollingAverageFrequency.Add(bufferInformation.Frequency);
-                            this.Frequency = this._rollingAverageFrequency.MeanValue;
                             this.Frequency = bufferInformation.Frequency;
                         }
                     }
                     else {
+                        this.Magnitude = 0f;
                         this.HoldForReset(e.Samples.Length);
                     }
                 }

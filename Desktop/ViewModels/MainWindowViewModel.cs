@@ -19,7 +19,8 @@
         private readonly FrequencyMonitor _frequencyMonitor;
         private readonly ReactiveCommand<string, Unit> _selectDeviceCommand;
         private MicrophoneListener _listener;
-        private double _frequency;
+        private float _frequency;
+        private float _magnitude;
         private Note _note = Library.Note.Empty;
         private string _selectedDevice;
 
@@ -37,16 +38,16 @@
         }
 
         private MicrophoneListener CreateListener() {
-            return new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 15);
+            return new MicrophoneListener(this.SelectedDevice, SampleRate, ALFormat.Mono16, (int)Math.Ceiling(SampleRate / FrequencyMonitor.LowestFrequency) * 2);
         }
 
         public IReadOnlyCollection<string> AvailableDevices => this._availableDevices;
 
         public ICommand SelectDeviceCommand => this._selectDeviceCommand;
-
+        
         public ITuning SelectedTuning { get; } = new StandardGuitarTuning();
 
-        public double Frequency {
+        public float Frequency {
             get => this._frequency;
 
             private set {
@@ -54,6 +55,11 @@
                     this.Note = this.SelectedTuning.GetNearestNote(this.Frequency);
                 }
             }
+        }
+
+        public float Magnitude {
+            get => this._magnitude;
+            private set => this.Set(ref this._magnitude, value);
         }
 
         public Note Note {
@@ -68,7 +74,12 @@
 
         private void FrequencyMonitor_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if (e.PropertyName == nameof(FrequencyMonitor.Frequency)) {
-                Dispatcher.UIThread.Post(() => this.Frequency = this._frequencyMonitor.Frequency);
+                var frequency = this._frequencyMonitor.Frequency;
+                Dispatcher.UIThread.Post(() => this.Frequency = frequency);
+            }
+            else if (e.PropertyName == nameof(FrequencyMonitor.Magnitude)) {
+                var magnitude = this._frequencyMonitor.Magnitude;
+                Dispatcher.UIThread.Post(() => this.Magnitude = magnitude);
             }
         }
 

@@ -1,13 +1,15 @@
 ﻿<Style xmlns="https://github.com/avaloniaui"
-	   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	   xmlns:system="clr-namespace:System;assembly=System.Runtime">
+	   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Style.Resources>
 		
+		<Color x:Key="AccentColor">#634960</Color>
+		<Color x:Key="BackgroundColor">#111111</Color>
+
 		<SolidColorBrush x:Key="AccentBrush"
-		                 Color="#634960" />
+		                 Color="{StaticResource AccentColor}" />
 		
 		<SolidColorBrush x:Key="BackgroundBrush"
-		                 Color="#111111" />
+		                 Color="{StaticResource BackgroundColor}" />
 		
 		<SolidColorBrush x:Key="ForegroundBrush"
 		                 Color="#E3DAC9" />

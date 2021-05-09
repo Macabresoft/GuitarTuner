@@ -10,7 +10,7 @@
     public class NeedlePositionConverter : IMultiValueConverter  {
         public object Convert(IList<object> values, Type targetType, object parameter, CultureInfo culture) {
             var note = values.OfType<Note>().FirstOrDefault();
-            var frequency = values.OfType<double>().FirstOrDefault();
+            var frequency = values.OfType<float>().FirstOrDefault();
             var canvasBounds = values.OfType<Rect>().FirstOrDefault();
             var position = -100d;
             if (note != null && frequency > 0d && canvasBounds != Rect.Empty) {
@@ -22,7 +22,6 @@
             }
 
             return position;
-
         }
     }
 }
