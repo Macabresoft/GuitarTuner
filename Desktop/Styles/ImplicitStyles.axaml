@@ -14,8 +14,15 @@
 		<Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
 		<Setter Property="Margin" Value="{StaticResource NormalMarginAll}" />
 	</Style>
+	
+	<Style Selector="Line">
+		<Setter Property="Stroke" Value="{StaticResource ForegroundBrush}" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
 
 	<Style Selector="Polygon">
+		<Setter Property="Fill" Value="{StaticResource AccentBrush}" />
+		<Setter Property="StrokeThickness" Value="0" />
 		<Setter Property="StrokeLineCap" Value="Square" />
 	</Style>
 </Styles>

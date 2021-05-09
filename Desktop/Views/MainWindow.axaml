@@ -12,6 +12,7 @@
 	<Window.Resources>
 		<converters:EqualsConverter x:Key="EqualsConverter" />
 		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter"></converters:HalfWidthPointConverter>
+		<converters:NeedlePositionConverter x:Key="NeedlePositionConverter" />
 	</Window.Resources>
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
@@ -96,29 +97,26 @@
 			        Width="{Binding $parent.Width}">
 				<Line Canvas.Top="16"
 				      StartPoint="{Binding $parent.Bounds.TopLeft}"
-				      EndPoint="{Binding $parent.Bounds.TopRight}"
-				      Stroke="{StaticResource ForegroundBrush}"
-				      StrokeThickness="1" />
+				      EndPoint="{Binding $parent.Bounds.TopRight}" />
 				
 				<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
-				      EndPoint="{Binding $parent.Bounds.BottomLeft}"
-				      Stroke="{StaticResource ForegroundBrush}"
-				      StrokeThickness="1" />
+				      EndPoint="{Binding $parent.Bounds.BottomLeft}" />
 				
 				<Line StartPoint="{Binding $parent.Bounds.TopRight}"
-				      EndPoint="{Binding $parent.Bounds.BottomRight}"
-				      Stroke="{StaticResource ForegroundBrush}"
-				      StrokeThickness="1" />
+				      EndPoint="{Binding $parent.Bounds.BottomRight}" />
 				
 				<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
-				      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}"
-				      Stroke="{StaticResource ForegroundBrush}"
-				      StrokeThickness="1" />
-				
-				<Line Name="_needle"
-				      Height="32"
-				      Stroke="{StaticResource HighlightBrush}"
-				      StrokeThickness="3" />
+				      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
+				<Polygon Name="_needle"
+				         Points="-5,0 5,0 0,15">
+					<Canvas.Left>
+						<MultiBinding Converter="{StaticResource NeedlePositionConverter}">
+							<Binding Path="Note" />
+							<Binding Path="Frequency" />
+							<Binding Path="$parent.Bounds" />
+						</MultiBinding>					
+					</Canvas.Left>
+				</Polygon>
 			</Canvas>
 		</Grid>
 

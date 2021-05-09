@@ -19,7 +19,7 @@
         private readonly FrequencyMonitor _frequencyMonitor;
         private readonly ReactiveCommand<string, Unit> _selectDeviceCommand;
         private MicrophoneListener _listener;
-        private float _frequency;
+        private double _frequency;
         private Note _note = Library.Note.Empty;
         private string _selectedDevice;
 
@@ -46,7 +46,7 @@
 
         public ITuning SelectedTuning { get; } = new StandardGuitarTuning();
 
-        public float Frequency {
+        public double Frequency {
             get => this._frequency;
 
             private set {
