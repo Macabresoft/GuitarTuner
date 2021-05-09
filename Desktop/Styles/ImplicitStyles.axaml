@@ -11,9 +11,9 @@
 	</Style>
 
 	<Style Selector="TextBlock">
-		<Setter Property="FontSize" Value="{StaticResource FontSize}" />
 		<Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
 		<Setter Property="Margin" Value="{StaticResource DoubleMarginAll}" />
+		<Setter Property="FontFamily" Value="Lucida Console" />
 	</Style>
 
 	<Style Selector="Polygon">

@@ -6,16 +6,17 @@
         Name="_mainWindow"
         Icon="/icon.ico"
         Width="420"
-        MinWidth="256"
-        CanResize="False"
+        MinWidth="420"
+        MinHeight="256"
         Title="Guitar Tuner by Macabresoft">
 	<Window.Resources>
 		<converters:EqualsConverter x:Key="EqualsConverter" />
+		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter"></converters:HalfWidthPointConverter>
 	</Window.Resources>
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="Auto, Auto, Auto, Auto"
+	<Grid RowDefinitions="Auto, *, Auto, Auto, Auto"
 	      Background="{StaticResource BackgroundBrush}">
 		<Menu Grid.Row="0">
 			<MenuItem Header="File">
@@ -61,48 +62,67 @@
 			</MenuItem>
 		</Menu>
 		
-		<Grid Grid.Row="1"
-		      Height="128"
+		<Grid Grid.Row="2"
 		      ColumnDefinitions="Auto, *, Auto">
 
 			<TextBlock Grid.Column="0"
 			           Text="♭"
-			           FontSize="24"
+			           FontSize="64"
 			           TextAlignment="Left"
 			           VerticalAlignment="Bottom"/>
 
 			<TextBlock Grid.Column="1"
 			           Foreground="{StaticResource ForegroundBrush}"
 			           Text="{Binding Note.Name}"
-			           FontSize="48"
+			           FontSize="128"
 			           TextAlignment="Center"
 			           VerticalAlignment="Bottom"/>
 
 			<TextBlock Grid.Column="2"
 			           Text="♯"
-			           FontSize="24"
+			           FontSize="64"
 			           TextAlignment="Right"
 			           VerticalAlignment="Bottom"/>
 		</Grid>
 		
-		<Border Grid.Row="2"
+		<Border Grid.Row="3"
 		        BorderBrush="{StaticResource ForegroundBrush}"
-		        BorderThickness="0 1 0 1">
-			<Canvas Height="32" 
-			        HorizontalAlignment="Stretch">
-				<Line Canvas.Top="15"
-				      StartPoint="{Binding $parent.Bounds.TopLeft}"
-				      EndPoint="{Binding $parent.Bounds.TopRight}"
-				      Stroke="{StaticResource ForegroundBrush}"
-				      StrokeThickness="1" />
-				<Line Name="_needle"
-				      Height="32"
-				      Stroke="{StaticResource HighlightBrush}"
-				      StrokeThickness="3" />
-			</Canvas>
+		        BorderThickness="0 1 0 1"
+		        Padding="{StaticResource DoubleMarginHorizontal}"
+		        Width="{Binding $parent.Width}">
+			<Grid Margin="{StaticResource DoubleMarginAll}">
+				<Canvas Height="32"
+				        Width="{Binding $parent.Width}">
+					<Line Canvas.Top="16"
+					      StartPoint="{Binding $parent.Bounds.TopLeft}"
+					      EndPoint="{Binding $parent.Bounds.TopRight}"
+					      Stroke="{StaticResource ForegroundBrush}"
+					      StrokeThickness="1" />
+					
+					<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
+					      EndPoint="{Binding $parent.Bounds.BottomLeft}"
+					      Stroke="{StaticResource ForegroundBrush}"
+					      StrokeThickness="1" />
+					
+					<Line StartPoint="{Binding $parent.Bounds.TopRight}"
+					      EndPoint="{Binding $parent.Bounds.BottomRight}"
+					      Stroke="{StaticResource ForegroundBrush}"
+					      StrokeThickness="1" />
+					
+					<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
+					      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}"
+					      Stroke="{StaticResource ForegroundBrush}"
+					      StrokeThickness="1" />
+					
+					<Line Name="_needle"
+					      Height="32"
+					      Stroke="{StaticResource HighlightBrush}"
+					      StrokeThickness="3" />
+				</Canvas>
+			</Grid>
 		</Border>
 
-		<TextBlock Grid.Row="3"
+		<TextBlock Grid.Row="4"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Foreground="{StaticResource ForegroundBrush}"
