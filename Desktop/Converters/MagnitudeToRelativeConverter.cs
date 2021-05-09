@@ -7,7 +7,6 @@
     public class MagnitudeToRelativeConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if (value is float magnitude) {
-                Console.WriteLine(magnitude);
                 return new RelativePoint(0d, 1d - magnitude, RelativeUnit.Relative);
             }
             
