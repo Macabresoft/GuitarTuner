@@ -68,10 +68,10 @@
 		<Grid Grid.Row="1"
 		      RowDefinitions="*, Auto, Auto, Auto">
 			<Grid.Background>
-				<LinearGradientBrush StartPoint="0%,100%"
+				<LinearGradientBrush StartPoint="0%,110%"
 				                     EndPoint="{Binding Magnitude, Converter={StaticResource MagnitudeToRelativeConverter}}">
 					<GradientStop Offset="0"
-					              Color="{StaticResource AccentColor}"/>
+					              Color="{StaticResource AccentDarkColor}"/>
 					<GradientStop Offset="1"
 					              Color="{StaticResource BackgroundColor}"/>
 				</LinearGradientBrush>

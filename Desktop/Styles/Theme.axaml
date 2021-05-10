@@ -3,6 +3,7 @@
 	<Style.Resources>
 		
 		<Color x:Key="AccentColor">#634960</Color>
+		<Color x:Key="AccentDarkColor">#483646</Color>
 		<Color x:Key="BackgroundColor">#111111</Color>
 
 		<SolidColorBrush x:Key="AccentBrush"

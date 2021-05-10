@@ -1,5 +1,6 @@
 ﻿namespace Macabresoft.GuitarTuner.Library {
     using System;
+    using System.Collections.Generic;
     using Macabresoft.Core;
     using Macabresoft.GuitarTuner.Library.Input;
 
@@ -90,8 +91,8 @@
             this.Magnitude = 0f;
         }
 
-        private BufferInformation GetBufferInformation(float[] samples) {
-            if (samples.Length < this._highPeriod) {
+        private BufferInformation GetBufferInformation(IReadOnlyList<float> samples) {
+            if (samples.Count < this._highPeriod) {
                 throw new InvalidOperationException("The sample rate isn't large enough for the buffer length.");
             }
 
@@ -100,19 +101,19 @@
 
             for (var period = this._lowPeriod; period < this._highPeriod; period++) {
                 var sum = 0f;
-                for (var i = 0; i < samples.Length - period; i++) {
+                for (var i = 0; i < samples.Count - period; i++) {
                     sum += samples[i] * samples[i + period];
                 }
 
-                var newMagnitude = sum / samples.Length;
+                var newMagnitude = sum / samples.Count;
                 if (newMagnitude > greatestMagnitude) {
                     chosenPeriod = period;
                     greatestMagnitude = newMagnitude;
                 }
             }
 
-            var frequency = (float)this._sampleProvider.SampleRate / chosenPeriod;
-            return frequency is < LowestFrequency or > HighestFrequency ? BufferInformation.Unknown : new BufferInformation(frequency, greatestMagnitude);
+            var frequency = (double)this._sampleProvider.SampleRate / chosenPeriod;
+            return frequency is < LowestFrequency or > HighestFrequency ? BufferInformation.Unknown : new BufferInformation((float)frequency, greatestMagnitude);
         }
 
         private void HoldForReset(int sampleCount) {
@@ -136,7 +137,7 @@
                     if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                         var bufferInformation = this.GetBufferInformation(e.Samples);
                         this.Magnitude = bufferInformation.Magnitude;
-                        if (bufferInformation.Frequency == 0f && bufferInformation.Magnitude < 0.25f) {
+                        if (bufferInformation.Frequency == 0f || bufferInformation.Magnitude < 0.05f) {
                             this.HoldForReset(e.Samples.Length);
                         }
                         else {

@@ -56,6 +56,8 @@
             if (!this._isDisposed) {
                 this.Stop();
                 this.SamplesAvailable = null;
+                ALC.CaptureStop(this._captureDevice);
+                ALC.CaptureCloseDevice(this._captureDevice);
                 this._isDisposed = true;
             }
 
@@ -72,6 +74,7 @@
         public void Stop() {
             this._isEnabled = false;
             this._listenTask?.Wait();
+            ALC.CaptureStop(this._captureDevice);
         }
 
         private Task Listen() {
@@ -95,7 +98,7 @@
                     var samples = new float[this.BufferSize];
 
                     for (var i = 0; i < buffer.Length; i++) {
-                        samples[i] = buffer[i] / (float)short.MaxValue;
+                        samples[i] = (float)(buffer[i] / (double)short.MaxValue);
                     }
 
                     this.SamplesAvailable.SafeInvoke(this, new SamplesAvailableEventArgs(samples, index));
