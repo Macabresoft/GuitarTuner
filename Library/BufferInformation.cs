@@ -1,15 +1,12 @@
 ﻿namespace Macabresoft.GuitarTuner.Library {
-
     /// <summary>
-    /// Information about a buffer of samples that has been processed by the <see
-    /// cref="FrequencyMonitor" />.
+    /// Information about a buffer of samples that has been processed by the <see cref="SampleAnalyzer" />.
     /// </summary>
     public struct BufferInformation {
-
         /// <summary>
         /// An instance of <see cref="BufferInformation" /> returned when the frequency could not be determined.
         /// </summary>
-        public static BufferInformation Unknown = new BufferInformation();
+        public static BufferInformation Unknown = new();
 
         /// <summary>
         /// The fundamental frequency of the buffer.

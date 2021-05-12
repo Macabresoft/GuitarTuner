@@ -5,13 +5,14 @@
     using Macabresoft.GuitarTuner.Library.Input;
     using OpenToolkit.Audio.OpenAL;
     using System;
+    using System.Collections.Generic;
 
     public sealed class SineWaveSampleProvider : ISampleProvider {
 
-        public SineWaveSampleProvider(float frequency, int sampleRate) {
+        public SineWaveSampleProvider(float frequency, int sampleRate, int bufferSize) {
             this.Frequency = frequency;
             this.SampleRate = sampleRate;
-            this.BufferSize = (int)Math.Ceiling(this.SampleRate / FrequencyMonitor.LowestFrequency) * 15;
+            this.BufferSize = bufferSize;
         }
 
         public event EventHandler<SamplesAvailableEventArgs> SamplesAvailable;
@@ -36,12 +37,17 @@
         }
         
         public void Start() {
+            var samples = this.GetSampleBuffer();
+            this.SamplesAvailable.SafeInvoke(this, new SamplesAvailableEventArgs(samples, samples.Length));
+        }
+
+        public float[] GetSampleBuffer() {
             var samples = new float[this.BufferSize];
             for (var i = 0; i < samples.Length; i++) {
                 samples[i] = MathF.Sin(i * this.Frequency * MathF.PI * 2 / this.SampleRate);
             }
 
-            this.SamplesAvailable.SafeInvoke(this, new SamplesAvailableEventArgs(samples, samples.Length));
+            return samples;
         }
 
         public void Stop() {

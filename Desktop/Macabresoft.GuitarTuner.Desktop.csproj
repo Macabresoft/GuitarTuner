@@ -11,6 +11,7 @@
 		<ApplicationIcon>icon.ico</ApplicationIcon>
 		<LangVersion>default</LangVersion>
 		<PackageId>Macabresoft.GuitarTuner.Desktop</PackageId>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>

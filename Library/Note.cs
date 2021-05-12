@@ -6,7 +6,7 @@
     /// </summary>
     public sealed class Note {
         public static readonly Note Empty = new();
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Note" /> class.
         /// </summary>
@@ -26,7 +26,7 @@
         private Note() {
             this.Name = "?";
         }
-        
+
         /// <summary>
         /// Gets the distance in semitones from the base note of A4 at 440Hz.
         /// </summary>
@@ -36,7 +36,7 @@
         /// Gets the frequency.
         /// </summary>
         public double Frequency { get; }
-        
+
         /// <summary>
         /// Gets the name.
         /// </summary>
@@ -46,7 +46,7 @@
         /// Gets the note.
         /// </summary>
         public NamedNotes NamedNote { get; }
-        
+
         /// <summary>
         /// Gets the octave.
         /// </summary>
