@@ -5,10 +5,11 @@
     using System.Reactive;
     using System.Windows.Input;
     using Macabresoft.Core;
+    using Macabresoft.GuitarTuner.Desktop.Input;
     using Macabresoft.GuitarTuner.Library;
     using Macabresoft.GuitarTuner.Library.Input;
     using Macabresoft.GuitarTuner.Library.Tuning;
-    using OpenToolkit.Audio.OpenAL;
+    using OpenTK.Audio.OpenAL;
     using ReactiveUI;
 
     public class MainWindowViewModel : ViewModelBase {
@@ -110,7 +111,7 @@
                     if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                         var bufferInformation = this._sampleAnalyzer.GetBufferInformation(e.Samples);
                         this.Magnitude = bufferInformation.Magnitude;
-                        if (bufferInformation.Frequency == 0f || bufferInformation.Magnitude < 0.05f) {
+                        if (bufferInformation.Frequency == 0f || bufferInformation.Magnitude < 0.25f) {
                             this.HoldForReset(e.Samples.Length);
                         }
                         else {

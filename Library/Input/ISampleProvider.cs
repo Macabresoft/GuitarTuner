@@ -1,6 +1,5 @@
 ﻿namespace Macabresoft.GuitarTuner.Library.Input {
 
-    using OpenToolkit.Audio.OpenAL;
     using System;
 
     /// <summary>
@@ -19,13 +18,7 @@
         /// </summary>
         /// <value>The size of the buffer.</value>
         int BufferSize { get; }
-
-        /// <summary>
-        /// Gets the format of the provided samples.
-        /// </summary>
-        /// <value>The format.</value>
-        ALFormat Format { get; }
-
+        
         /// <summary>
         /// Gets the sample rate in Hertz.
         /// </summary>
