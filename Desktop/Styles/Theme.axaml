@@ -9,6 +9,12 @@
 		<SolidColorBrush x:Key="AccentBrush"
 		                 Color="{StaticResource AccentColor}" />
 		
+		<SolidColorBrush x:Key="AccentDarkBrush" 
+		                 Color="{StaticResource AccentDarkColor}"/>
+		
+		<SolidColorBrush x:Key="AccentLightBrush" 
+		                 Color="#856F7C"/>
+		
 		<SolidColorBrush x:Key="BackgroundBrush"
 		                 Color="{StaticResource BackgroundColor}" />
 		

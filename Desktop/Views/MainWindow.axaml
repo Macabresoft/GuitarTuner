@@ -121,8 +121,7 @@
 					
 					<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
 					      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
-					<Polygon Name="_needle"
-					         Points="-5,0 5,0 0,15">
+					<Polygon Points="-5,0 5,0 0,15">
 						<Canvas.Left>
 							<MultiBinding Converter="{StaticResource NeedlePositionConverter}">
 								<Binding Path="Note" />

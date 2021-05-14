@@ -21,7 +21,7 @@
 	</Style>
 
 	<Style Selector="Polygon">
-		<Setter Property="Fill" Value="{StaticResource AccentBrush}" />
+		<Setter Property="Fill" Value="{StaticResource AccentLightBrush}" />
 		<Setter Property="StrokeThickness" Value="0" />
 		<Setter Property="StrokeLineCap" Value="Square" />
 	</Style>
