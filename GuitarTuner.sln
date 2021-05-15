@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.GuitarTuner.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Macabresoft.GuitarTuner.Desktop", "Desktop\Macabresoft.GuitarTuner.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macabresoft.GuitarTuner.Web", "Web\Macabresoft.GuitarTuner.Web.csproj", "{2B78DF93-CDD1-453C-86C3-4865ECCAAED6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B78DF93-CDD1-453C-86C3-4865ECCAAED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B78DF93-CDD1-453C-86C3-4865ECCAAED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B78DF93-CDD1-453C-86C3-4865ECCAAED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B78DF93-CDD1-453C-86C3-4865ECCAAED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

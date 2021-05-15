@@ -15,10 +15,10 @@
     public class MainWindowViewModel : ViewModelBase {
         /// <summary>
         /// The hold time for a note in seconds. For instance, if a user hits the note E and
-        /// then provides no sound for 2 seconds, the frequency will continue to report E
-        /// until those 2 seconds are up.
+        /// then provides no sound for 3 seconds, the frequency will continue to report E
+        /// until those 3 seconds are up.
         /// </summary>
-        private const float HoldTime = 2f;
+        private const float HoldTime = 3f;
 
         private const int SampleRate = 44100;
 
@@ -40,7 +40,7 @@
             this._selectedDevice = this._availableDevices.Any() ? this._availableDevices.First() : string.Empty;
             this._selectDeviceCommand = ReactiveCommand.Create<string, Unit>(this.SelectDevice);
             this._sampleProvider = this.CreateListener();
-            this._sampleAnalyzer = new SampleAnalyzer(SampleRate, this.SelectedTuning);
+            this._sampleAnalyzer = new SampleAnalyzer(this._sampleProvider.SampleRate, this.SelectedTuning);
             this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
             this._sampleProvider.Start();
         }
@@ -85,7 +85,6 @@
         private MicrophoneListener CreateListener() {
             return new(
                 this.SelectedDevice,
-                SampleRate,
                 ALFormat.Mono16,
                 (int)Math.Ceiling(SampleRate / this.SelectedTuning.MinimumFrequency) * 2);
         }
@@ -111,7 +110,7 @@
                     if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                         var bufferInformation = this._sampleAnalyzer.GetBufferInformation(e.Samples);
                         this.Magnitude = bufferInformation.Magnitude;
-                        if (bufferInformation.Frequency == 0f || bufferInformation.Magnitude < 0.25f) {
+                        if (bufferInformation.Frequency == 0f || bufferInformation.Magnitude < 0.4f) {
                             this.HoldForReset(e.Samples.Length);
                         }
                         else {
