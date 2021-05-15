@@ -14,18 +14,18 @@
         public float Frequency;
 
         /// <summary>
-        /// The magnitude of the frequency within the buffer.
+        /// The peak volume of the relevant samples in the buffer. This is a value between 0 and 1.
         /// </summary>
-        public float Magnitude;
+        public float PeakVolume;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BufferInformation" /> struct.
         /// </summary>
         /// <param name="frequency">The frequency.</param>
-        /// <param name="magnitude">The magnitude.</param>
-        public BufferInformation(float frequency, float magnitude) {
+        /// <param name="peakVolume">The magnitude.</param>
+        public BufferInformation(float frequency, float peakVolume) {
             this.Frequency = frequency;
-            this.Magnitude = magnitude;
+            this.PeakVolume = peakVolume;
         }
     }
 }

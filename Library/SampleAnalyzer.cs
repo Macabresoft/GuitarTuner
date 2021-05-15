@@ -1,6 +1,7 @@
 ﻿namespace Macabresoft.GuitarTuner.Library {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Macabresoft.GuitarTuner.Library.Tuning;
 
     /// <summary>
@@ -78,11 +79,13 @@
 
             var greatestMagnitude = float.NegativeInfinity;
             var chosenPeriod = -1;
+            var peakVolume = 0f;
 
             for (var period = this._lowPeriod; period < this._highPeriod; period++) {
                 var sum = 0f;
                 for (var i = 0; i < samples.Count - period; i++) {
                     sum += samples[i] * samples[i + period];
+                    peakVolume = Math.Max(peakVolume, Math.Abs(samples[i]));
                 }
 
                 var newMagnitude = sum / samples.Count;
@@ -93,7 +96,7 @@
             }
 
             var frequency = (double)this.SampleRate / chosenPeriod;
-            return frequency < this.Tuning.MinimumFrequency || frequency > this.Tuning.MaximumFrequency ? BufferInformation.Unknown : new BufferInformation((float)frequency, greatestMagnitude);
+            return frequency < this.Tuning.MinimumFrequency || frequency > this.Tuning.MaximumFrequency ? BufferInformation.Unknown : new BufferInformation((float)frequency, peakVolume);
         }
 
         private void ResetPeriods() {

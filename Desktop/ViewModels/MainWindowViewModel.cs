@@ -27,7 +27,7 @@
         private readonly object _sampleProviderLock = new();
         private readonly ReactiveCommand<string, Unit> _selectDeviceCommand;
         private float _frequency;
-        private float _magnitude;
+        private float _peakVolume;
         private Note _note = Note.Empty;
         private ISampleProvider _sampleProvider;
         private string _selectedDevice;
@@ -61,9 +61,9 @@
             }
         }
 
-        public float Magnitude {
-            get => this._magnitude;
-            private set => this.Set(ref this._magnitude, value);
+        public float PeakVolume {
+            get => this._peakVolume;
+            private set => this.Set(ref this._peakVolume, value);
         }
 
         public Note Note {
@@ -79,7 +79,7 @@
         private void ClearFrequency() {
             this._timeElapsed = 0f;
             this.Frequency = 0f;
-            this.Magnitude = 0f;
+            this.PeakVolume = 0f;
         }
 
         private MicrophoneListener CreateListener() {
@@ -109,8 +109,8 @@
                 if (sender == this._sampleProvider) {
                     if (e.Samples.Length > 0 && e.Samples[^2] != 0f) {
                         var bufferInformation = this._sampleAnalyzer.GetBufferInformation(e.Samples);
-                        this.Magnitude = bufferInformation.Magnitude;
-                        if (bufferInformation.Frequency == 0f || bufferInformation.Magnitude < 0.4f) {
+                        this.PeakVolume = bufferInformation.PeakVolume;
+                        if (bufferInformation.Frequency == 0f || bufferInformation.PeakVolume < 0.25f) {
                             this.HoldForReset(e.Samples.Length);
                         }
                         else {
@@ -118,7 +118,7 @@
                         }
                     }
                     else {
-                        this.Magnitude = 0f;
+                        this.PeakVolume = 0f;
                         this.HoldForReset(e.Samples.Length);
                     }
                 }

@@ -4,7 +4,7 @@
     using Avalonia;
     using Avalonia.Data.Converters;
 
-    public class MagnitudeToRelativeConverter : IValueConverter {
+    public class VolumeToRelativeConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if (value is float magnitude) {
                 return new RelativePoint(0d, 1d - magnitude, RelativeUnit.Relative);

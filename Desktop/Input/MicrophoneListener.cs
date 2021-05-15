@@ -95,7 +95,7 @@
                     var samples = new float[this.BufferSize];
 
                     for (var i = 0; i < buffer.Length; i++) {
-                        samples[i] = (float)(buffer[i] / (double)byte.MaxValue); // I don't know why byte is right.
+                        samples[i] = (float)(buffer[i] / (double)short.MaxValue);
                     }
 
                     this.SamplesAvailable.SafeInvoke(this, new SamplesAvailableEventArgs(samples, index));
