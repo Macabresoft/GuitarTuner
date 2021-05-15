@@ -13,7 +13,7 @@
             var frequency = values.OfType<float>().FirstOrDefault();
             var canvasBounds = values.OfType<Rect>().FirstOrDefault();
             var position = -100d;
-            if (note != null && frequency > 0d && canvasBounds != Rect.Empty) {
+            if (note != null && note != Note.Empty && frequency > 0d && canvasBounds != Rect.Empty) {
                 var frequencyDistance = FrequencyCalculator.GetDistanceFromBase(frequency);
                 var difference = Math.Abs(note.DistanceFromBase + 1 - frequencyDistance);
                 if (difference < 2d) {

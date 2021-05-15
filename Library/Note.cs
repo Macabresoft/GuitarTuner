@@ -24,7 +24,7 @@
         }
 
         private Note() {
-            this.Name = "?";
+            this.Name = string.Empty;
         }
 
         /// <summary>
