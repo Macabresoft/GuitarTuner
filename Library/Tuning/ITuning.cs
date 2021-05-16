@@ -1,12 +1,10 @@
 ﻿namespace Macabresoft.GuitarTuner.Library.Tuning {
-
     using System.Collections.Generic;
 
     /// <summary>
     /// A tuning of notes. For example, standard tuning on a guitar or drop D tuning.
     /// </summary>
     public interface ITuning {
-
         /// <summary>
         /// Gets the display name.
         /// </summary>
@@ -35,7 +33,11 @@
         /// Gets the nearest note to the provided frequency in this tuning.
         /// </summary>
         /// <param name="frequency">The frequency.</param>
+        /// <param name="distanceFromBase">
+        /// The number of semitones away the provided frequency is from the base note of A4 at
+        /// 440Hz.
+        /// </param>
         /// <returns>The nearest note.</returns>
-        Note GetNearestNote(double frequency);
+        Note GetNearestNote(double frequency, out double distanceFromBase);
     }
 }

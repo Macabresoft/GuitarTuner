@@ -33,16 +33,18 @@
         public IReadOnlyCollection<Note> Notes { get; }
 
         /// <inheritdoc/>
-        public virtual Note GetNearestNote(double frequency) {
+        public virtual Note GetNearestNote(double frequency, out double distanceFromBase) {
             Note result;
+            var distance = double.PositiveInfinity;
             if (frequency < this.MinimumFrequency || frequency > this.MaximumFrequency) {
                 result = Note.Empty;
             }
             else {
-                var distanceFromBase = FrequencyCalculator.GetDistanceFromBase(frequency);
-                result = Notes.OrderBy(note => Math.Abs(distanceFromBase - note.DistanceFromBase)).FirstOrDefault() ?? Note.Empty;
+                distance = FrequencyCalculator.GetDistanceFromBase(frequency);
+                result = Notes.OrderBy(note => Math.Abs(distance - note.DistanceFromBase)).FirstOrDefault() ?? Note.Empty;
             }
-
+            
+            distanceFromBase = result != Note.Empty ? distance : double.PositiveInfinity;
             return result;
         }
     }

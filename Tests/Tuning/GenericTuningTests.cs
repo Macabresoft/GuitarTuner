@@ -1,5 +1,4 @@
 ﻿namespace Macabresoft.GuitarTuner.Tests.Tuning {
-    using System;
     using FluentAssertions;
     using FluentAssertions.Execution;
     using Macabresoft.GuitarTuner.Library;
@@ -24,7 +23,7 @@
         public void GetNearestNote_ShouldGetCorrectNote(double frequency, NamedNotes expectedNote, byte expectedOctave) {
             var tuning = new StandardGuitarTuning();
             using (new AssertionScope()) {
-                var nearestNote = tuning.GetNearestNote(frequency);
+                var nearestNote = tuning.GetNearestNote(frequency, out _);
                 nearestNote.NamedNote.Should().Be(expectedNote);
                 nearestNote.Octave.Should().Be(expectedOctave);
             }

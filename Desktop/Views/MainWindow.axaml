@@ -92,7 +92,7 @@
 						<Canvas.Left>
 							<MultiBinding Converter="{StaticResource NeedlePositionConverter}">
 								<Binding Path="Note" />
-								<Binding Path="Frequency" />
+								<Binding Path="DistanceFromBase" />
 								<Binding Path="$parent.Bounds" />
 							</MultiBinding>					
 						</Canvas.Left>

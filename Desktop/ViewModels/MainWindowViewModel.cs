@@ -19,6 +19,7 @@
         private readonly ISampleAnalyzer _sampleAnalyzer;
         private readonly ISampleProvider _sampleProvider;
         private readonly object _sampleProviderLock = new();
+        private float _distanceFromBase;
         private float _frequency;
         private Note _note = Note.Empty;
         private float _peakVolume;
@@ -33,12 +34,18 @@
 
         public ITuning SelectedTuning { get; } = new StandardGuitarTuning();
 
+        public float DistanceFromBase {
+            get => this._distanceFromBase;
+            set => this.Set(ref this._distanceFromBase, value);
+        }
+        
         public float Frequency {
             get => this._frequency;
 
             private set {
                 if (this.Set(ref this._frequency, value)) {
-                    this.Note = this.SelectedTuning.GetNearestNote(this.Frequency);
+                    this.Note = this.SelectedTuning.GetNearestNote(this.Frequency, out var distanceFromBase);
+                    this.DistanceFromBase = (float)distanceFromBase;
                 }
             }
         }
