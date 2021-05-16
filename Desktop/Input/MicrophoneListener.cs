@@ -24,19 +24,18 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MicrophoneListener" /> class.
         /// </summary>
-        /// <param name="deviceName">Name of the device.</param>
         /// <param name="format">The format.</param>
         /// <param name="bufferSize">Size of the buffer.</param>
-        public MicrophoneListener(string? deviceName, ALFormat format, int bufferSize) {
+        public MicrophoneListener(ALFormat format, int bufferSize) {
             if (bufferSize <= 0) {
                 throw new ArgumentOutOfRangeException(nameof(bufferSize));
             }
             
             this.BufferSize = bufferSize;
             this._halfBufferSize = this.BufferSize / 2;
-
+            
             this._captureDevice = ALC.CaptureOpenDevice(
-                deviceName, 
+                null, 
                 this.SampleRate, 
                 format,
                 this.BufferSize);

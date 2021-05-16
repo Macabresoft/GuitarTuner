@@ -10,7 +10,6 @@
         MinHeight="500"
         Title="Guitar Tuner by Macabresoft">
 	<Window.Resources>
-		<converters:EqualsConverter x:Key="EqualsConverter" />
 		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
 		<converters:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
 		<converters:NeedlePositionConverter x:Key="NeedlePositionConverter" />
@@ -25,40 +24,7 @@
 				<MenuItem Click="Exit_Click"
                           Header="_Exit" />
 			</MenuItem>
-			
-			<MenuItem Header="Devices"
-			          Items="{Binding AvailableDevices}">
-				<MenuItem.Styles>
-					<Style Selector="MenuItem MenuItem">
-						<Setter Property="Header" 
-						        Value="{Binding}" />
-						<Setter Property="Icon">
-							<Setter.Value>
-								<Template>
-								<TextBlock VerticalAlignment="Center"
-								           HorizontalAlignment="Center"
-								           Margin="0"
-								           Padding="0"
-								           Foreground="{StaticResource BackgroundBrush}"
-								           Text="●">
-									<TextBlock.IsVisible>
-										<MultiBinding Converter="{StaticResource EqualsConverter}">
-											<Binding Path="$parent[MenuItem].Header" />
-											<Binding Path="#_mainWindow.DataContext.SelectedDevice" />
-										</MultiBinding>
-									</TextBlock.IsVisible>
-								</TextBlock>
-								</Template>
-							</Setter.Value>
-						</Setter>
-						<Setter Property="Command" 
-						        Value="{Binding #_mainWindow.DataContext.SelectDeviceCommand}" />
-						<Setter Property="CommandParameter" 
-						        Value="{Binding}"  />
-					</Style>
-				</MenuItem.Styles>
-			</MenuItem>
-			
+
 			<MenuItem Header="Help">
 				<MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
