@@ -13,6 +13,9 @@
 		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
 		<converters:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
 		<converters:NeedlePositionConverter x:Key="NeedlePositionConverter" />
+		<converters:NoteHighlightConverter x:Key="NoteHighlightConverter" />
+		<converters:FlatHighlightConverter x:Key="FlatHighlightConverter" />
+		<converters:SharpHighlightConverter x:Key="SharpHighlightConverter" />
 	</Window.Resources>
 	<Design.DataContext>
 		<viewModels:MainWindowViewModel />
@@ -52,22 +55,48 @@
 				           FontSize="64"
 				           FontWeight="Bold"
 				           TextAlignment="Left"
-				           VerticalAlignment="Bottom"/>
+				           VerticalAlignment="Bottom">
+					<TextBlock.Foreground>
+						<MultiBinding Converter="{StaticResource FlatHighlightConverter}">
+							<Binding Path="Note.DistanceFromBase" />
+							<Binding Path="DistanceFromBase" />
+							<Binding Source="{StaticResource ForegroundBrush}" />
+							<Binding Source="{StaticResource HighlightBrush}" />
+						</MultiBinding>
+					</TextBlock.Foreground>
+				</TextBlock>
 
 				<TextBlock Grid.Column="1"
-				           Foreground="{StaticResource ForegroundBrush}"
 				           Text="{Binding Note.Name}"
 				           FontSize="196"
 				           FontWeight="Bold"
 				           TextAlignment="Center"
-				           VerticalAlignment="Bottom"/>
+				           VerticalAlignment="Bottom">
+					<TextBlock.Foreground>
+						<MultiBinding Converter="{StaticResource NoteHighlightConverter}">
+							<Binding Path="Note.DistanceFromBase" />
+							<Binding Path="DistanceFromBase" />
+							<Binding Source="{StaticResource ForegroundBrush}" />
+							<Binding Source="{StaticResource HighlightBrush}" />
+						</MultiBinding>
+					</TextBlock.Foreground>
+				</TextBlock>
 
 				<TextBlock Grid.Column="2"
 				           Text="♯"
 				           FontSize="64"
 				           FontWeight="Bold"
 				           TextAlignment="Right"
-				           VerticalAlignment="Bottom"/>
+				           VerticalAlignment="Bottom">
+					<TextBlock.Foreground>
+						<MultiBinding Converter="{StaticResource SharpHighlightConverter}">
+							<Binding Path="Note.DistanceFromBase" />
+							<Binding Path="DistanceFromBase" />
+							<Binding Source="{StaticResource ForegroundBrush}" />
+							<Binding Source="{StaticResource HighlightBrush}" />
+						</MultiBinding>
+					</TextBlock.Foreground>
+				</TextBlock>
 			</Grid>
 			
 
