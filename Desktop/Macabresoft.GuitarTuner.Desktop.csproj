@@ -13,18 +13,10 @@
 		<PackageId>Macabresoft.GuitarTuner.Desktop</PackageId>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
-	  <None Remove="icon.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AvaloniaResource Include="icon.ico" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="0.10.3" />
-		<PackageReference Include="Avalonia.Desktop" Version="0.10.3" />
-		<PackageReference Include="Avalonia.ReactiveUI" Version="0.10.3" />
+		<PackageReference Include="Avalonia" Version="0.10.4" />
+		<PackageReference Include="Avalonia.Desktop" Version="0.10.4" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="0.10.4" />
 		<PackageReference Include="Macabresoft.Core" Version="1.0.9" />
 		<PackageReference Include="OpenTK.OpenAL" Version="4.6.3" />
 		<PackageReference Include="System.Runtime" Version="4.3.1" />
@@ -35,5 +27,11 @@
 	<ItemGroup>
 	  <UpToDateCheckInput Remove="Controls\PitchDisplayControl.axaml" />
 	  <UpToDateCheckInput Remove="Controls\SkullControl.axaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="icon.ico" />
+	  <AvaloniaResource Include="icon.ico">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </AvaloniaResource>
 	</ItemGroup>
 </Project>
