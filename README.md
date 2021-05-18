@@ -1,3 +1,3 @@
 # Guitar Tuner
 
-A guitar tuning app for PC.
+A guitar tuning app for desktop.

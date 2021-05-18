@@ -5,6 +5,10 @@
 		<RootNamespace>Macabresoft.GuitarTuner.Library</RootNamespace>
 		<LangVersion>default</LangVersion>
 		<Nullable>enable</Nullable>
+		<Company>Macabresoft</Company>
+		<Product>Guitar Tuner by Macabresoft</Product>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
