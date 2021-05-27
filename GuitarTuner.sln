@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.Tests", "Tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.Desktop", "Desktop\GuitarTuner.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarTuner.Web", "Web\GuitarTuner.Web.csproj", "{31282B06-8FE0-4961-9E08-654D3C14C28F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31282B06-8FE0-4961-9E08-654D3C14C28F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31282B06-8FE0-4961-9E08-654D3C14C28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31282B06-8FE0-4961-9E08-654D3C14C28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31282B06-8FE0-4961-9E08-654D3C14C28F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
