@@ -4,7 +4,6 @@
         xmlns:viewModels="clr-namespace:Macabresoft.GuitarTuner.Desktop.ViewModels"
         x:Class="Macabresoft.GuitarTuner.Desktop.Views.MainWindow"
         Name="_mainWindow"
-        Icon="/icon.ico"
         Width="420"
         MinWidth="420"
         MinHeight="500"

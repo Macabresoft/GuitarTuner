@@ -10,8 +10,8 @@
 		<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
 		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
 
-		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Theme.axaml" />
-		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/Margins.axaml" />
-		<StyleInclude Source="avares://Macabresoft.GuitarTuner.Desktop/Styles/ImplicitStyles.axaml" />
+		<StyleInclude Source="avares://guitar-tuner/Styles/Theme.axaml" />
+		<StyleInclude Source="avares://guitar-tuner/Styles/Margins.axaml" />
+		<StyleInclude Source="avares://guitar-tuner/Styles/ImplicitStyles.axaml" />
 	</Application.Styles>
 </Application>
