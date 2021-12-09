@@ -3,6 +3,7 @@ namespace Macabresoft.GuitarTuner.Desktop {
     using Avalonia.Controls;
     using Avalonia.Controls.Templates;
     using Macabresoft.GuitarTuner.Desktop.ViewModels;
+    using ReactiveUI;
 
     public class ViewLocator : IDataTemplate {
         public IControl Build(object data) {
@@ -19,7 +20,7 @@ namespace Macabresoft.GuitarTuner.Desktop {
         }
 
         public bool Match(object data) {
-            return data is ViewModelBase;
+            return data is ReactiveObject;
         }
     }
 }

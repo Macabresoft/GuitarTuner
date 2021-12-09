@@ -7,11 +7,8 @@
 	</Application.DataTemplates>
 
 	<Application.Styles>
-		<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
-		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
-
-		<StyleInclude Source="avares://guitar-tuner/Styles/Theme.axaml" />
-		<StyleInclude Source="avares://guitar-tuner/Styles/Margins.axaml" />
+		<StyleInclude Source="avares://Macabresoft.AvaloniaEx/Theme/Theme.axaml" />
+		<StyleInclude Source="avares://guitar-tuner/Styles/Colors.axaml" />
 		<StyleInclude Source="avares://guitar-tuner/Styles/ImplicitStyles.axaml" />
 	</Application.Styles>
 </Application>

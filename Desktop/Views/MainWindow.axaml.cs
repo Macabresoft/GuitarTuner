@@ -6,9 +6,10 @@ namespace Macabresoft.GuitarTuner.Desktop.Views {
     using Avalonia.Interactivity;
     using Avalonia.Markup.Xaml;
     using Avalonia.Platform;
+    using Macabresoft.AvaloniaEx;
     using Macabresoft.Core;
 
-    public class MainWindow : Window {
+    public class MainWindow : BaseDialog {
 
         public MainWindow() {
             var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;

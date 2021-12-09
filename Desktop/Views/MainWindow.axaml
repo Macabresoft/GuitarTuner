@@ -1,138 +1,138 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="clr-namespace:Macabresoft.GuitarTuner.Desktop.Converters"
-        xmlns:viewModels="clr-namespace:Macabresoft.GuitarTuner.Desktop.ViewModels"
-        x:Class="Macabresoft.GuitarTuner.Desktop.Views.MainWindow"
-        Name="_mainWindow"
-        Width="420"
-        MinWidth="420"
-        MinHeight="500"
-        Title="Guitar Tuner by Macabresoft">
-	<Window.Resources>
-		<converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
-		<converters:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
-		<converters:NeedlePositionConverter x:Key="NeedlePositionConverter" />
-		<converters:NoteHighlightConverter x:Key="NoteHighlightConverter" />
-		<converters:FlatHighlightConverter x:Key="FlatHighlightConverter" />
-		<converters:SharpHighlightConverter x:Key="SharpHighlightConverter" />
-	</Window.Resources>
-	<Design.DataContext>
-		<viewModels:MainWindowViewModel />
-	</Design.DataContext>
-	<Grid RowDefinitions="Auto, *"
-	      Background="{StaticResource BackgroundBrush}">
-		<Menu Grid.Row="0">
-			<MenuItem Header="File">
-				<MenuItem Click="Exit_Click"
+﻿<avaloniaEx:BaseDialog xmlns="https://github.com/avaloniaui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
+                       xmlns:converters="clr-namespace:Macabresoft.GuitarTuner.Desktop.Converters"
+                       xmlns:viewModels="clr-namespace:Macabresoft.GuitarTuner.Desktop.ViewModels"
+                       x:Class="Macabresoft.GuitarTuner.Desktop.Views.MainWindow"
+                       Width="420"
+                       MinWidth="420"
+                       MinHeight="500"
+                       Title="Guitar Tuner by Macabresoft">
+    <avaloniaEx:BaseDialog.Resources>
+        <converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
+        <converters:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
+        <converters:NeedlePositionConverter x:Key="NeedlePositionConverter" />
+        <converters:NoteHighlightConverter x:Key="NoteHighlightConverter" />
+        <converters:FlatHighlightConverter x:Key="FlatHighlightConverter" />
+        <converters:SharpHighlightConverter x:Key="SharpHighlightConverter" />
+    </avaloniaEx:BaseDialog.Resources>
+    <Design.DataContext>
+        <viewModels:MainWindowViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="Auto, *"
+          Background="{StaticResource BlackBrush}">
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Click="Exit_Click"
                           Header="_Exit" />
-			</MenuItem>
+            </MenuItem>
 
-			<MenuItem Header="Help">
-				<MenuItem Click="ViewSource_Click"
+            <MenuItem Header="Help">
+                <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
-			</MenuItem>
-		</Menu>
-		
-		<Grid Grid.Row="1"
-		      RowDefinitions="*, Auto, Auto, Auto">
-			<Grid.Background>
-				<LinearGradientBrush StartPoint="0%,110%"
-				                     EndPoint="{Binding PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
-					<GradientStop Offset="0"
-					              Color="{StaticResource AccentDarkColor}"/>
-					<GradientStop Offset="1"
-					              Color="{StaticResource BackgroundColor}"/>
-				</LinearGradientBrush>
-			</Grid.Background>
-		
-			<Grid Grid.Row="1"
-			      ColumnDefinitions="Auto, *, Auto">
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1"
+              RowDefinitions="*, Auto, Auto, Auto">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0%,110%"
+                                     EndPoint="{Binding PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
+                    <GradientStop Offset="0"
+                                  Color="{StaticResource AccentDarkColor}" />
+                    <GradientStop Offset="1"
+                                  Color="{StaticResource BackgroundColor}" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="Auto, *, Auto">
 
 
-				<TextBlock Grid.Column="0"
-				           Text="♭"
-				           FontSize="64"
-				           FontWeight="Bold"
-				           TextAlignment="Left"
-				           VerticalAlignment="Bottom">
-					<TextBlock.Foreground>
-						<MultiBinding Converter="{StaticResource FlatHighlightConverter}">
-							<Binding Path="Note.DistanceFromBase" />
-							<Binding Path="DistanceFromBase" />
-							<Binding Source="{StaticResource ForegroundBrush}" />
-							<Binding Source="{StaticResource HighlightBrush}" />
-						</MultiBinding>
-					</TextBlock.Foreground>
-				</TextBlock>
+                <TextBlock Grid.Column="0"
+                           Text="♭"
+                           FontSize="64"
+                           FontWeight="Bold"
+                           TextAlignment="Left"
+                           VerticalAlignment="Bottom">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource FlatHighlightConverter}">
+                            <Binding Path="Note.DistanceFromBase" />
+                            <Binding Path="DistanceFromBase" />
+                            <Binding Source="{StaticResource WhiteBrush}" />
+                            <Binding Source="{StaticResource YellowBrush}" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-				<TextBlock Grid.Column="1"
-				           Text="{Binding Note.Name}"
-				           FontSize="196"
-				           FontWeight="Bold"
-				           TextAlignment="Center"
-				           VerticalAlignment="Bottom">
-					<TextBlock.Foreground>
-						<MultiBinding Converter="{StaticResource NoteHighlightConverter}">
-							<Binding Path="Note.DistanceFromBase" />
-							<Binding Path="DistanceFromBase" />
-							<Binding Source="{StaticResource ForegroundBrush}" />
-							<Binding Source="{StaticResource HighlightBrush}" />
-						</MultiBinding>
-					</TextBlock.Foreground>
-				</TextBlock>
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Note.Name}"
+                           FontSize="196"
+                           FontWeight="Bold"
+                           TextAlignment="Center"
+                           VerticalAlignment="Bottom">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource NoteHighlightConverter}">
+                            <Binding Path="Note.DistanceFromBase" />
+                            <Binding Path="DistanceFromBase" />
+                            <Binding Source="{StaticResource WhiteBrush}" />
+                            <Binding Source="{StaticResource YellowBrush}" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-				<TextBlock Grid.Column="2"
-				           Text="♯"
-				           FontSize="64"
-				           FontWeight="Bold"
-				           TextAlignment="Right"
-				           VerticalAlignment="Bottom">
-					<TextBlock.Foreground>
-						<MultiBinding Converter="{StaticResource SharpHighlightConverter}">
-							<Binding Path="Note.DistanceFromBase" />
-							<Binding Path="DistanceFromBase" />
-							<Binding Source="{StaticResource ForegroundBrush}" />
-							<Binding Source="{StaticResource HighlightBrush}" />
-						</MultiBinding>
-					</TextBlock.Foreground>
-				</TextBlock>
-			</Grid>
-			
+                <TextBlock Grid.Column="2"
+                           Text="♯"
+                           FontSize="64"
+                           FontWeight="Bold"
+                           TextAlignment="Right"
+                           VerticalAlignment="Bottom">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource SharpHighlightConverter}">
+                            <Binding Path="Note.DistanceFromBase" />
+                            <Binding Path="DistanceFromBase" />
+                            <Binding Source="{StaticResource WhiteBrush}" />
+                            <Binding Source="{StaticResource YellowBrush}" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </Grid>
 
-			<Grid Grid.Row="2"
-			      Margin="{StaticResource LargeMarginHorizontal}">
-				<Canvas Height="32"
-				        Width="{Binding $parent.Width}">
-					<Line Canvas.Top="16"
-					      StartPoint="{Binding $parent.Bounds.TopLeft}"
-					      EndPoint="{Binding $parent.Bounds.TopRight}" />
-					
-					<Line StartPoint="{Binding $parent.Bounds.TopLeft}"
-					      EndPoint="{Binding $parent.Bounds.BottomLeft}" />
-					
-					<Line StartPoint="{Binding $parent.Bounds.TopRight}"
-					      EndPoint="{Binding $parent.Bounds.BottomRight}" />
-					
-					<Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
-					      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
 
-					<Polygon Points="-6,0 6,0 0,12">
-						<Canvas.Left>
-							<MultiBinding Converter="{StaticResource NeedlePositionConverter}">
-								<Binding Path="Note" />
-								<Binding Path="DistanceFromBase" />
-								<Binding Path="$parent.Bounds" />
-							</MultiBinding>					
-						</Canvas.Left>
-					</Polygon>
-				</Canvas>
-			</Grid>
+            <Grid Grid.Row="2"
+                  Margin="{StaticResource DoubleMarginAll}">
+                <Canvas Height="32"
+                        Width="{Binding $parent.Width}">
+                    <Line Canvas.Top="16"
+                          StartPoint="{Binding $parent.Bounds.TopLeft}"
+                          EndPoint="{Binding $parent.Bounds.TopRight}" />
 
-			<TextBlock Grid.Row="3"
-	                   HorizontalAlignment="Center"
-	                   VerticalAlignment="Center"
-	                   Foreground="{StaticResource ForegroundBrush}"
-	                   Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
-		</Grid>
-	</Grid>
-</Window>
+                    <Line StartPoint="{Binding $parent.Bounds.TopLeft}"
+                          EndPoint="{Binding $parent.Bounds.BottomLeft}" />
+
+                    <Line StartPoint="{Binding $parent.Bounds.TopRight}"
+                          EndPoint="{Binding $parent.Bounds.BottomRight}" />
+
+                    <Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
+                          EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
+
+                    <Polygon Points="-6,0 6,0 0,12">
+                        <Canvas.Left>
+                            <MultiBinding Converter="{StaticResource NeedlePositionConverter}">
+                                <Binding Path="Note" />
+                                <Binding Path="DistanceFromBase" />
+                                <Binding Path="$parent.Bounds" />
+                            </MultiBinding>
+                        </Canvas.Left>
+                    </Polygon>
+                </Canvas>
+            </Grid>
+
+            <TextBlock Grid.Row="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource WhiteBrush}"
+                       Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
+        </Grid>
+    </Grid>
+</avaloniaEx:BaseDialog>
