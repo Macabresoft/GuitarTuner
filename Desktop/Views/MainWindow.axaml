@@ -7,7 +7,7 @@
                        Width="420"
                        MinWidth="420"
                        MinHeight="500"
-                       Title="Guitar Tuner by Macabresoft">
+                       Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
         <converters:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
         <converters:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
@@ -16,12 +16,12 @@
         <converters:FlatHighlightConverter x:Key="FlatHighlightConverter" />
         <converters:SharpHighlightConverter x:Key="SharpHighlightConverter" />
     </avaloniaEx:BaseDialog.Resources>
-    <Design.DataContext>
-        <viewModels:MainWindowViewModel />
-    </Design.DataContext>
-    <Grid RowDefinitions="Auto, *"
-          Background="{StaticResource BlackBrush}">
-        <Menu Grid.Row="0">
+    <avaloniaEx:BaseDialog.ContentLeftOfMenu>
+        <Border Height="32"
+                Margin="{StaticResource StandardMarginAll}" />
+    </avaloniaEx:BaseDialog.ContentLeftOfMenu>
+    <avaloniaEx:BaseDialog.Menu>
+        <Menu>
             <MenuItem Header="File">
                 <MenuItem Click="Exit_Click"
                           Header="_Exit" />
@@ -32,9 +32,12 @@
                           Header="View _Source" />
             </MenuItem>
         </Menu>
-
-        <Grid Grid.Row="1"
-              RowDefinitions="*, Auto, Auto, Auto">
+    </avaloniaEx:BaseDialog.Menu>
+    <Design.DataContext>
+        <viewModels:MainWindowViewModel />
+    </Design.DataContext>
+    <Border Background="{StaticResource BlackBrush}">
+        <Grid RowDefinitions="*, Auto, Auto, Auto">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0%,110%"
                                      EndPoint="{Binding PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
@@ -134,5 +137,5 @@
                        Foreground="{StaticResource WhiteBrush}"
                        Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
         </Grid>
-    </Grid>
+    </Border>
 </avaloniaEx:BaseDialog>

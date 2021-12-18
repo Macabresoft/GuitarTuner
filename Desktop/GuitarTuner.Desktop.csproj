@@ -19,7 +19,7 @@
 		<PackageReference Include="Avalonia" Version="0.10.10" />
 		<PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
 		<PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
-		<PackageReference Include="Macabresoft.AvaloniaEx" Version="1.0.0" />
+		<PackageReference Include="Macabresoft.AvaloniaEx" Version="1.0.3" />
 		<PackageReference Include="Macabresoft.Core" Version="1.0.10" />
 		<PackageReference Include="OpenTK.OpenAL" Version="4.6.7" />
 		<PackageReference Include="System.Runtime" Version="4.3.1" />
