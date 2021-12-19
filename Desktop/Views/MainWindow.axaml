@@ -4,6 +4,7 @@
                        xmlns:converters="clr-namespace:Macabresoft.GuitarTuner.Desktop.Converters"
                        xmlns:viewModels="clr-namespace:Macabresoft.GuitarTuner.Desktop.ViewModels"
                        x:Class="Macabresoft.GuitarTuner.Desktop.Views.MainWindow"
+                       ShowInTaskbar="True"
                        Width="420"
                        MinWidth="420"
                        MinHeight="500"
