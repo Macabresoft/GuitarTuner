@@ -23,14 +23,14 @@
     </avaloniaEx:BaseDialog.ContentLeftOfMenu>
     <avaloniaEx:BaseDialog.Menu>
         <Menu>
-            <MenuItem Header="File">
-                <MenuItem Click="Exit_Click"
-                          Header="_Exit" />
-            </MenuItem>
-
-            <MenuItem Header="Help">
+            <MenuItem Header="Menu">
                 <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
+                
+                <Separator />
+                
+                <MenuItem Click="Exit_Click"
+                          Header="_Exit" />
             </MenuItem>
         </Menu>
     </avaloniaEx:BaseDialog.Menu>
