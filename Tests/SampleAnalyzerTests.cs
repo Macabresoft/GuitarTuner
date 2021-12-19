@@ -10,7 +10,7 @@
     public class SampleAnalyzerTests {
         [SetUp]
         public void Setup() {
-            this._tuning = new StandardGuitarTuning();
+            this._tuning = new TestTuning();
             this._sampleProvider = new SineWaveSampleProvider(
                 0f,
                 SampleRate,
