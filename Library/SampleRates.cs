@@ -1,12 +1,11 @@
-﻿namespace Macabresoft.GuitarTuner.Library {
-    
+﻿namespace Macabresoft.GuitarTuner.Library; 
+
+/// <summary>
+/// Helper class for sample rates.
+/// </summary>
+public static class SampleRates {
     /// <summary>
-    /// Helper class for sample rates.
+    /// The default sample rate.
     /// </summary>
-    public static class SampleRates {
-        /// <summary>
-        /// The default sample rate.
-        /// </summary>
-        public const int Default = 44100;
-    }
+    public const int Default = 44100;
 }
