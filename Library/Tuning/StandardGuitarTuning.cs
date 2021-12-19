@@ -7,10 +7,10 @@
 public sealed class StandardGuitarTuning : GenericTuning {
     private static readonly Note[] StandardNotes = {
         new(NamedNotes.E, 2),
-        new(NamedNotes.A, 3),
+        new(NamedNotes.A, 2),
         new(NamedNotes.D, 3),
         new(NamedNotes.G, 3),
-        new(NamedNotes.B, 4),
+        new(NamedNotes.B, 3),
         new(NamedNotes.E, 4)
     };
 
