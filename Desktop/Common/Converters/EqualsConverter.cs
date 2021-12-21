@@ -1,4 +1,4 @@
-namespace Macabresoft.GuitarTuner.Desktop.Converters;
+namespace Macabresoft.GuitarTuner.Desktop.Common;
 
 using System;
 using System.Collections.Generic;

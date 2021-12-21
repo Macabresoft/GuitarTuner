@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.Desktop.Input;
+﻿namespace Macabresoft.GuitarTuner.Desktop.UI;
 
 using System;
 using System.Threading;

@@ -1,0 +1,38 @@
+﻿<avaloniaEx:BaseDialog xmlns="https://github.com/avaloniaui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
+                       xmlns:common="clr-namespace:Macabresoft.GuitarTuner.Desktop.Common;assembly=GuitarTuner.Desktop.Common"
+                       xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop.UI"
+                       x:Class="Macabresoft.GuitarTuner.Desktop.UI.MainWindow"
+                       Background="{StaticResource BlackBrush}"
+                       ShowInTaskbar="True"
+                       Width="420"
+                       Height="500"
+                       CanResize="False"
+                       ShowMinimize="True"
+                       Title="Guitar Tuner">
+
+    <avaloniaEx:BaseDialog.ContentLeftOfMenu>
+        <Border Height="32"
+                Margin="{StaticResource StandardMarginAll}" />
+    </avaloniaEx:BaseDialog.ContentLeftOfMenu>
+    <avaloniaEx:BaseDialog.Menu>
+        <Menu>
+            <MenuItem Header="Menu">
+                <MenuItem Click="ViewSource_Click"
+                          Header="View _Source" />
+
+                <Separator />
+
+                <MenuItem Click="Exit_Click"
+                          Header="_Exit" />
+            </MenuItem>
+        </Menu>
+    </avaloniaEx:BaseDialog.Menu>
+    <Design.DataContext>
+        <local:MainWindowViewModel />
+    </Design.DataContext>
+    <Panel>
+        <common:TunerReadoutView />
+    </Panel>
+</avaloniaEx:BaseDialog>
