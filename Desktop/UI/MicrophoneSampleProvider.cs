@@ -12,7 +12,7 @@ using OpenTK.Audio.OpenAL;
 /// A <see cref="ISampleProvider" /> that listens in on a recording device and provides samples
 /// from it.
 /// </summary>
-public class MicrophoneListener : ISampleProvider, IDisposable {
+public class MicrophoneSampleProvider : ISampleProvider, IDisposable {
     private readonly ALCaptureDevice _captureDevice;
     private readonly int _halfBufferSize;
     private bool _isDisposed;
@@ -23,11 +23,11 @@ public class MicrophoneListener : ISampleProvider, IDisposable {
     public event EventHandler<SamplesAvailableEventArgs>? SamplesAvailable;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MicrophoneListener" /> class.
+    /// Initializes a new instance of the <see cref="MicrophoneSampleProvider" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     /// <param name="bufferSize">Size of the buffer.</param>
-    public MicrophoneListener(ALFormat format, int bufferSize) {
+    public MicrophoneSampleProvider(ALFormat format, int bufferSize) {
         if (bufferSize <= 0) {
             throw new ArgumentOutOfRangeException(nameof(bufferSize));
         }
@@ -71,6 +71,7 @@ public class MicrophoneListener : ISampleProvider, IDisposable {
     public void Stop() {
         this._isEnabled = false;
         this._listenTask?.Wait();
+        this._listenTask = null;
         ALC.CaptureStop(this._captureDevice);
     }
 

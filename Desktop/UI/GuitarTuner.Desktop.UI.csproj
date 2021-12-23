@@ -37,5 +37,6 @@
     <ItemGroup>
         <UpToDateCheckInput Remove="Styles\Colors.axaml" />
         <UpToDateCheckInput Remove="Styles\ImplicitStyles.axaml" />
+        <UpToDateCheckInput Remove="Controls\SimulationOptionsControl.axaml" />
     </ItemGroup>
 </Project>

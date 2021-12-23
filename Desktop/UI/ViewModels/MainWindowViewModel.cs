@@ -1,13 +1,17 @@
 ﻿namespace Macabresoft.GuitarTuner.Desktop.UI;
 
-using System;
 using Macabresoft.AvaloniaEx;
-using Macabresoft.GuitarTuner.Library;
 using Macabresoft.GuitarTuner.Library.Input;
-using Macabresoft.GuitarTuner.Library.Tuning;
-using OpenTK.Audio.OpenAL;
-using ReactiveUI;
+using Unity;
 
 public class MainWindowViewModel : BaseDialogViewModel {
+    public MainWindowViewModel() : this(Resolver.Resolve<ISampleProvider>()) {
+    }
 
+    [InjectionConstructor]
+    public MainWindowViewModel(ISampleProvider sampleProvider) {
+        this.SampleProvider = sampleProvider;
+    }
+
+    public ISampleProvider SampleProvider { get; }
 }

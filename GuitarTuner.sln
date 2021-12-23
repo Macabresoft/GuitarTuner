@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.Desktop.UI", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarTuner.Desktop.Common", "Desktop\Common\GuitarTuner.Desktop.Common.csproj", "{0C647503-00C7-48F6-A989-9EEA6C83F156}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{DD6521E8-8FFD-4853-913C-95D3EC584424}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +49,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75670170-EF56-4C8F-96EF-E2DE8E64CC16}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0C647503-00C7-48F6-A989-9EEA6C83F156} = {DD6521E8-8FFD-4853-913C-95D3EC584424}
+		{5473FEA4-E73C-4395-A4CE-421CC7C8279E} = {DD6521E8-8FFD-4853-913C-95D3EC584424}
 	EndGlobalSection
 EndGlobal
