@@ -1,11 +1,15 @@
 ﻿namespace Macabresoft.GuitarTuner.Desktop.Common;
 
+using System.Windows.Input;
 using Macabresoft.GuitarTuner.Library;
 using Macabresoft.GuitarTuner.Library.Input;
 using Macabresoft.GuitarTuner.Library.Tuning;
 using ReactiveUI;
 using Unity;
 
+/// <summary>
+/// A view model for tuner readouts.
+/// </summary>
 public class TunerReadoutViewModel : ReactiveObject {
     /// <summary>
     /// The hold time for a note in seconds. For instance, if a user hits the note E and
@@ -22,10 +26,19 @@ public class TunerReadoutViewModel : ReactiveObject {
     private Note _note = Note.Empty;
     private float _peakVolume;
     private float _timeElapsed;
+    private Note? _tuneToNote;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TunerReadoutViewModel" /> class.
+    /// </summary>
     public TunerReadoutViewModel() : this(Resolver.Resolve<ISampleProvider>(), Resolver.Resolve<ITuning>()) {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TunerReadoutViewModel" /> class.
+    /// </summary>
+    /// <param name="sampleProvider">The sample provider.</param>
+    /// <param name="tuning">The tuning.</param>
     [InjectionConstructor]
     public TunerReadoutViewModel(ISampleProvider sampleProvider, ITuning tuning) {
         this.SelectedTuning = tuning;
@@ -33,35 +46,69 @@ public class TunerReadoutViewModel : ReactiveObject {
         this._sampleAnalyzer = new SampleAnalyzer(this._sampleProvider.SampleRate, this.SelectedTuning);
         this._sampleProvider.SamplesAvailable += this.SampleProvider_SamplesAvailable;
         this._sampleProvider.Start();
+
+        this.SelectTuneToNoteCommand = ReactiveCommand.Create<Note?>(this.SelectTuneToNote);
     }
 
+    /// <summary>
+    /// Gets the selected tuning.
+    /// </summary>
     public ITuning SelectedTuning { get; }
 
+    /// <summary>
+    /// Gets a command to select the <see cref="TuneToNote" />.
+    /// </summary>
+    public ICommand SelectTuneToNoteCommand { get; }
+
+    /// <summary>
+    /// Gets the distance the current frequency is from the base note of the tuning.
+    /// </summary>
     public float DistanceFromBase {
         get => this._distanceFromBase;
-        set => this.RaiseAndSetIfChanged(ref this._distanceFromBase, value);
+        private set => this.RaiseAndSetIfChanged(ref this._distanceFromBase, value);
     }
 
+    /// <summary>
+    /// Gets the frequency.
+    /// </summary>
     public float Frequency {
         get => this._frequency;
-
         private set {
             if (Math.Abs(this._frequency - value) > 0.01f) {
                 this.RaiseAndSetIfChanged(ref this._frequency, value);
-                this.Note = this.SelectedTuning.GetNearestNote(this.Frequency, out var distanceFromBase);
-                this.DistanceFromBase = (float)distanceFromBase;
+                this.ResetNote();
             }
         }
     }
 
+    /// <summary>
+    /// Gets the current nearest note to the current frequency.
+    /// </summary>
     public Note Note {
         get => this._note;
         private set => this.RaiseAndSetIfChanged(ref this._note, value);
     }
 
+    /// <summary>
+    /// Gets the peak volume.
+    /// </summary>
     public float PeakVolume {
         get => this._peakVolume;
         private set => this.RaiseAndSetIfChanged(ref this._peakVolume, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the note for which to tune towards.
+    /// </summary>
+    /// <remarks>
+    /// When this is null, automatic note detection will be enabled (much like your standard guitar tuner).
+    /// </remarks>
+    public Note? TuneToNote {
+        get => this._tuneToNote;
+        private set {
+            this.RaiseAndSetIfChanged(ref this._tuneToNote, value);
+            this.ResetNote();
+        }
     }
 
     private void ClearFrequency() {
@@ -85,6 +132,12 @@ public class TunerReadoutViewModel : ReactiveObject {
         }
     }
 
+    private void ResetNote() {
+        var note = this.SelectedTuning.GetNearestNote(this.Frequency, out var distanceFromBase);
+        this.Note = this.TuneToNote ?? note;
+        this.DistanceFromBase = (float)distanceFromBase;
+    }
+
     private void SampleProvider_SamplesAvailable(object? sender, SamplesAvailableEventArgs e) {
         lock (this._sampleProviderLock) {
             if (sender == this._sampleProvider) {
@@ -104,5 +157,9 @@ public class TunerReadoutViewModel : ReactiveObject {
                 }
             }
         }
+    }
+
+    private void SelectTuneToNote(Note? note) {
+        this.TuneToNote = note;
     }
 }

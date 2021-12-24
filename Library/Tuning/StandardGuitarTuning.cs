@@ -20,7 +20,7 @@ public sealed class StandardGuitarTuning : GenericTuning {
     public StandardGuitarTuning() : base(
         StandardNotes,
         FrequencyCalculator.GetFrequency(NamedNotes.D, 2),
-        FrequencyCalculator.GetFrequency(NamedNotes.F, 4)) {
+        FrequencyCalculator.GetFrequency(NamedNotes.G, 4)) {
     }
 
     /// <inheritdoc />

@@ -71,7 +71,7 @@
                 <Slider Grid.Row="1"
                         Grid.Column="2"
                         Minimum="75"
-                        Maximum="400"
+                        Maximum="380"
                         Value="{Binding SampleProvider.Frequency}"
                         Margin="{StaticResource StandardMarginHorizontal}" />
             </Grid>
