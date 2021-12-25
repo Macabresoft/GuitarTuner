@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Avalonia;
@@ -9,6 +10,10 @@ using Avalonia.Data.Converters;
 using Macabresoft.GuitarTuner.Library;
 
 public class NeedlePositionConverter : IMultiValueConverter {
+
+    private double _previousPosition = -100d;
+    private DateTime _previousUpdate = DateTime.Now;
+    
     public object Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture) {
         var note = values.OfType<Note>().FirstOrDefault();
         var distanceFromBase = values.OfType<float>().FirstOrDefault();
@@ -29,6 +34,24 @@ public class NeedlePositionConverter : IMultiValueConverter {
             }
         }
 
-        return position;
+        if (this._previousPosition < 0d) {
+            this._previousPosition = position;
+        }
+        else {
+            var difference = Math.Abs(this._previousPosition - position);
+
+            if (difference < 1d || difference >= 0.9d * canvasBounds.Width) {
+                this._previousPosition = position;
+            }
+            else {
+                this._previousPosition = Lerp(position, this._previousPosition);
+            }
+        }
+
+        return this._previousPosition;
+    }
+
+    private static double Lerp(double requested, double previous) {
+        return previous * 0.9d + requested * 0.1d;
     }
 }
