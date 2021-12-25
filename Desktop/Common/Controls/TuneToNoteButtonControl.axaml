@@ -7,7 +7,12 @@
     </UserControl.Resources>
     <ToggleButton Content="{Binding $parent[local:TuneToNoteButtonControl].Note.Name, FallbackValue='Auto'}"
                   Command="{Binding $parent[local:TuneToNoteButtonControl].SelectNoteCommand}"
-                  CommandParameter="{Binding $parent[local:TuneToNoteButtonControl].Note}">
+                  CommandParameter="{Binding $parent[local:TuneToNoteButtonControl].Note}"
+                  CornerRadius="20"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  MinHeight="40"
+                  MinWidth="40">
         <ToggleButton.IsChecked>
             <MultiBinding Converter="{StaticResource EqualsConverter}">
                 <Binding Path="$parent[local:TuneToNoteButtonControl].Note" />
