@@ -78,6 +78,8 @@ public class TunerReadoutViewModel : ReactiveObject {
                 this.RaiseAndSetIfChanged(ref this._frequency, value);
                 this.ResetNote();
             }
+            
+            this.RaisePropertyChanged(nameof(this.DistanceFromBase));
         }
     }
 
