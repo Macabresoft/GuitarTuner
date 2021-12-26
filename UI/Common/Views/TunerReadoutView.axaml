@@ -1,0 +1,161 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Common"
+             x:Class="Macabresoft.GuitarTuner.UI.Common.TunerReadoutView">
+    <UserControl.Resources>
+        <local:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
+        <local:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
+        <local:NeedlePositionConverter x:Key="NeedlePositionConverter" />
+        <local:NoteHighlightConverter x:Key="NoteHighlightConverter" />
+        <local:FlatHighlightConverter x:Key="FlatHighlightConverter" />
+        <local:SharpHighlightConverter x:Key="SharpHighlightConverter" />
+    </UserControl.Resources>
+    <Design.DataContext>
+        <local:TunerReadoutViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="*, Auto, Auto, Auto, Auto">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0%,110%"
+                                 EndPoint="{Binding PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
+                <GradientStop Offset="0"
+                              Color="{StaticResource AccentDarkColor}" />
+                <GradientStop Offset="1"
+                              Color="{StaticResource BackgroundColor}" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid Grid.Row="1"
+              ColumnDefinitions="Auto, *, Auto">
+
+
+            <TextBlock Grid.Column="0"
+                       Text="♭"
+                       FontSize="64"
+                       FontWeight="Bold"
+                       TextAlignment="Left"
+                       VerticalAlignment="Bottom">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{StaticResource FlatHighlightConverter}">
+                        <Binding Path="Note.DistanceFromBase" />
+                        <Binding Path="DistanceFromBase" />
+                        <Binding Source="{StaticResource WhiteBrush}" />
+                        <Binding Source="{StaticResource YellowBrush}" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
+
+            <TextBlock Grid.Column="1"
+                       Text="{Binding Note.Name}"
+                       FontSize="196"
+                       FontWeight="Bold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Bottom">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{StaticResource NoteHighlightConverter}">
+                        <Binding Path="Note.DistanceFromBase" />
+                        <Binding Path="DistanceFromBase" />
+                        <Binding Source="{StaticResource WhiteBrush}" />
+                        <Binding Source="{StaticResource YellowBrush}" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
+
+            <TextBlock Grid.Column="2"
+                       Text="♯"
+                       FontSize="64"
+                       FontWeight="Bold"
+                       TextAlignment="Right"
+                       VerticalAlignment="Bottom">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{StaticResource SharpHighlightConverter}">
+                        <Binding Path="Note.DistanceFromBase" />
+                        <Binding Path="DistanceFromBase" />
+                        <Binding Source="{StaticResource WhiteBrush}" />
+                        <Binding Source="{StaticResource YellowBrush}" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </Grid>
+
+
+        <Grid Grid.Row="2"
+              Margin="{StaticResource DoubleMarginAll}">
+            <Canvas Height="32"
+                    Width="{Binding $parent.Width}">
+                <Line Canvas.Top="16"
+                      StartPoint="{Binding $parent.Bounds.TopLeft}"
+                      EndPoint="{Binding $parent.Bounds.TopRight}" />
+
+                <Line StartPoint="{Binding $parent.Bounds.TopLeft}"
+                      EndPoint="{Binding $parent.Bounds.BottomLeft}" />
+
+                <Line StartPoint="{Binding $parent.Bounds.TopRight}"
+                      EndPoint="{Binding $parent.Bounds.BottomRight}" />
+
+                <Line StartPoint="{Binding $parent.Bounds.TopRight, Converter={StaticResource HalfWidthPointConverter}}"
+                      EndPoint="{Binding $parent.Bounds.BottomRight, Converter={StaticResource HalfWidthPointConverter}}" />
+
+                <Polygon Points="-6,0 6,0 0,12">
+                    <Canvas.Left>
+                        <MultiBinding Converter="{StaticResource NeedlePositionConverter}">
+                            <Binding Path="Note" />
+                            <Binding Path="DistanceFromBase" />
+                            <Binding Path="$parent.Bounds" />
+                        </MultiBinding>
+                    </Canvas.Left>
+                </Polygon>
+            </Canvas>
+        </Grid>
+
+        <TextBlock Grid.Row="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Foreground="{StaticResource WhiteBrush}"
+                   Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
+        
+        <Grid Grid.Row="4"
+              ColumnDefinitions="*, *, *, *, *, *, *"
+              Margin="{StaticResource DoubleMarginAll}">
+            <local:TuneToNoteButtonControl Grid.Column="0"
+                                           HorizontalAlignment="Left"
+                                           Note="{Binding SelectedTuning.Notes[0]}"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+            
+            <local:TuneToNoteButtonControl Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Note="{Binding SelectedTuning.Notes[1]}"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+            
+            <local:TuneToNoteButtonControl Grid.Column="2"
+                                           HorizontalAlignment="Left"
+                                           Note="{Binding SelectedTuning.Notes[2]}"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+            
+            <local:TuneToNoteButtonControl Grid.Column="3"
+                                           HorizontalAlignment="Center"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+            
+            <local:TuneToNoteButtonControl Grid.Column="4"
+                                           HorizontalAlignment="Right"
+                                           Note="{Binding SelectedTuning.Notes[3]}"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+            
+            <local:TuneToNoteButtonControl Grid.Column="5"
+                                           HorizontalAlignment="Right"
+                                           Note="{Binding SelectedTuning.Notes[4]}"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+            
+            <local:TuneToNoteButtonControl Grid.Column="6"
+                                           HorizontalAlignment="Right"
+                                           Note="{Binding SelectedTuning.Notes[5]}"
+                                           SelectedNote="{Binding TuneToNote}"
+                                           SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+        </Grid>
+    </Grid>
+</UserControl>
