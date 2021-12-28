@@ -3,6 +3,7 @@
 using Macabresoft.AvaloniaEx;
 using Macabresoft.GuitarTuner.Library.Input;
 using Macabresoft.GuitarTuner.Library.Tuning;
+using Macabresoft.GuitarTuner.UI.Common;
 using Unity;
 
 public class MainWindowViewModel : BaseDialogViewModel {
