@@ -18,9 +18,9 @@
             <LinearGradientBrush StartPoint="0%,110%"
                                  EndPoint="{Binding PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
                 <GradientStop Offset="0"
-                              Color="{StaticResource AccentDarkColor}" />
+                              Color="{StaticResource SystemAccentColor}" />
                 <GradientStop Offset="1"
-                              Color="{StaticResource BackgroundColor}" />
+                              Color="{StaticResource SystemAltHighColor}" />
             </LinearGradientBrush>
         </Grid.Background>
 

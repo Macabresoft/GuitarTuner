@@ -4,7 +4,6 @@
                        xmlns:common="clr-namespace:Macabresoft.GuitarTuner.UI.Common;assembly=GuitarTuner.UI.Common"
                        xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Desktop"
                        x:Class="Macabresoft.GuitarTuner.UI.Desktop.MainWindow"
-                       Background="{StaticResource BlackBrush}"
                        ShowInTaskbar="True"
                        Width="420"
                        Height="500"

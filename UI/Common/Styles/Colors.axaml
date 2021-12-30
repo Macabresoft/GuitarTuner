@@ -1,9 +1,0 @@
-﻿<Style xmlns="https://github.com/avaloniaui"
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style.Resources>
-        <Color x:Key="AccentDarkColor">#483646</Color>
-        <Color x:Key="BackgroundColor">#111111</Color>
-
-        <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource BackgroundColor}" />
-    </Style.Resources>
-</Style>
