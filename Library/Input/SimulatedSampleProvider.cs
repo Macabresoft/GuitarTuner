@@ -6,7 +6,9 @@
     using Macabresoft.Core;
     using Macabresoft.GuitarTuner.Library.Input;
 
-    public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider {
+    public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider
+    {
+        private readonly Random _random = new();
         private bool _isEnabled;
         private Task? _sampleTask;
         private float _frequency = 75f;
@@ -75,6 +77,7 @@
 
         private void ResendSamples(float frequency, float volume) {
             var samples = new float[this.BufferSize];
+            frequency = frequency + 0.5f - (this._random.Next(-100, 100) / 200f);
             for (var i = 0; i < samples.Length; i++) {
                 samples[i] = volume * (float)Math.Sin(i * frequency * Math.PI * 2 / this.SampleRate);
             }
