@@ -1,11 +1,12 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Common"
-             x:Class="Macabresoft.GuitarTuner.UI.Common.TuneToNoteButtonControl">
+             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Desktop"
+             x:Class="Macabresoft.GuitarTuner.UI.Desktop.TuneToNoteButtonControl">
     <UserControl.Resources>
         <local:EqualsConverter x:Key="EqualsConverter" />
+        <local:NoteNameConverter x:Key="NoteNameConverter" />
     </UserControl.Resources>
-    <ToggleButton Content="{Binding $parent[local:TuneToNoteButtonControl].Note.Name, FallbackValue='Auto'}"
+    <ToggleButton Content="{Binding $parent[local:TuneToNoteButtonControl].Note, Converter={StaticResource NoteNameConverter}}"
                   Command="{Binding $parent[local:TuneToNoteButtonControl].SelectNoteCommand}"
                   CommandParameter="{Binding $parent[local:TuneToNoteButtonControl].Note}"
                   CornerRadius="20"

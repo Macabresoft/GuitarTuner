@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Common;
+﻿namespace Macabresoft.GuitarTuner.UI.Desktop;
 
 using System.Windows.Input;
 using Avalonia;
@@ -8,7 +8,7 @@ using Macabresoft.GuitarTuner.Library;
 
 public class TuneToNoteButtonControl : UserControl {
     public static readonly StyledProperty<Note> NoteProperty =
-        AvaloniaProperty.Register<TuneToNoteButtonControl, Note>(nameof(Note));
+        AvaloniaProperty.Register<TuneToNoteButtonControl, Note>(nameof(Note), Note.Empty);
 
     public static readonly StyledProperty<Note> SelectedNoteProperty =
         AvaloniaProperty.Register<TuneToNoteButtonControl, Note>(nameof(SelectedNote));

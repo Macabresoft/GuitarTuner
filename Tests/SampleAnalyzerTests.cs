@@ -43,7 +43,7 @@ public class SampleAnalyzerTests {
     [TestCase(80f)]
     public void GetBufferInformation_Should_ReturnCorrectBufferInformation(float frequency) {
         this._sampleProvider.Frequency = frequency;
-        var sampleAnalyzer = new SampleAnalyzer(this._sampleProvider.SampleRate, new StandardGuitarTuning());
+        var sampleAnalyzer = new SampleAnalyzer(new StandardGuitarTuning());
 
         var samples = this._sampleProvider.GetSampleBuffer();
         var bufferInformation = sampleAnalyzer.GetBufferInformation(samples);

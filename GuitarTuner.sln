@@ -17,10 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.Tests", "Tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.UI.Destop", "UI\Desktop\GuitarTuner.UI.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarTuner.UI.Common", "UI\Common\GuitarTuner.UI.Common.csproj", "{0C647503-00C7-48F6-A989-9EEA6C83F156}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{DD6521E8-8FFD-4853-913C-95D3EC584424}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +35,6 @@ Global
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5473FEA4-E73C-4395-A4CE-421CC7C8279E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C647503-00C7-48F6-A989-9EEA6C83F156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C647503-00C7-48F6-A989-9EEA6C83F156}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C647503-00C7-48F6-A989-9EEA6C83F156}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C647503-00C7-48F6-A989-9EEA6C83F156}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,7 +43,5 @@ Global
 		SolutionGuid = {75670170-EF56-4C8F-96EF-E2DE8E64CC16}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0C647503-00C7-48F6-A989-9EEA6C83F156} = {DD6521E8-8FFD-4853-913C-95D3EC584424}
-		{5473FEA4-E73C-4395-A4CE-421CC7C8279E} = {DD6521E8-8FFD-4853-913C-95D3EC584424}
 	EndGlobalSection
 EndGlobal

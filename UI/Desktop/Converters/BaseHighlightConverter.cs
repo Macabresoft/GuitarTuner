@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Common;
+﻿namespace Macabresoft.GuitarTuner.UI.Desktop;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ public abstract class BaseHighlightConverter : IMultiValueConverter {
     protected virtual float AcceptableDifference => 0.5f;
     protected abstract float DistanceOffset { get; }
 
-    public object Convert(IList<object> values, Type targetType, object parameter, CultureInfo culture) {
+    public object Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture) {
         var defaultBrush = values[2] as Brush;
         if (values.Count == 4 &&
             values[0] is int noteDistanceFromBase &&

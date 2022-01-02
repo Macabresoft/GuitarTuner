@@ -35,12 +35,8 @@ public sealed class SampleAnalyzer : ISampleAnalyzer {
     /// <summary>
     /// Initializes a new instance of the <see cref="SampleAnalyzer" /> class.
     /// </summary>
-    public SampleAnalyzer(int sampleRate, ITuning tuning) {
-        if (sampleRate <= 0) {
-            throw new ArgumentOutOfRangeException(nameof(sampleRate));
-        }
-
-        this._sampleRate = sampleRate;
+    public SampleAnalyzer(ITuning tuning) {
+        this._sampleRate = SampleRates.Default;
         this._tuning = tuning;
         this.ResetPeriods();
     }

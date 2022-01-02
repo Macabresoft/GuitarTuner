@@ -1,7 +1,6 @@
 ﻿<avaloniaEx:BaseDialog xmlns="https://github.com/avaloniaui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
-                       xmlns:common="clr-namespace:Macabresoft.GuitarTuner.UI.Common;assembly=GuitarTuner.UI.Common"
                        xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Desktop"
                        x:Class="Macabresoft.GuitarTuner.UI.Desktop.MainWindow"
                        ShowInTaskbar="True"
@@ -12,7 +11,7 @@
                        ShowIcon="False"
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
-        <common:ToPercentageConverter x:Key="ToPercentageConverter" />
+        <local:ToPercentageConverter x:Key="ToPercentageConverter" />
     </avaloniaEx:BaseDialog.Resources>
     <avaloniaEx:BaseDialog.Menu>
         <Menu>
@@ -34,7 +33,7 @@
         <local:MainWindowViewModel />
     </Design.DataContext>
     <Grid RowDefinitions="*, Auto">
-        <common:TunerReadoutView Grid.Row="0" />
+        <local:TunerReadoutView Grid.Row="0" />
 
         <Border Grid.Row="1"
                 IsVisible="{x:Static local:App.IsSimulated}"

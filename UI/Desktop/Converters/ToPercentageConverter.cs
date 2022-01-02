@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Common;
+﻿namespace Macabresoft.GuitarTuner.UI.Desktop;
 
 using System;
 using System.Globalization;
@@ -9,7 +9,7 @@ using Avalonia.Data.Converters;
 /// </summary>
 public class ToPercentageConverter : IValueConverter {
     /// <inheritdoc />
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) {
         var percentage = "0%";
         if (value is float floatValue) {
             percentage = $"{floatValue * 100f:0.00}%";
@@ -19,7 +19,7 @@ public class ToPercentageConverter : IValueConverter {
     }
 
     /// <inheritdoc />
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) {
         throw new NotImplementedException();
     }
 }

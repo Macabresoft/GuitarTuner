@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Common;
+﻿namespace Macabresoft.GuitarTuner.UI.Desktop;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Macabresoft.GuitarTuner.Library;
 public class NeedlePositionConverter : IMultiValueConverter {
     private double _previousPosition = -100d;
 
-    public object Convert(IList<object> values, Type targetType, object parameter, CultureInfo culture) {
+    public object Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture) {
         var note = values.OfType<Note>().FirstOrDefault();
         var distanceFromBase = values.OfType<float>().FirstOrDefault();
         var canvasBounds = values.OfType<Rect>().FirstOrDefault();
