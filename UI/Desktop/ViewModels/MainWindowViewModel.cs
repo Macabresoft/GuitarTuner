@@ -7,11 +7,11 @@ using Macabresoft.GuitarTuner.UI.Common;
 using Unity;
 
 public class MainWindowViewModel : BaseDialogViewModel {
-    public MainWindowViewModel() : this(Resolver.Resolve<ISampleProvider>(), Resolver.Resolve<ITuning>()) {
+    public MainWindowViewModel() : this(Resolver.Resolve<ISampleProvider>()) {
     }
 
     [InjectionConstructor]
-    public MainWindowViewModel(ISampleProvider sampleProvider, ITuning tuning) {
+    public MainWindowViewModel(ISampleProvider sampleProvider) {
         this.SampleProvider = sampleProvider;
     }
 
