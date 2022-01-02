@@ -9,17 +9,17 @@
                        Height="500"
                        CanResize="False"
                        ShowMinimize="True"
+                       ShowIcon="False"
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
         <common:ToPercentageConverter x:Key="ToPercentageConverter" />
     </avaloniaEx:BaseDialog.Resources>
-    <avaloniaEx:BaseDialog.ContentLeftOfMenu>
-        <Border Height="32"
-                Margin="{StaticResource StandardMarginAll}" />
-    </avaloniaEx:BaseDialog.ContentLeftOfMenu>
     <avaloniaEx:BaseDialog.Menu>
         <Menu>
-            <MenuItem Header="Menu">
+            <MenuItem>
+                <MenuItem.Header>
+                    <avaloniaEx:Icon Content="{StaticResource MenuIcon}" />
+                </MenuItem.Header>
                 <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
 
