@@ -112,7 +112,7 @@
                    VerticalAlignment="Center"
                    Foreground="{StaticResource WhiteBrush}"
                    Text="{Binding Frequency, Mode=OneWay, StringFormat={}{0:n} Hz}" />
-        
+
         <Grid Grid.Row="4"
               ColumnDefinitions="*, *, *, *, *, *, *"
               Margin="{StaticResource DoubleMarginAll}">
@@ -121,36 +121,36 @@
                                            Note="{Binding SelectedTuning.Notes[0]}"
                                            SelectedNote="{Binding TuneToNote}"
                                            SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-            
+
             <local:TuneToNoteButtonControl Grid.Column="1"
                                            HorizontalAlignment="Left"
                                            Note="{Binding SelectedTuning.Notes[1]}"
                                            SelectedNote="{Binding TuneToNote}"
                                            SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-            
+
             <local:TuneToNoteButtonControl Grid.Column="2"
                                            HorizontalAlignment="Left"
                                            Note="{Binding SelectedTuning.Notes[2]}"
                                            SelectedNote="{Binding TuneToNote}"
                                            SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-            
+
             <local:TuneToNoteButtonControl Grid.Column="3"
                                            HorizontalAlignment="Center"
                                            SelectedNote="{Binding TuneToNote}"
                                            SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-            
+
             <local:TuneToNoteButtonControl Grid.Column="4"
                                            HorizontalAlignment="Right"
                                            Note="{Binding SelectedTuning.Notes[3]}"
                                            SelectedNote="{Binding TuneToNote}"
                                            SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-            
+
             <local:TuneToNoteButtonControl Grid.Column="5"
                                            HorizontalAlignment="Right"
                                            Note="{Binding SelectedTuning.Notes[4]}"
                                            SelectedNote="{Binding TuneToNote}"
                                            SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-            
+
             <local:TuneToNoteButtonControl Grid.Column="6"
                                            HorizontalAlignment="Right"
                                            Note="{Binding SelectedTuning.Notes[5]}"

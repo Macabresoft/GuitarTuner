@@ -1,6 +1,5 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Common {
+﻿namespace Macabresoft.GuitarTuner.UI.Common; 
 
-    public class FlatHighlightConverter : BaseHighlightConverter {
-        protected override float DistanceOffset => -1f;
-    }
+public class FlatHighlightConverter : BaseHighlightConverter {
+    protected override float DistanceOffset => -1f;
 }
