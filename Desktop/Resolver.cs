@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Desktop;
+﻿namespace Macabresoft.GuitarTuner.Desktop;
 
 using Unity;
 using Unity.Resolution;

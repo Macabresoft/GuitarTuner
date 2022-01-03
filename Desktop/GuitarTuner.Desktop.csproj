@@ -9,11 +9,11 @@
         <Authors>Macabresoft, Brett Story</Authors>
         <Company>Macabresoft</Company>
         <LangVersion>default</LangVersion>
-        <PackageId>Macabresoft.GuitarTuner.UI.Desktop.UI</PackageId>
+        <PackageId>Macabresoft.GuitarTuner.Desktop.UI</PackageId>
         <Nullable>enable</Nullable>
         <PackageVersion>1.0.0</PackageVersion>
         <Product>Guitar Tuner by Macabresoft</Product>
-        <AssemblyName>GuitarTuner</AssemblyName>
+        <AssemblyName>Guitar Tuner by Macabresoft</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="0.10.11" />

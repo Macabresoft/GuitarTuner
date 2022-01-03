@@ -1,8 +1,8 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Desktop"
+             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
              xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
-             x:Class="Macabresoft.GuitarTuner.UI.Desktop.App"
+             x:Class="Macabresoft.GuitarTuner.Desktop.App"
              Name="Guitar Tuner by Macabresoft">
     <Application.DataTemplates>
         <local:ViewLocator />
@@ -10,6 +10,6 @@
 
     <Application.Styles>
         <avaloniaEx:MacabreTheme Accent="Green" />
-        <StyleInclude Source="avares://GuitarTuner/Styles/ImplicitStyles.axaml" />
+        <StyleInclude Source="avares://Guitar Tuner by Macabresoft/Styles/ImplicitStyles.axaml" />
     </Application.Styles>
 </Application>

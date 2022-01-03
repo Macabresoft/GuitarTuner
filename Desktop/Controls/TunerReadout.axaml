@@ -1,7 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Desktop"
-             x:Class="Macabresoft.GuitarTuner.UI.Desktop.TunerReadout">
+             xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
+             x:Class="Macabresoft.GuitarTuner.Desktop.TunerReadout">
     <UserControl.Resources>
         <local:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
         <local:NeedlePositionConverter x:Key="NeedlePositionConverter" />
