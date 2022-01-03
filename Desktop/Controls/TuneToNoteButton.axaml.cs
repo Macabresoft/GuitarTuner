@@ -6,17 +6,17 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Macabresoft.GuitarTuner.Library;
 
-public class TuneToNoteButtonControl : UserControl {
+public class TuneToNoteButton : UserControl {
     public static readonly StyledProperty<Note> NoteProperty =
-        AvaloniaProperty.Register<TuneToNoteButtonControl, Note>(nameof(Note), Note.Empty);
+        AvaloniaProperty.Register<TuneToNoteButton, Note>(nameof(Note), Note.Empty);
 
     public static readonly StyledProperty<Note> SelectedNoteProperty =
-        AvaloniaProperty.Register<TuneToNoteButtonControl, Note>(nameof(SelectedNote));
+        AvaloniaProperty.Register<TuneToNoteButton, Note>(nameof(SelectedNote));
 
     public static readonly StyledProperty<ICommand> SelectNoteCommandProperty =
-        AvaloniaProperty.Register<TuneToNoteButtonControl, ICommand>(nameof(SelectNoteCommand));
+        AvaloniaProperty.Register<TuneToNoteButton, ICommand>(nameof(SelectNoteCommand));
 
-    public TuneToNoteButtonControl() {
+    public TuneToNoteButton() {
         this.InitializeComponent();
     }
 

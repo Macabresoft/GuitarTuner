@@ -1,14 +1,14 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Macabresoft.GuitarTuner.UI.Desktop"
-             x:Class="Macabresoft.GuitarTuner.UI.Desktop.TuneToNoteButtonControl">
+             x:Class="Macabresoft.GuitarTuner.UI.Desktop.TuneToNoteButton">
     <UserControl.Resources>
         <local:EqualsConverter x:Key="EqualsConverter" />
         <local:NoteNameConverter x:Key="NoteNameConverter" />
     </UserControl.Resources>
-    <ToggleButton Content="{Binding $parent[local:TuneToNoteButtonControl].Note, Converter={StaticResource NoteNameConverter}}"
-                  Command="{Binding $parent[local:TuneToNoteButtonControl].SelectNoteCommand}"
-                  CommandParameter="{Binding $parent[local:TuneToNoteButtonControl].Note}"
+    <ToggleButton Content="{Binding $parent[local:TuneToNoteButton].Note, Converter={StaticResource NoteNameConverter}}"
+                  Command="{Binding $parent[local:TuneToNoteButton].SelectNoteCommand}"
+                  CommandParameter="{Binding $parent[local:TuneToNoteButton].Note}"
                   CornerRadius="20"
                   HorizontalContentAlignment="Center"
                   VerticalContentAlignment="Center"
@@ -16,8 +16,8 @@
                   MinWidth="40">
         <ToggleButton.IsChecked>
             <MultiBinding Converter="{StaticResource EqualsConverter}">
-                <Binding Path="$parent[local:TuneToNoteButtonControl].Note" />
-                <Binding Path="$parent[local:TuneToNoteButtonControl].SelectedNote" />
+                <Binding Path="$parent[local:TuneToNoteButton].Note" />
+                <Binding Path="$parent[local:TuneToNoteButton].SelectedNote" />
             </MultiBinding>
         </ToggleButton.IsChecked>
     </ToggleButton>

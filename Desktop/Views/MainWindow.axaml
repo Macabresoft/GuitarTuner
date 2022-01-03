@@ -12,6 +12,7 @@
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
         <local:ToPercentageConverter x:Key="ToPercentageConverter" />
+        <local:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
     </avaloniaEx:BaseDialog.Resources>
     <avaloniaEx:BaseDialog.Menu>
         <Menu>
@@ -32,10 +33,66 @@
     <Design.DataContext>
         <local:MainWindowViewModel />
     </Design.DataContext>
-    <Grid RowDefinitions="*, Auto">
-        <local:TunerReadoutView Grid.Row="0" />
+    <Grid RowDefinitions="*, Auto, Auto">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0%,110%"
+                                 EndPoint="{Binding SampleService.PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
+                <GradientStop Offset="0"
+                              Color="{StaticResource SystemAccentColor}" />
+                <GradientStop Offset="1"
+                              Color="{StaticResource SystemAltHighColor}" />
+            </LinearGradientBrush>
+        </Grid.Background>
 
-        <Border Grid.Row="1"
+        <local:TunerReadout Grid.Row="0"
+                            SampleService="{Binding SampleService}"/>
+
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*, *, *, *, *, *, *"
+              Margin="{StaticResource DoubleMarginAll}">
+            <local:TuneToNoteButton Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    Note="{Binding SelectedTuning.Notes[0]}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+
+            <local:TuneToNoteButton Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    Note="{Binding SelectedTuning.Notes[1]}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+
+            <local:TuneToNoteButton Grid.Column="2"
+                                    HorizontalAlignment="Left"
+                                    Note="{Binding SelectedTuning.Notes[2]}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+
+            <local:TuneToNoteButton Grid.Column="3"
+                                    HorizontalAlignment="Center"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+
+            <local:TuneToNoteButton Grid.Column="4"
+                                    HorizontalAlignment="Right"
+                                    Note="{Binding SelectedTuning.Notes[3]}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+
+            <local:TuneToNoteButton Grid.Column="5"
+                                    HorizontalAlignment="Right"
+                                    Note="{Binding SelectedTuning.Notes[4]}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+
+            <local:TuneToNoteButton Grid.Column="6"
+                                    HorizontalAlignment="Right"
+                                    Note="{Binding SelectedTuning.Notes[5]}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
+        </Grid>
+
+        <Border Grid.Row="2"
                 IsVisible="{x:Static local:App.IsSimulated}"
                 BorderThickness="2"
                 BorderBrush="{StaticResource WhiteBrush}"
