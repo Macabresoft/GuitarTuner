@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.Library; 
+﻿namespace Macabresoft.GuitarTuner.Library;
 
 /// <summary>
 /// Helper class for sample rates.

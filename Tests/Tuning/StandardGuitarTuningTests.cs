@@ -3,7 +3,6 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Macabresoft.GuitarTuner.Library;
-using Macabresoft.GuitarTuner.Library.Tuning;
 using NUnit.Framework;
 
 [TestFixture]

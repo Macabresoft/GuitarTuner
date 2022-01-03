@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.Library.Tuning;
+﻿namespace Macabresoft.GuitarTuner.Library;
 
 /// <summary>
 /// Provides a tuning for standard guitars.

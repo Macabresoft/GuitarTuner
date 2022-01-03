@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.Library.Tuning;
+﻿namespace Macabresoft.GuitarTuner.Library;
 
 using System;
 using System.Collections.Generic;

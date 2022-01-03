@@ -3,6 +3,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Macabresoft.GuitarTuner.Library;
 
 public class TunerReadout : UserControl {
     public static readonly StyledProperty<ISampleService> SampleServiceProperty =

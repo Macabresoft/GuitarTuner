@@ -52,42 +52,42 @@
               Margin="{StaticResource DoubleMarginAll}">
             <local:TuneToNoteButton Grid.Column="0"
                                     HorizontalAlignment="Left"
-                                    Note="{Binding SelectedTuning.Notes[0]}"
+                                    Note="{Binding TuningService.SelectedTuning.Notes[0]}"
                                     SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="1"
                                     HorizontalAlignment="Left"
-                                    Note="{Binding SelectedTuning.Notes[1]}"
+                                    Note="{Binding TuningService.SelectedTuning.Notes[1]}"
                                     SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="2"
                                     HorizontalAlignment="Left"
-                                    Note="{Binding SelectedTuning.Notes[2]}"
+                                    Note="{Binding TuningService.SelectedTuning.Notes[2]}"
                                     SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="3"
                                     HorizontalAlignment="Center"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
+                                    SelectedNote="{Binding TuningService.SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="4"
                                     HorizontalAlignment="Right"
-                                    Note="{Binding SelectedTuning.Notes[3]}"
+                                    Note="{Binding TuningService.SelectedTuning.Notes[3]}"
                                     SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="5"
                                     HorizontalAlignment="Right"
-                                    Note="{Binding SelectedTuning.Notes[4]}"
+                                    Note="{Binding TuningService.SelectedTuning.Notes[4]}"
                                     SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="6"
                                     HorizontalAlignment="Right"
-                                    Note="{Binding SelectedTuning.Notes[5]}"
+                                    Note="{Binding TuningService.SelectedTuning.Notes[5]}"
                                     SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
         </Grid>

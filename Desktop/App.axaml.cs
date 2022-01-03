@@ -6,8 +6,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Macabresoft.GuitarTuner.Library;
-using Macabresoft.GuitarTuner.Library.Input;
-using Macabresoft.GuitarTuner.Library.Tuning;
 using OpenTK.Audio.OpenAL;
 using Unity;
 
@@ -30,10 +28,9 @@ public class App : Application {
         if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             Resolver.Container.RegisterType<ISampleService, SampleService>();
             Resolver.Container.RegisterType<ISampleAnalyzer, SampleAnalyzer>();
+            Resolver.Container.RegisterType<ITuningService, TuningService>();
 
-            // TODO: tuning and listeners should be provided dynamically, probably with a factory pattern
-            var tuning = new StandardGuitarTuning();
-            Resolver.Container.RegisterInstance<ITuning>(tuning);
+            var tuning = Resolver.Resolve<ITuningService>().SelectedTuning;
             var bufferSize = (int)Math.Ceiling(SampleRates.Default / tuning.MinimumFrequency) * 2;
             ISampleProvider sampleProvider;
             if (desktop.Args.Any(x => string.Equals(x, SimulationArg, StringComparison.OrdinalIgnoreCase))) {

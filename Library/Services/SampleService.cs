@@ -1,9 +1,6 @@
-﻿namespace Macabresoft.GuitarTuner.UI.Desktop;
+﻿namespace Macabresoft.GuitarTuner.Library;
 
-using System;
-using Macabresoft.GuitarTuner.Library;
-using Macabresoft.GuitarTuner.Library.Input;
-using ReactiveUI;
+using Macabresoft.Core;
 
 /// <summary>
 /// Interface for a service which handles sampling operations.
@@ -41,7 +38,7 @@ public interface ISampleService {
 /// <summary>
 /// Services which handles sampling operations.
 /// </summary>
-public class SampleService : ReactiveObject, ISampleService {
+public class SampleService : PropertyChangedNotifier, ISampleService {
     /// <summary>
     /// The hold time for a note in seconds. For instance, if a user hits the note E and
     /// then provides no sound for 3 seconds, the frequency will continue to report E
@@ -51,6 +48,7 @@ public class SampleService : ReactiveObject, ISampleService {
 
     private readonly ISampleAnalyzer _sampleAnalyzer;
     private readonly object _sampleProviderLock = new();
+    private readonly ITuningService _tuningService;
     private float _distanceFromBase;
     private float _frequency;
     private Note _note = Note.Empty;
@@ -64,9 +62,11 @@ public class SampleService : ReactiveObject, ISampleService {
     /// </summary>
     /// <param name="sampleAnalyzer">The sample analyzer.</param>
     /// <param name="sampleProvider">The sample provider.</param>
-    public SampleService(ISampleAnalyzer sampleAnalyzer, ISampleProvider sampleProvider) {
+    /// <param name="tuningService">The tuning service.</param>
+    public SampleService(ISampleAnalyzer sampleAnalyzer, ISampleProvider sampleProvider, ITuningService tuningService) {
         this._sampleAnalyzer = sampleAnalyzer;
         this._sampleProvider = sampleProvider;
+        this._tuningService = tuningService;
 
         this.StartSampleProvider();
     }
@@ -74,7 +74,7 @@ public class SampleService : ReactiveObject, ISampleService {
     /// <inheritdoc />
     public float DistanceFromBase {
         get => this._distanceFromBase;
-        private set => this.RaiseAndSetIfChanged(ref this._distanceFromBase, value);
+        private set => this.Set(ref this._distanceFromBase, value);
     }
 
     /// <summary>
@@ -83,8 +83,7 @@ public class SampleService : ReactiveObject, ISampleService {
     public float Frequency {
         get => this._frequency;
         private set {
-            if (Math.Abs(this._frequency - value) > 0.01f) {
-                this.RaiseAndSetIfChanged(ref this._frequency, value);
+            if (this.Set(ref this._frequency, value)) {
                 this.ResetNote();
             }
 
@@ -95,13 +94,13 @@ public class SampleService : ReactiveObject, ISampleService {
     /// <inheritdoc />
     public Note Note {
         get => this._note;
-        private set => this.RaiseAndSetIfChanged(ref this._note, value);
+        private set => this.Set(ref this._note, value);
     }
 
     /// <inheritdoc />
     public float PeakVolume {
         get => this._peakVolume;
-        private set => this.RaiseAndSetIfChanged(ref this._peakVolume, value);
+        private set => this.Set(ref this._peakVolume, value);
     }
 
     /// <inheritdoc />
@@ -109,7 +108,7 @@ public class SampleService : ReactiveObject, ISampleService {
         get => this._sampleProvider;
         set {
             this.StopSampleProvider();
-            this.RaiseAndSetIfChanged(ref this._sampleProvider, value);
+            this.Set(ref this._sampleProvider, value);
             this.StartSampleProvider();
         }
     }
@@ -118,7 +117,7 @@ public class SampleService : ReactiveObject, ISampleService {
     public Note TuneToNote {
         get => this._tuneToNote;
         set {
-            this.RaiseAndSetIfChanged(ref this._tuneToNote, value);
+            this.Set(ref this._tuneToNote, value);
             this.ResetNote();
         }
     }
@@ -145,7 +144,7 @@ public class SampleService : ReactiveObject, ISampleService {
     }
 
     private void ResetNote() {
-        var note = this._sampleAnalyzer.Tuning.GetNearestNote(this.Frequency, out var distanceFromBase);
+        var note = this._tuningService.SelectedTuning.GetNearestNote(this.Frequency, out var distanceFromBase);
         this.Note = this.TuneToNote == Note.Empty ? note : this.TuneToNote;
         this.DistanceFromBase = (float)distanceFromBase;
     }

@@ -2,7 +2,7 @@
 
 using System;
 using Macabresoft.Core;
-using Macabresoft.GuitarTuner.Library.Input;
+using Macabresoft.GuitarTuner.Library;
 
 public sealed class SineWaveSampleProvider : ISampleProvider {
     public event EventHandler<SamplesAvailableEventArgs> SamplesAvailable;

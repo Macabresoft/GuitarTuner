@@ -4,18 +4,19 @@ using System;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Macabresoft.GuitarTuner.Library;
-using Macabresoft.GuitarTuner.Library.Tuning;
+using NSubstitute;
 using NUnit.Framework;
 
 [TestFixture]
 public class SampleAnalyzerTests {
     [SetUp]
     public void Setup() {
-        this._tuning = new TestTuning();
+        this._tuningService = Substitute.For<ITuningService>();
+        this._tuningService.SelectedTuning = new StandardGuitarTuning();
         this._sampleProvider = new SineWaveSampleProvider(
             0f,
             SampleRate,
-            (int)Math.Ceiling(SampleRate / this._tuning.MinimumFrequency) * 2);
+            (int)Math.Ceiling(SampleRate / this._tuningService.SelectedTuning.MinimumFrequency) * 2);
     }
 
     [Test]
@@ -43,7 +44,7 @@ public class SampleAnalyzerTests {
     [TestCase(80f)]
     public void GetBufferInformation_Should_ReturnCorrectBufferInformation(float frequency) {
         this._sampleProvider.Frequency = frequency;
-        var sampleAnalyzer = new SampleAnalyzer(new StandardGuitarTuning());
+        var sampleAnalyzer = new SampleAnalyzer(this._tuningService);
 
         var samples = this._sampleProvider.GetSampleBuffer();
         var bufferInformation = sampleAnalyzer.GetBufferInformation(samples);
@@ -54,6 +55,6 @@ public class SampleAnalyzerTests {
     }
 
     private const int SampleRate = 44100;
-    private ITuning _tuning;
+    private ITuningService _tuningService;
     private SineWaveSampleProvider _sampleProvider;
 }

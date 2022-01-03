@@ -2,18 +2,15 @@
 
 using System;
 using System.Collections.Generic;
-using Macabresoft.GuitarTuner.Library.Tuning;
 
 /// <summary>
 /// Interface for an audio buffer analyzer.
 /// </summary>
 public interface ISampleAnalyzer {
-    int SampleRate { get; set; }
-
     /// <summary>
-    /// Gets or sets the tuning by which to measure the audio buffer.
+    /// Gets or sets the sample rate.
     /// </summary>
-    ITuning Tuning { get; set; }
+    int SampleRate { get; set; }
 
     /// <summary>
     /// Analyzes the provided audio samples and returns valuable information in the form of <see cref="BufferInformation" />.
@@ -27,18 +24,15 @@ public interface ISampleAnalyzer {
 /// Analyzers audio buffers down to their respective frequency, magnitude, and nearest note.
 /// </summary>
 public sealed class SampleAnalyzer : ISampleAnalyzer {
-    private int _highPeriod;
-    private int _lowPeriod;
+    private readonly ITuningService _tuningService;
     private int _sampleRate;
-    private ITuning _tuning;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SampleAnalyzer" /> class.
     /// </summary>
-    public SampleAnalyzer(ITuning tuning) {
+    public SampleAnalyzer(ITuningService tuningService) {
         this._sampleRate = SampleRates.Default;
-        this._tuning = tuning;
-        this.ResetPeriods();
+        this._tuningService = tuningService;
     }
 
     /// <inheritdoc />
@@ -49,27 +43,17 @@ public sealed class SampleAnalyzer : ISampleAnalyzer {
                 value = 1;
             }
 
-            if (value != this._sampleRate) {
-                this._sampleRate = value;
-                this.ResetPeriods();
-            }
-        }
-    }
-
-    /// <inheritdoc />
-    public ITuning Tuning {
-        get => this._tuning;
-        set {
-            if (value != this._tuning) {
-                this._tuning = value;
-                this.ResetPeriods();
-            }
+            this._sampleRate = value;
         }
     }
 
     /// <inheritdoc />
     public BufferInformation GetBufferInformation(IReadOnlyList<float> samples) {
-        if (samples.Count < this._highPeriod) {
+        var tuning = this._tuningService.SelectedTuning;
+        var lowPeriod = (int)Math.Floor(this.SampleRate / tuning.MaximumFrequency);
+        var highPeriod = (int)Math.Ceiling(this.SampleRate / tuning.MinimumFrequency);
+
+        if (samples.Count < highPeriod) {
             throw new InvalidOperationException("The sample rate isn't large enough for the buffer length.");
         }
 
@@ -77,7 +61,7 @@ public sealed class SampleAnalyzer : ISampleAnalyzer {
         var chosenPeriod = -1;
         var peakVolume = 0f;
 
-        for (var period = this._lowPeriod; period < this._highPeriod; period++) {
+        for (var period = lowPeriod; period < highPeriod; period++) {
             var sum = 0f;
             for (var i = 0; i < samples.Count - period; i++) {
                 sum += samples[i] * samples[i + period];
@@ -92,11 +76,6 @@ public sealed class SampleAnalyzer : ISampleAnalyzer {
         }
 
         var frequency = (double)this.SampleRate / chosenPeriod;
-        return frequency < this.Tuning.MinimumFrequency || frequency > this.Tuning.MaximumFrequency ? BufferInformation.Unknown : new BufferInformation((float)frequency, peakVolume);
-    }
-
-    private void ResetPeriods() {
-        this._lowPeriod = (int)Math.Floor(this.SampleRate / this.Tuning.MaximumFrequency);
-        this._highPeriod = (int)Math.Ceiling(this.SampleRate / this.Tuning.MinimumFrequency);
+        return frequency < tuning.MinimumFrequency || frequency > tuning.MaximumFrequency ? BufferInformation.Unknown : new BufferInformation((float)frequency, peakVolume);
     }
 }

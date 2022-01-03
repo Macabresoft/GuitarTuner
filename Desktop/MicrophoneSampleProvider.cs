@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Macabresoft.Core;
 using Macabresoft.GuitarTuner.Library;
-using Macabresoft.GuitarTuner.Library.Input;
 using OpenTK.Audio.OpenAL;
 
 /// <summary>
