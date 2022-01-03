@@ -1,13 +1,14 @@
 ﻿namespace Macabresoft.GuitarTuner.Library;
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Macabresoft.Core;
 
 /// <summary>
 /// Interface for a tuning service.
 /// </summary>
-public interface ITuningService {
+public interface ITuningService : INotifyPropertyChanged {
     /// <summary>
     /// Gets the available tunings.
     /// </summary>
@@ -22,9 +23,10 @@ public interface ITuningService {
 /// <summary>
 /// Service which exposes <see cref="ITuning" />.
 /// </summary>
-public class TuningService : PropertyChangedNotifier, ITuningService {
+public sealed class TuningService : PropertyChangedNotifier, ITuningService {
     private readonly ITuning[] _availableTunings = {
-        new StandardGuitarTuning()
+        new StandardGuitarTuning(),
+        new DropDGuitarTuning()
     };
 
     private ITuning _selectedTuning;

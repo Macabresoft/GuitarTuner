@@ -55,7 +55,7 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
     private float _peakVolume;
     private ISampleProvider _sampleProvider;
     private float _timeElapsed;
-    private Note _tuneToNote = Note.Empty;
+    private Note _tuneToNote = Note.Auto;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SampleService" /> class.
@@ -117,8 +117,9 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
     public Note TuneToNote {
         get => this._tuneToNote;
         set {
-            this.Set(ref this._tuneToNote, value);
+            this._tuneToNote = value;
             this.ResetNote();
+            this.RaisePropertyChanged();
         }
     }
 
@@ -145,7 +146,7 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
 
     private void ResetNote() {
         var note = this._tuningService.SelectedTuning.GetNearestNote(this.Frequency, out var distanceFromBase);
-        this.Note = this.TuneToNote == Note.Empty ? note : this.TuneToNote;
+        this.Note = this.TuneToNote.Equals(Note.Auto) ? note : this.TuneToNote;
         this.DistanceFromBase = (float)distanceFromBase;
     }
 

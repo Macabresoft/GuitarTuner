@@ -1,11 +1,20 @@
 ﻿namespace Macabresoft.GuitarTuner.Library;
 
+using System;
 using System.Collections.Generic;
 
 /// <summary>
 /// An instance of a note that contains information important to its pitch, including its octave and frequency.
 /// </summary>
 public sealed class Note {
+    /// <summary>
+    /// The note which specifies automatic tuning.
+    /// </summary>
+    public static readonly Note Auto = new("Auto");
+
+    /// <summary>
+    /// An empty note in lieu of null.
+    /// </summary>
     public static readonly Note Empty = new();
 
     /// <summary>
@@ -20,8 +29,10 @@ public sealed class Note {
 
         this.DistanceFromBase = FrequencyCalculator.GetDistanceFromBase(namedNote, octave);
         this.Frequency = FrequencyCalculator.GetFrequency(this.DistanceFromBase);
-        this.StepDownFrequency = FrequencyCalculator.GetFrequency(this.DistanceFromBase - 1);
-        this.StepUpFrequency = FrequencyCalculator.GetFrequency(this.DistanceFromBase + 1);
+    }
+
+    private Note(string name) {
+        this.Name = name;
     }
 
     private Note() {
@@ -53,15 +64,15 @@ public sealed class Note {
     /// </summary>
     public byte Octave { get; }
 
-    /// <summary>
-    /// GEts the frequency of a note one semitone lower.
-    /// </summary>
-    public double StepDownFrequency { get; }
+    /// <inheritdoc />
+    public override bool Equals(object? obj) {
+        return obj is Note other && this.Equals(other);
+    }
 
-    /// <summary>
-    /// Gets the frequency of a note one semitone higher.
-    /// </summary>
-    public double StepUpFrequency { get; }
+    /// <inheritdoc />
+    public override int GetHashCode() {
+        return HashCode.Combine(this.Name, (int)this.NamedNote, this.Octave);
+    }
 
     /// <summary>
     /// Gets a range of <see cref="Note" />.
@@ -99,5 +110,9 @@ public sealed class Note {
                 notes.Add(pitchNote);
             }
         }
+    }
+
+    private bool Equals(Note other) {
+        return this.Name == other.Name && this.NamedNote == other.NamedNote && this.Octave == other.Octave;
     }
 }

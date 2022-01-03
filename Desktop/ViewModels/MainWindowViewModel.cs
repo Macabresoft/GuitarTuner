@@ -1,5 +1,7 @@
 ﻿namespace Macabresoft.GuitarTuner.Desktop;
 
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Macabresoft.AvaloniaEx;
 using Macabresoft.GuitarTuner.Library;
@@ -13,26 +15,22 @@ public class MainWindowViewModel : BaseDialogViewModel {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindowViewModel" /> class.
     /// </summary>
-    public MainWindowViewModel() : this(Resolver.Resolve<ISampleProvider>(), Resolver.Resolve<ISampleService>(), Resolver.Resolve<ITuningService>()) {
+    public MainWindowViewModel() : this(Resolver.Resolve<ISampleService>(), Resolver.Resolve<ITuningService>()) {
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindowViewModel" /> class.
     /// </summary>
-    /// <param name="sampleProvider">The sample provider.</param>
     /// <param name="sampleService"></param>
     /// <param name="tuningService">The tuning service.</param>
     [InjectionConstructor]
-    public MainWindowViewModel(ISampleProvider sampleProvider, ISampleService sampleService, ITuningService tuningService) {
-        this.SampleProvider = sampleProvider;
+    public MainWindowViewModel(ISampleService sampleService, ITuningService tuningService) {
         this.SampleService = sampleService;
         this.TuningService = tuningService;
+        this.TuningService.PropertyChanged += this.TuningService_PropertyChanged;
 
         this.SelectTuneToNoteCommand = ReactiveCommand.Create<Note>(this.SelectTuneToNote);
     }
-
-    // TODO: remove this
-    public ISampleProvider SampleProvider { get; }
 
     /// <summary>
     /// Gets the sample service.
@@ -51,5 +49,13 @@ public class MainWindowViewModel : BaseDialogViewModel {
 
     private void SelectTuneToNote(Note note) {
         this.SampleService.TuneToNote = note;
+    }
+
+    private void TuningService_PropertyChanged(object? sender, PropertyChangedEventArgs e) {
+        if (e.PropertyName == nameof(ITuningService.SelectedTuning)) {
+            if (!this.TuningService.SelectedTuning.Notes.Any(x => x.Equals(this.SampleService.TuneToNote))) {
+                this.SampleService.TuneToNote = Note.Auto;
+            }
+        }
     }
 }

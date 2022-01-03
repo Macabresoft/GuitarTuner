@@ -1,6 +1,7 @@
 ﻿<avaloniaEx:BaseDialog xmlns="https://github.com/avaloniaui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
+                       xmlns:library="clr-namespace:Macabresoft.GuitarTuner.Library;assembly=GuitarTuner.Library"
                        xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
                        x:Class="Macabresoft.GuitarTuner.Desktop.MainWindow"
                        ShowInTaskbar="True"
@@ -11,6 +12,7 @@
                        ShowIcon="False"
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
+        <local:AvailableTuningsToMenuItemsConverter x:Key="AvailableTuningsToMenuItemsConverter" />
         <local:ToPercentageConverter x:Key="ToPercentageConverter" />
         <local:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
     </avaloniaEx:BaseDialog.Resources>
@@ -20,6 +22,10 @@
                 <MenuItem.Header>
                     <avaloniaEx:Icon Content="{StaticResource MenuIcon}" />
                 </MenuItem.Header>
+                
+                <MenuItem Header="_Tunings"
+                          Items="{Binding TuningService, Converter={StaticResource AvailableTuningsToMenuItemsConverter}}" />
+                
                 <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
 
@@ -70,7 +76,8 @@
 
             <local:TuneToNoteButton Grid.Column="3"
                                     HorizontalAlignment="Center"
-                                    SelectedNote="{Binding TuningService.SampleService.TuneToNote}"
+                                    Note="{x:Static library:Note.Auto}"
+                                    SelectedNote="{Binding SampleService.TuneToNote}"
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
 
             <local:TuneToNoteButton Grid.Column="4"
@@ -106,13 +113,13 @@
 
                 <TextBlock Grid.Row="0"
                            Grid.Column="1"
-                           Text="{Binding SampleProvider.Volume, Converter={StaticResource ToPercentageConverter}}" />
+                           Text="{Binding SampleService.SampleProvider.Volume, Converter={StaticResource ToPercentageConverter}}" />
 
                 <Slider Grid.Row="0"
                         Grid.Column="2"
                         Minimum="0"
                         Maximum="1"
-                        Value="{Binding SampleProvider.Volume}"
+                        Value="{Binding SampleService.SampleProvider.Volume}"
                         Margin="{StaticResource StandardMarginHorizontal}" />
 
                 <TextBlock Grid.Row="1"
@@ -127,7 +134,7 @@
                         Grid.Column="2"
                         Minimum="75"
                         Maximum="380"
-                        Value="{Binding SampleProvider.Frequency}"
+                        Value="{Binding SampleService.SampleProvider.Frequency}"
                         Margin="{StaticResource StandardMarginHorizontal}" />
             </Grid>
         </Border>

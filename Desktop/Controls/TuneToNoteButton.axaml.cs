@@ -3,18 +3,22 @@
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Data;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Macabresoft.GuitarTuner.Library;
 
 public class TuneToNoteButton : UserControl {
     public static readonly StyledProperty<Note> NoteProperty =
-        AvaloniaProperty.Register<TuneToNoteButton, Note>(nameof(Note), Note.Empty);
+        AvaloniaProperty.Register<TuneToNoteButton, Note>(nameof(Note), Note.Auto, defaultBindingMode: BindingMode.OneWay);
 
     public static readonly StyledProperty<Note> SelectedNoteProperty =
-        AvaloniaProperty.Register<TuneToNoteButton, Note>(nameof(SelectedNote));
+        AvaloniaProperty.Register<TuneToNoteButton, Note>(nameof(SelectedNote), defaultBindingMode: BindingMode.OneWay);
 
     public static readonly StyledProperty<ICommand> SelectNoteCommandProperty =
-        AvaloniaProperty.Register<TuneToNoteButton, ICommand>(nameof(SelectNoteCommand));
+        AvaloniaProperty.Register<TuneToNoteButton, ICommand>(nameof(SelectNoteCommand), defaultBindingMode: BindingMode.OneWay);
 
     public TuneToNoteButton() {
         this.InitializeComponent();
@@ -37,5 +41,12 @@ public class TuneToNoteButton : UserControl {
 
     private void InitializeComponent() {
         AvaloniaXamlLoader.Load(this);
+    }
+
+    private void ToggleButton_OnClick(object? sender, RoutedEventArgs e) {
+        if (sender is ToggleButton toggleButton && this.SelectedNote.Equals(this.Note)) {
+            this.SelectedNote = Note.Empty;
+            this.SelectedNote = this.Note;
+        }
     }
 }

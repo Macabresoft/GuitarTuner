@@ -1,11 +1,11 @@
 ﻿namespace Macabresoft.GuitarTuner.Library;
 
 /// <summary>
-/// Provides a tuning for standard guitars.
+/// Provides a tuning for Drop D on guitars.
 /// </summary>
-public sealed class StandardGuitarTuning : GenericTuning {
+public sealed class DropDGuitarTuning : GenericTuning {
     private static readonly Note[] TuningNotes = {
-        new(NamedNotes.E, 2),
+        new(NamedNotes.D, 2),
         new(NamedNotes.A, 2),
         new(NamedNotes.D, 3),
         new(NamedNotes.G, 3),
@@ -14,14 +14,14 @@ public sealed class StandardGuitarTuning : GenericTuning {
     };
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StandardGuitarTuning" /> class.
+    /// Initializes a new instance of the <see cref="DropDGuitarTuning" /> class.
     /// </summary>
-    public StandardGuitarTuning() : base(
+    public DropDGuitarTuning() : base(
         TuningNotes,
-        FrequencyCalculator.GetFrequency(NamedNotes.C, 2),
+        FrequencyCalculator.GetFrequency(NamedNotes.B, 2),
         FrequencyCalculator.GetFrequency(NamedNotes.G, 4)) {
     }
 
     /// <inheritdoc />
-    public override string DisplayName => "Standard (Guitar)";
+    public override string DisplayName => "Drop D (Guitar)";
 }
