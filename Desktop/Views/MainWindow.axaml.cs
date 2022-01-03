@@ -4,7 +4,6 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Macabresoft.AvaloniaEx;
 using Macabresoft.Core;
-using Macabresoft.GuitarTuner.UI.Desktop;
 using Unity;
 
 public class MainWindow : BaseDialog {

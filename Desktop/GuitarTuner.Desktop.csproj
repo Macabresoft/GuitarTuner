@@ -2,7 +2,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Macabresoft.GuitarTuner.UI.Desktop.UI</RootNamespace>
+        <RootNamespace>Macabresoft.GuitarTuner.Desktop</RootNamespace>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <Version>0.0.1</Version>
@@ -25,10 +25,6 @@
         <PackageReference Include="System.Runtime" Version="4.3.1" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Library\GuitarTuner.Library.csproj" />
-        <ProjectReference Include="..\Common\GuitarTuner.UI.Common.csproj" />
-    </ItemGroup>
-    <ItemGroup>
         <None Remove="icon.ico" />
         <AvaloniaResource Include="icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -40,13 +36,16 @@
         <UpToDateCheckInput Remove="Controls\SimulationOptionsControl.axaml" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="App.axaml.cs">
-        <DependentUpon>App.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Views\TunerReadoutView.axaml.cs">
-        <DependentUpon>TunerReadoutView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
+        <Compile Update="App.axaml.cs">
+            <DependentUpon>App.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Update="Views\TunerReadoutView.axaml.cs">
+            <DependentUpon>TunerReadoutView.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Library\GuitarTuner.Library.csproj" />
     </ItemGroup>
 </Project>

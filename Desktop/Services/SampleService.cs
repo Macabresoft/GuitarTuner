@@ -25,17 +25,17 @@ public interface ISampleService {
     float PeakVolume { get; }
 
     /// <summary>
+    /// Gets the sample provider.
+    /// </summary>
+    ISampleProvider SampleProvider { get; set; }
+
+    /// <summary>
     /// Gets or sets the note for which to tune towards.
     /// </summary>
     /// <remarks>
     /// When this is Note.Empty, automatic note detection will be enabled (much like your standard guitar tuner).
     /// </remarks>
     Note TuneToNote { get; set; }
-
-    /// <summary>
-    /// Gets the sample provider.
-    /// </summary>
-    ISampleProvider SampleProvider { get; set; }
 }
 
 /// <summary>

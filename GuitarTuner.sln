@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.Tests", "Tests\GuitarTuner.Tests.csproj", "{9E4CA369-2FB4-482E-9A37-240B0449D5D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.UI.Destop", "UI\Desktop\GuitarTuner.UI.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarTuner.Destop", "Desktop\GuitarTuner.Desktop.csproj", "{5473FEA4-E73C-4395-A4CE-421CC7C8279E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
