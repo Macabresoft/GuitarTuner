@@ -16,6 +16,8 @@ public class MainWindow : BaseDialog {
         this.InitializeComponent();
     }
 
+    public MainWindowViewModel? ViewModel => this.DataContext as MainWindowViewModel;
+
     private void Exit_Click(object sender, RoutedEventArgs e) {
         this.Close();
     }

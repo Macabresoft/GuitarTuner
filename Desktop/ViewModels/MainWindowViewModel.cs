@@ -30,6 +30,7 @@ public class MainWindowViewModel : BaseDialogViewModel {
         this.TuningService.PropertyChanged += this.TuningService_PropertyChanged;
 
         this.SelectTuneToNoteCommand = ReactiveCommand.Create<Note>(this.SelectTuneToNote);
+        this.SelectTuningCommand = ReactiveCommand.Create<ITuning>(this.SelectTuning);
     }
 
     /// <summary>
@@ -43,12 +44,21 @@ public class MainWindowViewModel : BaseDialogViewModel {
     public ICommand SelectTuneToNoteCommand { get; }
 
     /// <summary>
+    /// Gets a command to select the tuning.
+    /// </summary>
+    public ICommand SelectTuningCommand { get; }
+
+    /// <summary>
     /// Gets the tuning service.
     /// </summary>
     public ITuningService TuningService { get; }
 
     private void SelectTuneToNote(Note note) {
         this.SampleService.TuneToNote = note;
+    }
+
+    private void SelectTuning(ITuning tuning) {
+        this.TuningService.SelectedTuning = tuning;
     }
 
     private void TuningService_PropertyChanged(object? sender, PropertyChangedEventArgs e) {

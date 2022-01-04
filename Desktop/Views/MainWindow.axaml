@@ -6,13 +6,14 @@
                        x:Class="Macabresoft.GuitarTuner.Desktop.MainWindow"
                        ShowInTaskbar="True"
                        Width="420"
-                       Height="500"
+                       SizeToContent="Height"
                        CanResize="False"
                        ShowMinimize="True"
                        ShowIcon="False"
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
         <local:AvailableTuningsToMenuItemsConverter x:Key="AvailableTuningsToMenuItemsConverter" />
+        <local:EqualsConverter x:Key="EqualsConverter" />
         <local:ToPercentageConverter x:Key="ToPercentageConverter" />
         <local:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
     </avaloniaEx:BaseDialog.Resources>
@@ -22,10 +23,40 @@
                 <MenuItem.Header>
                     <avaloniaEx:Icon Content="{StaticResource MenuIcon}" />
                 </MenuItem.Header>
-                
-                <MenuItem Header="_Tunings"
-                          Items="{Binding TuningService, Converter={StaticResource AvailableTuningsToMenuItemsConverter}}" />
-                
+
+                <MenuItem Header="_Tunings">
+                    <!-- TODO: automate this or use data templates or something -->
+                    <MenuItem Command="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand}"
+                              CommandParameter="{Binding TuningService.AvailableTunings[0]}"
+                              Header="{Binding $self.CommandParameter.DisplayName}">
+                        <MenuItem.Icon>
+                            <avaloniaEx:Icon Content="{StaticResource CheckmarkIcon}">
+                                <avaloniaEx:Icon.IsVisible>
+                                    <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                        <Binding Path="$parent[MenuItem].CommandParameter" />
+                                        <Binding Path="TuningService.SelectedTuning" />
+                                    </MultiBinding>
+                                </avaloniaEx:Icon.IsVisible>
+                            </avaloniaEx:Icon>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    
+                    <MenuItem Command="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand}"
+                              CommandParameter="{Binding TuningService.AvailableTunings[1]}"
+                              Header="{Binding $self.CommandParameter.DisplayName}">
+                        <MenuItem.Icon>
+                            <avaloniaEx:Icon Content="{StaticResource CheckmarkIcon}">
+                                <avaloniaEx:Icon.IsVisible>
+                                    <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                        <Binding Path="$parent[MenuItem].CommandParameter" />
+                                        <Binding Path="TuningService.SelectedTuning" />
+                                    </MultiBinding>
+                                </avaloniaEx:Icon.IsVisible>
+                            </avaloniaEx:Icon>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            
                 <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
 
@@ -51,8 +82,17 @@
         </Grid.Background>
 
         <local:TunerReadout Grid.Row="0"
+                            Height="420"
                             SampleService="{Binding SampleService}"/>
 
+        <TextBlock Grid.Row="0"
+                   Margin="{StaticResource DoubleMarginAll}"
+                   FontSize="10"
+                   Foreground="{StaticResource YellowBrush}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Text="{Binding TuningService.SelectedTuning.DisplayName}" />
+        
         <Grid Grid.Row="1"
               ColumnDefinitions="*, *, *, *, *, *, *"
               Margin="{StaticResource DoubleMarginAll}">
@@ -128,7 +168,7 @@
 
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
-                           Text="{Binding SampleProvider.Frequency, StringFormat={}{0:0.00}Hz}" />
+                           Text="{Binding SampleService.SampleProvider.Frequency, StringFormat={}{0:0.00}Hz}" />
 
                 <Slider Grid.Row="1"
                         Grid.Column="2"

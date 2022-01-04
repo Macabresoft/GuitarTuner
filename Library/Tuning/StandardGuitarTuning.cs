@@ -23,5 +23,5 @@ public sealed class StandardGuitarTuning : GenericTuning {
     }
 
     /// <inheritdoc />
-    public override string DisplayName => "Standard (Guitar)";
+    public override string DisplayName => "Standard Guitar Tuning";
 }
