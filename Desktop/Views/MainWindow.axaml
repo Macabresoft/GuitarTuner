@@ -30,7 +30,7 @@
                               CommandParameter="{Binding TuningService.AvailableTunings[0]}"
                               Header="{Binding $self.CommandParameter.DisplayName}">
                         <MenuItem.Icon>
-                            <avaloniaEx:Icon Content="{StaticResource CheckmarkIcon}">
+                            <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
                                 <avaloniaEx:Icon.IsVisible>
                                     <MultiBinding Converter="{StaticResource EqualsConverter}">
                                         <Binding Path="$parent[MenuItem].CommandParameter" />
@@ -45,7 +45,7 @@
                               CommandParameter="{Binding TuningService.AvailableTunings[1]}"
                               Header="{Binding $self.CommandParameter.DisplayName}">
                         <MenuItem.Icon>
-                            <avaloniaEx:Icon Content="{StaticResource CheckmarkIcon}">
+                            <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
                                 <avaloniaEx:Icon.IsVisible>
                                     <MultiBinding Converter="{StaticResource EqualsConverter}">
                                         <Binding Path="$parent[MenuItem].CommandParameter" />
