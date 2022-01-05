@@ -12,7 +12,6 @@
                        ShowIcon="False"
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
-        <local:AvailableTuningsToMenuItemsConverter x:Key="AvailableTuningsToMenuItemsConverter" />
         <local:EqualsConverter x:Key="EqualsConverter" />
         <local:ToPercentageConverter x:Key="ToPercentageConverter" />
         <local:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
@@ -24,37 +23,32 @@
                     <avaloniaEx:Icon Content="{StaticResource MenuIcon}" />
                 </MenuItem.Header>
 
-                <MenuItem Header="_Tunings">
-                    <!-- TODO: automate this or use data templates or something -->
-                    <MenuItem Command="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand}"
-                              CommandParameter="{Binding TuningService.AvailableTunings[0]}"
-                              Header="{Binding $self.CommandParameter.DisplayName}">
-                        <MenuItem.Icon>
-                            <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
-                                <avaloniaEx:Icon.IsVisible>
-                                    <MultiBinding Converter="{StaticResource EqualsConverter}">
-                                        <Binding Path="$parent[MenuItem].CommandParameter" />
-                                        <Binding Path="TuningService.SelectedTuning" />
-                                    </MultiBinding>
-                                </avaloniaEx:Icon.IsVisible>
-                            </avaloniaEx:Icon>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    
-                    <MenuItem Command="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand}"
-                              CommandParameter="{Binding TuningService.AvailableTunings[1]}"
-                              Header="{Binding $self.CommandParameter.DisplayName}">
-                        <MenuItem.Icon>
-                            <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
-                                <avaloniaEx:Icon.IsVisible>
-                                    <MultiBinding Converter="{StaticResource EqualsConverter}">
-                                        <Binding Path="$parent[MenuItem].CommandParameter" />
-                                        <Binding Path="TuningService.SelectedTuning" />
-                                    </MultiBinding>
-                                </avaloniaEx:Icon.IsVisible>
-                            </avaloniaEx:Icon>
-                        </MenuItem.Icon>
-                    </MenuItem>
+                <MenuItem Header="_Tunings"
+                          Items="{Binding TuningService.AvailableTunings}">
+                    <MenuItem.Styles>
+                        <Style Selector="MenuItem">
+                            <Setter Property="Command"
+                                    Value="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand}" />
+                            <Setter Property="CommandParameter"
+                                    Value="{Binding}" />
+                            <Setter Property="Header"
+                                    Value="{Binding DisplayName}" />
+                            <Setter Property="Icon">
+                                <Setter.Value>
+                                    <Template>
+                                    <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
+                                        <avaloniaEx:Icon.IsVisible>
+                                            <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                                <Binding />
+                                                <Binding Path="$parent[local:MainWindow].ViewModel.TuningService.SelectedTuning" />
+                                            </MultiBinding>
+                                        </avaloniaEx:Icon.IsVisible>
+                                    </avaloniaEx:Icon>
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </MenuItem.Styles>
                 </MenuItem>
             
                 <MenuItem Click="ViewSource_Click"
@@ -70,7 +64,7 @@
     <Design.DataContext>
         <local:MainWindowViewModel />
     </Design.DataContext>
-    <Grid RowDefinitions="*, Auto, Auto">
+    <Grid RowDefinitions="*, Auto, Auto, Auto">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0%,110%"
                                  EndPoint="{Binding SampleService.PeakVolume, Converter={StaticResource VolumeToRelativeConverter}}">
@@ -85,15 +79,15 @@
                             Height="420"
                             SampleService="{Binding SampleService}"/>
 
-        <TextBlock Grid.Row="0"
+        <TextBlock Grid.Row="1"
                    Margin="{StaticResource DoubleMarginAll}"
                    FontSize="10"
                    Foreground="{StaticResource YellowBrush}"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
+                   VerticalAlignment="Center"
                    Text="{Binding TuningService.SelectedTuning.DisplayName}" />
         
-        <Grid Grid.Row="1"
+        <Grid Grid.Row="2"
               ColumnDefinitions="*, *, *, *, *, *, *"
               Margin="{StaticResource DoubleMarginAll}">
             <local:TuneToNoteButton Grid.Column="0"
@@ -139,7 +133,7 @@
                                     SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
         </Grid>
 
-        <Border Grid.Row="2"
+        <Border Grid.Row="3"
                 IsVisible="{x:Static local:App.IsSimulated}"
                 BorderThickness="2"
                 BorderBrush="{StaticResource WhiteBrush}"

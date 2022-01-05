@@ -23,5 +23,5 @@ public sealed class DropDGuitarTuning : GenericTuning {
     }
 
     /// <inheritdoc />
-    public override string DisplayName => "Drop D Guitar Tuning";
+    public override string DisplayName => "Drop D Guitar";
 }
