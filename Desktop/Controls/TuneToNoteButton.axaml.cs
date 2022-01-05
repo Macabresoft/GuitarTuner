@@ -44,7 +44,7 @@ public class TuneToNoteButton : UserControl {
     }
 
     private void ToggleButton_OnClick(object? sender, RoutedEventArgs e) {
-        if (sender is ToggleButton toggleButton && this.SelectedNote.Equals(this.Note)) {
+        if (sender is ToggleButton && this.SelectedNote.Equals(this.Note)) {
             this.SelectedNote = Note.Empty;
             this.SelectedNote = this.Note;
         }

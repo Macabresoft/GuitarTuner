@@ -15,6 +15,11 @@ public interface ITuningService : INotifyPropertyChanged {
     IReadOnlyCollection<ITuning> AvailableTunings { get; }
 
     /// <summary>
+    /// Gets the tuning notes.
+    /// </summary>
+    IReadOnlyCollection<Note> TuningNotes { get; }
+
+    /// <summary>
     /// Gets or sets the selected tuning.
     /// </summary>
     ITuning SelectedTuning { get; set; }
@@ -29,6 +34,7 @@ public sealed class TuningService : PropertyChangedNotifier, ITuningService {
         new DropDGuitarTuning()
     };
 
+    private readonly ObservableCollectionExtended<Note> _tuningNotes = new();
     private ITuning _selectedTuning;
 
     /// <summary>
@@ -36,14 +42,34 @@ public sealed class TuningService : PropertyChangedNotifier, ITuningService {
     /// </summary>
     public TuningService() {
         this._selectedTuning = this._availableTunings.First();
+        this.ResetTuningNotes();
     }
 
     /// <inheritdoc />
     public IReadOnlyCollection<ITuning> AvailableTunings => this._availableTunings;
 
+    public IReadOnlyCollection<Note> TuningNotes => this._tuningNotes;
+
     /// <inheritdoc />
     public ITuning SelectedTuning {
         get => this._selectedTuning;
-        set => this.Set(ref this._selectedTuning, value);
+        set {
+            if (this.Set(ref this._selectedTuning, value)) {
+                this.ResetTuningNotes();
+            }
+        }
+    }
+
+    private void ResetTuningNotes() {
+        var tuningNotes = this.SelectedTuning.Notes.ToList();
+
+        if (tuningNotes.Count % 2 == 0) {
+            tuningNotes.Insert(tuningNotes.Count / 2, Note.Auto);
+        }
+        else {
+            tuningNotes.Add(Note.Auto);
+        }
+
+        this._tuningNotes.Reset(tuningNotes);
     }
 }

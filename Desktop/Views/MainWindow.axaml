@@ -87,52 +87,25 @@
                    VerticalAlignment="Center"
                    Text="{Binding TuningService.SelectedTuning.DisplayName}" />
         
-        <Grid Grid.Row="2"
-              ColumnDefinitions="*, *, *, *, *, *, *"
-              Margin="{StaticResource DoubleMarginAll}">
-            <local:TuneToNoteButton Grid.Column="0"
-                                    HorizontalAlignment="Left"
-                                    Note="{Binding TuningService.SelectedTuning.Notes[0]}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-
-            <local:TuneToNoteButton Grid.Column="1"
-                                    HorizontalAlignment="Left"
-                                    Note="{Binding TuningService.SelectedTuning.Notes[1]}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-
-            <local:TuneToNoteButton Grid.Column="2"
-                                    HorizontalAlignment="Left"
-                                    Note="{Binding TuningService.SelectedTuning.Notes[2]}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-
-            <local:TuneToNoteButton Grid.Column="3"
-                                    HorizontalAlignment="Center"
-                                    Note="{x:Static library:Note.Auto}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-
-            <local:TuneToNoteButton Grid.Column="4"
-                                    HorizontalAlignment="Right"
-                                    Note="{Binding TuningService.SelectedTuning.Notes[3]}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-
-            <local:TuneToNoteButton Grid.Column="5"
-                                    HorizontalAlignment="Right"
-                                    Note="{Binding TuningService.SelectedTuning.Notes[4]}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-
-            <local:TuneToNoteButton Grid.Column="6"
-                                    HorizontalAlignment="Right"
-                                    Note="{Binding TuningService.SelectedTuning.Notes[5]}"
-                                    SelectedNote="{Binding SampleService.TuneToNote}"
-                                    SelectNoteCommand="{Binding SelectTuneToNoteCommand}" />
-        </Grid>
-
+        <ItemsControl Grid.Row="2"
+                      HorizontalAlignment="Stretch"
+                      Items="{Binding TuningService.TuningNotes}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:TuneToNoteButton Note="{Binding}"
+                                            SelectedNote="{Binding $parent[local:MainWindow].ViewModel.SampleService.TuneToNote}"
+                                            SelectNoteCommand="{Binding $parent[local:MainWindow].ViewModel.SelectTuneToNoteCommand}"
+                                            Margin="{StaticResource DoubleMarginAll}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
         <Border Grid.Row="3"
                 IsVisible="{x:Static local:App.IsSimulated}"
                 BorderThickness="2"
