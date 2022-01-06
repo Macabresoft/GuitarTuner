@@ -22,6 +22,34 @@
                 <MenuItem.Header>
                     <avaloniaEx:Icon Content="{StaticResource MenuIcon}" />
                 </MenuItem.Header>
+                
+                <MenuItem Header="_Audio Device"
+                          Items="{Binding AudioDeviceService.AvailableDevices}">
+                    <MenuItem.Styles>
+                        <Style Selector="MenuItem">
+                            <Setter Property="Command"
+                                    Value="{Binding $parent[local:MainWindow].ViewModel.SelectAudioDeviceCommand}" />
+                            <Setter Property="CommandParameter"
+                                    Value="{Binding}" />
+                            <Setter Property="Header"
+                                    Value="{Binding FallbackValue='Default'}" />
+                            <Setter Property="Icon">
+                                <Setter.Value>
+                                    <Template>
+                                        <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
+                                            <avaloniaEx:Icon.IsVisible>
+                                                <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                                    <Binding />
+                                                    <Binding Path="$parent[local:MainWindow].ViewModel.SelectedAudioDevice" />
+                                                </MultiBinding>
+                                            </avaloniaEx:Icon.IsVisible>
+                                        </avaloniaEx:Icon>
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </MenuItem.Styles>
+                </MenuItem>
 
                 <MenuItem Header="_Tunings"
                           Items="{Binding TuningService.AvailableTunings}">
@@ -51,6 +79,8 @@
                     </MenuItem.Styles>
                 </MenuItem>
             
+                <Separator />
+                
                 <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
 

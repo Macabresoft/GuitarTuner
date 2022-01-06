@@ -45,7 +45,7 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
     /// until those 3 seconds are up.
     /// </summary>
     private const float HoldTime = 3f;
-
+    
     private readonly ISampleAnalyzer _sampleAnalyzer;
     private readonly object _sampleProviderLock = new();
     private readonly ITuningService _tuningService;

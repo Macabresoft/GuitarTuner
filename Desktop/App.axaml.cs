@@ -26,9 +26,10 @@ public class App : Application {
     /// <inheritdoc />
     public override void OnFrameworkInitializationCompleted() {
         if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
-            Resolver.Container.RegisterType<ISampleService, SampleService>();
-            Resolver.Container.RegisterType<ISampleAnalyzer, SampleAnalyzer>();
-            Resolver.Container.RegisterType<ITuningService, TuningService>();
+            Resolver.Container.RegisterType<IAudioDeviceService, AudioDeviceService>()
+                .RegisterType<ISampleService, SampleService>()
+                .RegisterType<ISampleAnalyzer, SampleAnalyzer>()
+                .RegisterType<ITuningService, TuningService>();
 
             var tuning = Resolver.Resolve<ITuningService>().SelectedTuning;
             var bufferSize = (int)Math.Ceiling(SampleRates.Default / tuning.MinimumFrequency) * 2;
