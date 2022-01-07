@@ -24,15 +24,19 @@
                 </MenuItem.Header>
                 
                 <MenuItem Header="_Audio Device"
-                          Items="{Binding AudioDeviceService.AvailableDevices}">
+                          Items="{Binding AudioDeviceService.AvailableInputDevices}">
                     <MenuItem.Styles>
                         <Style Selector="MenuItem">
+                            <Design.DataContext>
+                                <local:AudioDevice />
+                            </Design.DataContext>
+                            
                             <Setter Property="Command"
                                     Value="{Binding $parent[local:MainWindow].ViewModel.SelectAudioDeviceCommand}" />
                             <Setter Property="CommandParameter"
                                     Value="{Binding}" />
                             <Setter Property="Header"
-                                    Value="{Binding FallbackValue='Default'}" />
+                                    Value="{Binding Name, FallbackValue='Default'}" />
                             <Setter Property="Icon">
                                 <Setter.Value>
                                     <Template>
@@ -40,7 +44,8 @@
                                             <avaloniaEx:Icon.IsVisible>
                                                 <MultiBinding Converter="{StaticResource EqualsConverter}">
                                                     <Binding />
-                                                    <Binding Path="$parent[local:MainWindow].ViewModel.SelectedAudioDevice" />
+                                                    <Binding Path="$parent[local:MainWindow].ViewModel.AudioDeviceService.SelectedDevice"
+                                                             FallbackValue="{x:Null}" />
                                                 </MultiBinding>
                                             </avaloniaEx:Icon.IsVisible>
                                         </avaloniaEx:Icon>

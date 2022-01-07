@@ -1,6 +1,5 @@
 ﻿namespace Macabresoft.GuitarTuner.Desktop;
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
@@ -35,7 +34,7 @@ public class MainWindowViewModel : BaseDialogViewModel {
         this.TuningService = tuningService;
         this.TuningService.PropertyChanged += this.TuningService_PropertyChanged;
 
-        this.SelectAudioDeviceCommand = ReactiveCommand.Create<string?>(this.SelectAudioDevice);
+        this.SelectAudioDeviceCommand = ReactiveCommand.Create<AudioDevice>(this.SelectAudioDevice);
         this.SelectTuneToNoteCommand = ReactiveCommand.Create<Note>(this.SelectTuneToNote);
         this.SelectTuningCommand = ReactiveCommand.Create<ITuning>(this.SelectTuning);
     }
@@ -75,8 +74,8 @@ public class MainWindowViewModel : BaseDialogViewModel {
     /// </summary>
     public ITuningService TuningService { get; }
 
-    private void SelectAudioDevice(string? audioDeviceName) {
-        throw new NotImplementedException();
+    private void SelectAudioDevice(AudioDevice audioDevice) {
+        this.AudioDeviceService.SelectDevice(audioDevice);
     }
 
     private void SelectTuneToNote(Note note) {
