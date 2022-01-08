@@ -38,6 +38,8 @@ public interface IAudioDeviceService : INotifyPropertyChanged {
 /// Provides audio devices.
 /// </summary>
 public sealed class AudioDeviceService : PropertyChangedNotifier, IAudioDeviceService {
+    private const string InputSeparatorName = "Input";
+    private const string MiscellaneousSeparatorName = "Miscellaneous";
     private readonly ObservableCollectionExtended<AudioDevice> _availableInputDevices = new();
     private readonly ISampleService _sampleService;
     private readonly ITuningService _tuningService;
@@ -69,15 +71,17 @@ public sealed class AudioDeviceService : PropertyChangedNotifier, IAudioDeviceSe
     public void Refresh() {
         var defaultInputDevice = new AudioDevice(AudioDeviceType.Input, AudioDevice.DefaultInputName);
         this._availableInputDevices.Clear();
+        this._availableInputDevices.Add(new AudioDevice(AudioDeviceType.Separator, InputSeparatorName));
         this._availableInputDevices.Add(defaultInputDevice);
         this._availableInputDevices.AddRange(ALC.GetString(AlcGetStringList.CaptureDeviceSpecifier).Select(x => new AudioDevice(AudioDeviceType.Input, x)));
+        this._availableInputDevices.Add(new AudioDevice(AudioDeviceType.Separator, MiscellaneousSeparatorName));
         this._availableInputDevices.Add(new AudioDevice(AudioDeviceType.Miscellaneous, AudioDevice.SimulatedName));
         this.SelectDevice(defaultInputDevice);
     }
 
     /// <inheritdoc />
     public void SelectDevice(AudioDevice device) {
-        if (this.AvailableInputDevices.Contains(device)) {
+        if (device.DeviceType != AudioDeviceType.Separator && this.AvailableInputDevices.Contains(device)) {
             this.SelectedDevice = device;
 
             var bufferSize = (int)Math.Ceiling(SampleRates.Default / this._tuningService.SelectedTuning.MinimumFrequency) * 2;

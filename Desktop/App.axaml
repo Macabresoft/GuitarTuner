@@ -10,6 +10,7 @@
 
     <Application.Styles>
         <avaloniaEx:MacabreTheme Accent="Green" />
+        <StyleInclude Source="avares://Guitar Tuner by Macabresoft/Styles/Font.axaml" />
         <StyleInclude Source="avares://Guitar Tuner by Macabresoft/Styles/ImplicitStyles.axaml" />
     </Application.Styles>
 </Application>

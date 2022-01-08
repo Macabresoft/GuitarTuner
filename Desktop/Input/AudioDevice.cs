@@ -1,4 +1,4 @@
-﻿namespace Macabresoft.GuitarTuner.Library;
+﻿namespace Macabresoft.GuitarTuner.Desktop;
 
 using System;
 
@@ -8,7 +8,8 @@ using System;
 public enum AudioDeviceType {
     Input,
     Output,
-    Miscellaneous
+    Miscellaneous,
+    Separator
 }
 
 /// <summary>

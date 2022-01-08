@@ -13,6 +13,7 @@
                        Title="Guitar Tuner">
     <avaloniaEx:BaseDialog.Resources>
         <local:EqualsConverter x:Key="EqualsConverter" />
+        <avaloniaEx:EqualityConverter InvertResult="True" x:Key="NotEqualsConverter" />
         <local:ToPercentageConverter x:Key="ToPercentageConverter" />
         <local:VolumeToRelativeConverter x:Key="VolumeToRelativeConverter" />
     </avaloniaEx:BaseDialog.Resources>
@@ -26,33 +27,7 @@
                 <MenuItem Header="_Audio Device"
                           Items="{Binding AudioDeviceService.AvailableInputDevices}">
                     <MenuItem.Styles>
-                        <Style Selector="MenuItem">
-                            <Design.DataContext>
-                                <library:AudioDevice />
-                            </Design.DataContext>
-
-                            <Setter Property="Command"
-                                    Value="{Binding $parent[local:MainWindow].ViewModel.SelectAudioDeviceCommand}" />
-                            <Setter Property="CommandParameter"
-                                    Value="{Binding}" />
-                            <Setter Property="Header"
-                                    Value="{Binding Name, FallbackValue='Default'}" />
-                            <Setter Property="Icon">
-                                <Setter.Value>
-                                    <Template>
-                                        <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
-                                            <avaloniaEx:Icon.IsVisible>
-                                                <MultiBinding Converter="{StaticResource EqualsConverter}">
-                                                    <Binding />
-                                                    <Binding Path="$parent[local:MainWindow].ViewModel.AudioDeviceService.SelectedDevice"
-                                                             FallbackValue="{x:Null}" />
-                                                </MultiBinding>
-                                            </avaloniaEx:Icon.IsVisible>
-                                        </avaloniaEx:Icon>
-                                    </Template>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
+                        <StyleInclude Source="avares://Guitar Tuner by Macabresoft/Styles/AudioDeviceMenu.axaml"></StyleInclude>
                     </MenuItem.Styles>
                 </MenuItem>
 
@@ -116,7 +91,7 @@
 
         <TextBlock Grid.Row="1"
                    Margin="{StaticResource DoubleMarginAll}"
-                   FontSize="10"
+                   FontSize="{StaticResource SmallFontSize}"
                    Foreground="{StaticResource YellowBrush}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -148,7 +123,7 @@
             <Border.IsVisible>
                 <MultiBinding Converter="{StaticResource EqualsConverter}">
                     <Binding Path="AudioDeviceService.SelectedDevice.Name" />
-                    <Binding Source="{x:Static library:AudioDevice.SimulatedName}" />
+                    <Binding Source="{x:Static local:AudioDevice.SimulatedName}" />
                 </MultiBinding>
             </Border.IsVisible>
 

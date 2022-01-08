@@ -1,0 +1,60 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
+        xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx">
+    <Styles.Resources>
+        <local:EqualsConverter x:Key="EqualsConverter" />
+        <avaloniaEx:EqualityConverter InvertResult="True" x:Key="NotEqualsConverter" />
+    </Styles.Resources>
+    <Style Selector="MenuItem">
+        <Design.DataContext>
+            <local:AudioDevice />
+        </Design.DataContext>
+
+        <Setter Property="Command"
+                Value="{Binding $parent[local:MainWindow].ViewModel.SelectAudioDeviceCommand, FallbackValue={x:Null}}" />
+        <Setter Property="CommandParameter"
+                Value="{Binding}" />
+        <Setter Property="Header">
+            <Setter.Value>
+                <Template>
+                    <Panel>
+                        <TextBlock Name="_separatorText"
+                                   Text="{Binding Name}"
+                                   FontSize="{StaticResource SmallFontSize}"
+                                   Foreground="{StaticResource YellowBrush}"
+                                   VerticalAlignment="Bottom">
+                            <TextBlock.IsVisible>
+                                <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                    <Binding Path="DeviceType" />
+                                    <Binding Source="{x:Static local:AudioDeviceType.Separator}" />
+                                </MultiBinding>
+                            </TextBlock.IsVisible>
+                        </TextBlock>
+
+                        <TextBlock Text="{Binding Name}"
+                                   IsVisible="{Binding #_separatorText.IsVisible, Converter={x:Static BoolConverters.Not}}" />
+                    </Panel>
+                </Template>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Icon">
+            <Setter.Value>
+                <Template>
+                    <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
+                        <avaloniaEx:Icon.IsVisible>
+                            <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                <Binding />
+                                <Binding Path="$parent[local:MainWindow].ViewModel.AudioDeviceService.SelectedDevice"
+                                         FallbackValue="{x:Null}" />
+                            </MultiBinding>
+                        </avaloniaEx:Icon.IsVisible>
+                    </avaloniaEx:Icon>
+                </Template>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="IsEnabled"
+                Value="{Binding DeviceType, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Static local:AudioDeviceType.Separator}}" />
+    </Style>
+</Styles>
