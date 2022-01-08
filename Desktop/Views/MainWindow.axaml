@@ -2,6 +2,7 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
                        xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
+                       xmlns:library="clr-namespace:Macabresoft.GuitarTuner.Library;assembly=GuitarTuner.Library"
                        x:Class="Macabresoft.GuitarTuner.Desktop.MainWindow"
                        ShowInTaskbar="True"
                        Width="420"
@@ -27,7 +28,7 @@
                     <MenuItem.Styles>
                         <Style Selector="MenuItem">
                             <Design.DataContext>
-                                <local:AudioDevice />
+                                <library:AudioDevice />
                             </Design.DataContext>
 
                             <Setter Property="Command"
@@ -133,8 +134,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:TuneToNoteButton Note="{Binding}"
-                                            SelectedNote="{Binding $parent[local:MainWindow].ViewModel.SampleService.TuneToNote}"
-                                            SelectNoteCommand="{Binding $parent[local:MainWindow].ViewModel.SelectTuneToNoteCommand}"
+                                            SelectedNote="{Binding $parent[local:MainWindow].ViewModel.SampleService.TuneToNote, FallbackValue={x:Static library:Note.Empty}}"
+                                            SelectNoteCommand="{Binding $parent[local:MainWindow].ViewModel.SelectTuneToNoteCommand, FallbackValue={x:Null}}"
                                             Margin="{StaticResource DoubleMarginAll}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -147,7 +148,7 @@
             <Border.IsVisible>
                 <MultiBinding Converter="{StaticResource EqualsConverter}">
                     <Binding Path="AudioDeviceService.SelectedDevice.Name" />
-                    <Binding Source="{x:Static local:AudioDevice.SimulatedName}" />
+                    <Binding Source="{x:Static library:AudioDevice.SimulatedName}" />
                 </MultiBinding>
             </Border.IsVisible>
 
