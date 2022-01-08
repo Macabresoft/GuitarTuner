@@ -12,8 +12,9 @@ using OpenTK.Audio.OpenAL;
 /// from it.
 /// </summary>
 public class MicrophoneSampleProvider : ISampleProvider, IDisposable {
-    private readonly ALCaptureDevice _captureDevice;
+    private readonly string? _deviceName;
     private readonly int _halfBufferSize;
+    private ALCaptureDevice _captureDevice;
     private bool _isDisposed;
     private bool _isEnabled;
     private Task? _listenTask;
@@ -24,21 +25,16 @@ public class MicrophoneSampleProvider : ISampleProvider, IDisposable {
     /// <summary>
     /// Initializes a new instance of the <see cref="MicrophoneSampleProvider" /> class.
     /// </summary>
-    /// <param name="format">The format.</param>
     /// <param name="bufferSize">Size of the buffer.</param>
-    public MicrophoneSampleProvider(ALFormat format, int bufferSize) {
+    /// <param name="deviceName">The device name.</param>
+    public MicrophoneSampleProvider(int bufferSize, string? deviceName) {
         if (bufferSize <= 0) {
             throw new ArgumentOutOfRangeException(nameof(bufferSize));
         }
 
         this.BufferSize = bufferSize;
         this._halfBufferSize = this.BufferSize / 2;
-
-        this._captureDevice = ALC.CaptureOpenDevice(
-            null,
-            this.SampleRate,
-            format,
-            this.BufferSize);
+        this._deviceName = deviceName;
     }
 
     /// <inheritdoc />
@@ -63,6 +59,13 @@ public class MicrophoneSampleProvider : ISampleProvider, IDisposable {
     /// <inheritdoc />
     public void Start() {
         this._isEnabled = true;
+
+        this._captureDevice = ALC.CaptureOpenDevice(
+            this._deviceName,
+            this.SampleRate,
+            ALFormat.Mono16,
+            this.BufferSize);
+
         this._listenTask = this.Listen();
     }
 

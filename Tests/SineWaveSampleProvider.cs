@@ -18,6 +18,9 @@ public sealed class SineWaveSampleProvider : ISampleProvider {
 
     public float Frequency { get; set; }
 
+    public void Dispose() {
+    }
+
     public float[] GetSampleBuffer() {
         var samples = new float[this.BufferSize];
         for (var i = 0; i < samples.Length; i++) {
@@ -41,6 +44,5 @@ public sealed class SineWaveSampleProvider : ISampleProvider {
     }
 
     public void Stop() {
-        throw new NotSupportedException();
     }
 }

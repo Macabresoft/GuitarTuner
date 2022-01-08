@@ -6,17 +6,12 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Macabresoft.GuitarTuner.Library;
-using OpenTK.Audio.OpenAL;
 using Unity;
+using Unity.Lifetime;
 
 /// <inheritdoc />
 public class App : Application {
     private const string SimulationArg = "--simulate";
-
-    /// <summary>
-    /// Gets a value indicating whether or not this is a simulated environment.
-    /// </summary>
-    public static bool IsSimulated { get; private set; }
 
     /// <inheritdoc />
     public override void Initialize() {
@@ -26,23 +21,22 @@ public class App : Application {
     /// <inheritdoc />
     public override void OnFrameworkInitializationCompleted() {
         if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
-            Resolver.Container.RegisterType<IAudioDeviceService, AudioDeviceService>()
-                .RegisterType<ISampleService, SampleService>()
-                .RegisterType<ISampleAnalyzer, SampleAnalyzer>()
-                .RegisterType<ITuningService, TuningService>();
+            Resolver.Container.RegisterType<IAudioDeviceService, AudioDeviceService>(new SingletonLifetimeManager())
+                .RegisterType<ISampleService, SampleService>(new SingletonLifetimeManager())
+                .RegisterType<ISampleAnalyzer, SampleAnalyzer>(new SingletonLifetimeManager())
+                .RegisterType<ITuningService, TuningService>(new SingletonLifetimeManager())
+                .RegisterInstance<ISampleProvider>(new EmptySampleProvider());
 
-            var tuning = Resolver.Resolve<ITuningService>().SelectedTuning;
-            var bufferSize = (int)Math.Ceiling(SampleRates.Default / tuning.MinimumFrequency) * 2;
-            ISampleProvider sampleProvider;
+            var audioDeviceService = Resolver.Resolve<IAudioDeviceService>();
             if (desktop.Args.Any(x => string.Equals(x, SimulationArg, StringComparison.OrdinalIgnoreCase))) {
-                IsSimulated = true;
-                sampleProvider = new SimulatedSampleProvider(bufferSize);
+                audioDeviceService.SelectDevice(audioDeviceService.AvailableInputDevices.First(
+                    x => x.Name == AudioDevice.SimulatedName && x.DeviceType == AudioDeviceType.Miscellaneous));
             }
             else {
-                sampleProvider = new MicrophoneSampleProvider(ALFormat.Mono16, bufferSize);
+                audioDeviceService.SelectDevice(audioDeviceService.AvailableInputDevices.First(
+                    x => x.Name == AudioDevice.DefaultInputName && x.DeviceType == AudioDeviceType.Input));
             }
 
-            Resolver.Container.RegisterInstance(sampleProvider);
             desktop.MainWindow = Resolver.Resolve<MainWindow>();
         }
 

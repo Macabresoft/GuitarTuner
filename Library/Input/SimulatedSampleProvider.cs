@@ -5,6 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Macabresoft.Core;
 
+/// <summary>
+/// A simulated sample provider.
+/// </summary>
 public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider {
     private readonly Random _random = new();
     private float _frequency = 75f;
@@ -81,5 +84,11 @@ public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider 
                 Thread.Sleep(100);
             }
         });
+    }
+
+    /// <inheritdoc />
+    public void Dispose() {
+        this._sampleTask?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

@@ -107,9 +107,11 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
     public ISampleProvider SampleProvider {
         get => this._sampleProvider;
         set {
-            this.StopSampleProvider();
-            this.Set(ref this._sampleProvider, value);
-            this.StartSampleProvider();
+            if (this._sampleProvider != value) {
+                this.StopSampleProvider();
+                this.Set(ref this._sampleProvider, value);
+                this.StartSampleProvider();
+            }
         }
     }
 
@@ -180,5 +182,6 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
     private void StopSampleProvider() {
         this._sampleProvider.SamplesAvailable -= this.SampleProvider_SamplesAvailable;
         this._sampleProvider.Stop();
+        this._sampleProvider.Dispose();
     }
 }

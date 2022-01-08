@@ -7,7 +7,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
 using Macabresoft.GuitarTuner.Library;
 
 public class TuneToNoteButton : UserControl {

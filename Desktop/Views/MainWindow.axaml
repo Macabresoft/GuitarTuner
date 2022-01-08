@@ -1,7 +1,6 @@
 ﻿<avaloniaEx:BaseDialog xmlns="https://github.com/avaloniaui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
-                       xmlns:library="clr-namespace:Macabresoft.GuitarTuner.Library;assembly=GuitarTuner.Library"
                        xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
                        x:Class="Macabresoft.GuitarTuner.Desktop.MainWindow"
                        ShowInTaskbar="True"
@@ -22,7 +21,7 @@
                 <MenuItem.Header>
                     <avaloniaEx:Icon Content="{StaticResource MenuIcon}" />
                 </MenuItem.Header>
-                
+
                 <MenuItem Header="_Audio Device"
                           Items="{Binding AudioDeviceService.AvailableInputDevices}">
                     <MenuItem.Styles>
@@ -30,7 +29,7 @@
                             <Design.DataContext>
                                 <local:AudioDevice />
                             </Design.DataContext>
-                            
+
                             <Setter Property="Command"
                                     Value="{Binding $parent[local:MainWindow].ViewModel.SelectAudioDeviceCommand}" />
                             <Setter Property="CommandParameter"
@@ -69,23 +68,23 @@
                             <Setter Property="Icon">
                                 <Setter.Value>
                                     <Template>
-                                    <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
-                                        <avaloniaEx:Icon.IsVisible>
-                                            <MultiBinding Converter="{StaticResource EqualsConverter}">
-                                                <Binding />
-                                                <Binding Path="$parent[local:MainWindow].ViewModel.TuningService.SelectedTuning" />
-                                            </MultiBinding>
-                                        </avaloniaEx:Icon.IsVisible>
-                                    </avaloniaEx:Icon>
+                                        <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
+                                            <avaloniaEx:Icon.IsVisible>
+                                                <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                                    <Binding />
+                                                    <Binding Path="$parent[local:MainWindow].ViewModel.TuningService.SelectedTuning" />
+                                                </MultiBinding>
+                                            </avaloniaEx:Icon.IsVisible>
+                                        </avaloniaEx:Icon>
                                     </Template>
                                 </Setter.Value>
                             </Setter>
                         </Style>
                     </MenuItem.Styles>
                 </MenuItem>
-            
+
                 <Separator />
-                
+
                 <MenuItem Click="ViewSource_Click"
                           Header="View _Source" />
 
@@ -112,7 +111,7 @@
 
         <local:TunerReadout Grid.Row="0"
                             Height="420"
-                            SampleService="{Binding SampleService}"/>
+                            SampleService="{Binding SampleService}" />
 
         <TextBlock Grid.Row="1"
                    Margin="{StaticResource DoubleMarginAll}"
@@ -121,7 +120,7 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{Binding TuningService.SelectedTuning.DisplayName}" />
-        
+
         <ItemsControl Grid.Row="2"
                       HorizontalAlignment="Stretch"
                       Items="{Binding TuningService.TuningNotes}">
@@ -136,16 +135,21 @@
                     <local:TuneToNoteButton Note="{Binding}"
                                             SelectedNote="{Binding $parent[local:MainWindow].ViewModel.SampleService.TuneToNote}"
                                             SelectNoteCommand="{Binding $parent[local:MainWindow].ViewModel.SelectTuneToNoteCommand}"
-                                            Margin="{StaticResource DoubleMarginAll}"/>
+                                            Margin="{StaticResource DoubleMarginAll}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
         <Border Grid.Row="3"
-                IsVisible="{x:Static local:App.IsSimulated}"
                 BorderThickness="2"
                 BorderBrush="{StaticResource WhiteBrush}"
                 Padding="{StaticResource StandardMarginAll}">
+            <Border.IsVisible>
+                <MultiBinding Converter="{StaticResource EqualsConverter}">
+                    <Binding Path="AudioDeviceService.SelectedDevice.Name" />
+                    <Binding Source="{x:Static local:AudioDevice.SimulatedName}" />
+                </MultiBinding>
+            </Border.IsVisible>
 
             <Grid RowDefinitions="Auto, Auto"
                   ColumnDefinitions="Auto, 80, *">

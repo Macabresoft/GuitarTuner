@@ -5,12 +5,10 @@ using System;
 /// <summary>
 /// Provides audio at regular intervals.
 /// </summary>
-public interface ISampleProvider {
+public interface ISampleProvider : IDisposable {
     /// <summary>
     /// Occurs when samples are available, which is generally when the buffer is filled to
-    /// <see
-    ///     cref="BufferSize" />
-    /// .
+    /// <see cref="BufferSize" />.
     /// </summary>
     event EventHandler<SamplesAvailableEventArgs>? SamplesAvailable;
 

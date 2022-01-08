@@ -7,7 +7,7 @@
     <Application.DataTemplates>
         <local:ViewLocator />
     </Application.DataTemplates>
-    
+
     <Application.Styles>
         <avaloniaEx:MacabreTheme Accent="Green" />
         <StyleInclude Source="avares://Guitar Tuner by Macabresoft/Styles/ImplicitStyles.axaml" />

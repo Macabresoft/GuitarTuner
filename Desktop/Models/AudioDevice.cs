@@ -16,6 +16,16 @@ public enum AudioDeviceType {
 /// </summary>
 public sealed class AudioDevice {
     /// <summary>
+    /// The default input device name.
+    /// </summary>
+    public const string DefaultInputName = "Default Input";
+
+    /// <summary>
+    /// The name of the simulated sample provider.
+    /// </summary>
+    public const string SimulatedName = "Simulated (Sin Wave)";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="AudioDevice" /> class.
     /// </summary>
     public AudioDevice() : this(AudioDeviceType.Miscellaneous, string.Empty) {

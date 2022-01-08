@@ -16,24 +16,24 @@
         <AssemblyName>Guitar Tuner by Macabresoft</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.11" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.11" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
-        <PackageReference Include="Macabresoft.AvaloniaEx" Version="1.0.11" />
-        <PackageReference Include="Macabresoft.Core" Version="1.0.12" />
-        <PackageReference Include="OpenTK.OpenAL" Version="4.6.7" />
-        <PackageReference Include="System.Runtime" Version="4.3.1" />
+        <PackageReference Include="Avalonia" Version="0.10.11"/>
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.11"/>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11"/>
+        <PackageReference Include="Macabresoft.AvaloniaEx" Version="1.0.11"/>
+        <PackageReference Include="Macabresoft.Core" Version="1.0.12"/>
+        <PackageReference Include="OpenTK.OpenAL" Version="4.6.7"/>
+        <PackageReference Include="System.Runtime" Version="4.3.1"/>
     </ItemGroup>
     <ItemGroup>
-        <None Remove="icon.ico" />
+        <None Remove="icon.ico"/>
         <AvaloniaResource Include="icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </AvaloniaResource>
     </ItemGroup>
     <ItemGroup>
-        <UpToDateCheckInput Remove="Styles\Colors.axaml" />
-        <UpToDateCheckInput Remove="Styles\ImplicitStyles.axaml" />
-        <UpToDateCheckInput Remove="Controls\SimulationOptionsControl.axaml" />
+        <UpToDateCheckInput Remove="Styles\Colors.axaml"/>
+        <UpToDateCheckInput Remove="Styles\ImplicitStyles.axaml"/>
+        <UpToDateCheckInput Remove="Controls\SimulationOptionsControl.axaml"/>
     </ItemGroup>
     <ItemGroup>
         <Compile Update="App.axaml.cs">
@@ -41,11 +41,11 @@
             <SubType>Code</SubType>
         </Compile>
         <Compile Update="Controls\TunerReadout.axaml.cs">
-          <DependentUpon>TunerReadout.axaml</DependentUpon>
-          <SubType>Code</SubType>
+            <DependentUpon>TunerReadout.axaml</DependentUpon>
+            <SubType>Code</SubType>
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Library\GuitarTuner.Library.csproj" />
+        <ProjectReference Include="..\Library\GuitarTuner.Library.csproj"/>
     </ItemGroup>
 </Project>
