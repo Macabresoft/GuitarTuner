@@ -1,19 +1,42 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:library="clr-namespace:Macabresoft.GuitarTuner.Library;assembly=GuitarTuner.Library"
              xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
              x:Class="Macabresoft.GuitarTuner.Desktop.TuneToNoteButton">
     <UserControl.Resources>
         <local:EqualsConverter x:Key="EqualsConverter" />
     </UserControl.Resources>
-    <ToggleButton Content="{Binding $parent[local:TuneToNoteButton].Note.Name}"
-                  Command="{Binding $parent[local:TuneToNoteButton].SelectNoteCommand}"
+    <ToggleButton Command="{Binding $parent[local:TuneToNoteButton].SelectNoteCommand}"
                   CommandParameter="{Binding $parent[local:TuneToNoteButton].Note}"
                   Click="ToggleButton_OnClick"
-                  CornerRadius="20"
+                  CornerRadius="18"
                   HorizontalContentAlignment="Center"
                   VerticalContentAlignment="Center"
-                  MinHeight="40"
-                  MinWidth="40">
+                  MinHeight="36"
+                  MinWidth="36">
+        <ToggleButton.Content>
+            <Panel>
+                <TextBlock Name="_autoTextBlock"
+                           Text="Auto">
+                    <TextBlock.IsVisible>
+                        <MultiBinding Converter="{StaticResource EqualsConverter}">
+                            <Binding Path="$parent[local:TuneToNoteButton].Note" />
+                            <Binding Source="{x:Static library:Note.Auto}" />
+                        </MultiBinding>
+                    </TextBlock.IsVisible>
+                </TextBlock>
+                
+                <StackPanel Orientation="Horizontal"
+                            IsVisible="{Binding #_autoTextBlock.IsVisible, Converter={x:Static BoolConverters.Not}}">
+                    <TextBlock Text="{Binding $parent[local:TuneToNoteButton].Note.NamedNote}"
+                               Margin="0"/>
+                    <TextBlock Text="{Binding $parent[local:TuneToNoteButton].Note.Octave}"
+                               FontSize="{StaticResource SmallFontSize}"
+                               VerticalAlignment="Bottom"
+                               Margin="0"/>
+                </StackPanel>
+            </Panel>
+        </ToggleButton.Content>
         <ToggleButton.IsChecked>
             <MultiBinding Converter="{StaticResource EqualsConverter}"
                           Mode="OneWay">
