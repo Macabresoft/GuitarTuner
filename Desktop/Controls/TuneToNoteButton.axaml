@@ -14,6 +14,23 @@
                   VerticalContentAlignment="Center"
                   MinHeight="36"
                   MinWidth="36">
+        <ToolTip.Tip>
+            <Panel>
+                <TextBlock Name="_autoToolTip"
+                           Text="Automatically detect nearest note when tuning">
+                    <TextBlock.IsVisible>
+                        <MultiBinding Converter="{StaticResource EqualsConverter}">
+                            <Binding Path="$parent[local:TuneToNoteButton].Note" />
+                            <Binding Source="{x:Static library:Note.Auto}" />
+                        </MultiBinding>
+                    </TextBlock.IsVisible>
+                </TextBlock>
+
+                <TextBlock Text="{Binding $parent[local:TuneToNoteButton].Note.Name, StringFormat={}Tune relative to {0}}"
+                           IsVisible="{Binding #_autoTextBlock.IsVisible, Converter={x:Static BoolConverters.Not}}" />
+
+            </Panel>
+        </ToolTip.Tip>
         <ToggleButton.Content>
             <Panel>
                 <TextBlock Name="_autoTextBlock"
@@ -25,15 +42,15 @@
                         </MultiBinding>
                     </TextBlock.IsVisible>
                 </TextBlock>
-                
+
                 <StackPanel Orientation="Horizontal"
                             IsVisible="{Binding #_autoTextBlock.IsVisible, Converter={x:Static BoolConverters.Not}}">
                     <TextBlock Text="{Binding $parent[local:TuneToNoteButton].Note.NamedNote}"
-                               Margin="0"/>
+                               Margin="0" />
                     <TextBlock Text="{Binding $parent[local:TuneToNoteButton].Note.Octave}"
                                FontSize="{StaticResource SmallFontSize}"
                                VerticalAlignment="Bottom"
-                               Margin="0"/>
+                               Margin="0" />
                 </StackPanel>
             </Panel>
         </ToggleButton.Content>
