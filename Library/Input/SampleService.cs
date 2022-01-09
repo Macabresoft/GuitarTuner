@@ -158,7 +158,7 @@ public class SampleService : PropertyChangedNotifier, ISampleService {
                 if (e.Samples.Length >= 2 && e.Samples[^2] != 0f) {
                     var bufferInformation = this._sampleAnalyzer.GetBufferInformation(e.Samples);
                     this.PeakVolume = bufferInformation.PeakVolume;
-                    if (bufferInformation.Frequency == 0f || bufferInformation.PeakVolume < 0.25f) {
+                    if (bufferInformation.Frequency == 0f || bufferInformation.PeakVolume < 0.1f) {
                         this.HoldForReset(e.Samples.Length);
                     }
                     else {

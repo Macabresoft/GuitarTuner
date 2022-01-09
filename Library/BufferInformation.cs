@@ -7,17 +7,17 @@ public struct BufferInformation {
     /// <summary>
     /// An instance of <see cref="BufferInformation" /> returned when the frequency could not be determined.
     /// </summary>
-    public static BufferInformation Unknown = new();
+    public static readonly BufferInformation Unknown = new();
 
     /// <summary>
     /// The fundamental frequency of the buffer.
     /// </summary>
-    public float Frequency;
+    public readonly float Frequency;
 
     /// <summary>
     /// The peak volume of the relevant samples in the buffer. This is a value between 0 and 1.
     /// </summary>
-    public float PeakVolume;
+    public readonly float PeakVolume;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BufferInformation" /> struct.
