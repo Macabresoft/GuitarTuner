@@ -31,7 +31,8 @@ public interface ITuningService : INotifyPropertyChanged {
 public sealed class TuningService : PropertyChangedNotifier, ITuningService {
     private readonly ITuning[] _availableTunings = {
         new StandardGuitarTuning(),
-        new DropDGuitarTuning()
+        new DropDGuitarTuning(),
+        new StandardBassTuning()
     };
 
     private readonly ObservableCollectionExtended<Note> _tuningNotes = new();
