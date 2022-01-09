@@ -9,8 +9,18 @@ using Macabresoft.Core;
 /// A simulated sample provider.
 /// </summary>
 public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider {
+    /// <summary>
+    /// Gets the minimum frequency.
+    /// </summary>
+    public const double MinimumFrequency = 20f;
+
+    /// <summary>
+    /// Gets the maximum frequency.
+    /// </summary>
+    public const double MaximumFrequency = 400f;
+    
     private readonly Random _random = new();
-    private float _frequency = 75f;
+    private double _frequency = 75f;
     private bool _isEnabled;
     private Task? _sampleTask;
     private float _volume;
@@ -35,9 +45,9 @@ public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider 
     /// <summary>
     /// Gets or sets the frequency.
     /// </summary>
-    public float Frequency {
+    public double Frequency {
         get => this._frequency;
-        set => this.Set(ref this._frequency, Math.Min(400f, Math.Max(value, 75f)));
+        set => this.Set(ref this._frequency, Math.Min(MaximumFrequency, Math.Max(value, MinimumFrequency)));
     }
 
     /// <summary>
@@ -67,7 +77,7 @@ public class SimulatedSampleProvider : PropertyChangedNotifier, ISampleProvider 
         this.ResendSamples(this.Frequency, this.Volume);
     }
 
-    private void ResendSamples(float frequency, float volume) {
+    private void ResendSamples(double frequency, float volume) {
         var samples = new float[this.BufferSize];
         frequency = frequency + 0.5f - this._random.Next(-100, 100) / 200f;
         for (var i = 0; i < samples.Length; i++) {

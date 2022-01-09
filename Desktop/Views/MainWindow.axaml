@@ -27,7 +27,57 @@
                 <MenuItem Header="_Audio Device"
                           Items="{Binding AudioDeviceService.AvailableInputDevices}">
                     <MenuItem.Styles>
-                        <StyleInclude Source="avares://Guitar Tuner by Macabresoft/Styles/AudioDeviceMenu.axaml"></StyleInclude>
+                        <Style Selector="MenuItem">
+                            <Design.DataContext>
+                                <local:AudioDevice />
+                            </Design.DataContext>
+
+                            <Setter Property="Command"
+                                    Value="{Binding $parent[local:MainWindow].ViewModel.SelectAudioDeviceCommand, FallbackValue={x:Null}}" />
+                            <Setter Property="CommandParameter"
+                                    Value="{Binding}" />
+                            <Setter Property="Header">
+                                <Setter.Value>
+                                    <Template>
+                                        <Panel>
+                                            <TextBlock Name="_separatorText"
+                                                       Text="{Binding Name}"
+                                                       FontSize="{StaticResource SmallFontSize}"
+                                                       Foreground="{StaticResource YellowBrush}"
+                                                       VerticalAlignment="Bottom">
+                                                <TextBlock.IsVisible>
+                                                    <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                                        <Binding Path="DeviceType" />
+                                                        <Binding Source="{x:Static local:AudioDeviceType.Separator}" />
+                                                    </MultiBinding>
+                                                </TextBlock.IsVisible>
+                                            </TextBlock>
+
+                                            <TextBlock Text="{Binding Name}"
+                                                       IsVisible="{Binding #_separatorText.IsVisible, Converter={x:Static BoolConverters.Not}}" />
+                                        </Panel>
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Icon">
+                                <Setter.Value>
+                                    <Template>
+                                        <avaloniaEx:Icon Content="{StaticResource CheckMarkIcon}">
+                                            <avaloniaEx:Icon.IsVisible>
+                                                <MultiBinding Converter="{StaticResource EqualsConverter}">
+                                                    <Binding />
+                                                    <Binding Path="$parent[local:MainWindow].ViewModel.AudioDeviceService.SelectedDevice"
+                                                             FallbackValue="{x:Null}" />
+                                                </MultiBinding>
+                                            </avaloniaEx:Icon.IsVisible>
+                                        </avaloniaEx:Icon>
+                                    </Template>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="IsEnabled"
+                                    Value="{Binding DeviceType, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Static local:AudioDeviceType.Separator}}" />
+                        </Style>
                     </MenuItem.Styles>
                 </MenuItem>
 
@@ -35,8 +85,11 @@
                           Items="{Binding TuningService.AvailableTunings}">
                     <MenuItem.Styles>
                         <Style Selector="MenuItem">
+                            <Design.DataContext>
+                                <library:StandardGuitarTuning />
+                            </Design.DataContext>
                             <Setter Property="Command"
-                                    Value="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand}" />
+                                    Value="{Binding $parent[local:MainWindow].ViewModel.SelectTuningCommand, FallbackValue={x:Null}}" />
                             <Setter Property="CommandParameter"
                                     Value="{Binding}" />
                             <Setter Property="Header"
@@ -48,7 +101,8 @@
                                             <avaloniaEx:Icon.IsVisible>
                                                 <MultiBinding Converter="{StaticResource EqualsConverter}">
                                                     <Binding />
-                                                    <Binding Path="$parent[local:MainWindow].ViewModel.TuningService.SelectedTuning" />
+                                                    <Binding Path="$parent[local:MainWindow].ViewModel.TuningService.SelectedTuning"
+                                                             FallbackValue="{x:Null}" />
                                                 </MultiBinding>
                                             </avaloniaEx:Icon.IsVisible>
                                         </avaloniaEx:Icon>
@@ -154,8 +208,8 @@
 
                 <Slider Grid.Row="1"
                         Grid.Column="2"
-                        Minimum="75"
-                        Maximum="380"
+                        Minimum="{x:Static library:SimulatedSampleProvider.MinimumFrequency}"
+                        Maximum="{x:Static library:SimulatedSampleProvider.MaximumFrequency}"
                         Value="{Binding SampleService.SampleProvider.Frequency}"
                         Margin="{StaticResource StandardMarginHorizontal}" />
             </Grid>
