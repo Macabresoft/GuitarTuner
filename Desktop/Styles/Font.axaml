@@ -2,6 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:system="using:System">
     <Styles.Resources>
-        <system:Double x:Key="SmallFontSize">10</system:Double>
+        <system:Double x:Key="SmallFontSize">11</system:Double>
     </Styles.Resources>
 </Styles>
