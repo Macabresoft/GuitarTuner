@@ -14,6 +14,7 @@
         <PackageVersion>1.0.0</PackageVersion>
         <Product>Guitar Tuner by Macabresoft</Product>
         <AssemblyName>Guitar Tuner by Macabresoft</AssemblyName>
+        <ApplicationIcon>icon.ico</ApplicationIcon>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="0.10.11" />

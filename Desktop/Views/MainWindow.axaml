@@ -10,7 +10,8 @@
                        CanResize="False"
                        ShowMinimize="True"
                        ShowIcon="False"
-                       Title="Guitar Tuner">
+                       Title="Guitar Tuner"
+                       Icon="avares://Guitar Tuner by Macabresoft/icon.ico">
     <avaloniaEx:BaseDialog.Resources>
         <local:EqualsConverter x:Key="EqualsConverter" />
         <avaloniaEx:EqualityConverter InvertResult="True" x:Key="NotEqualsConverter" />
