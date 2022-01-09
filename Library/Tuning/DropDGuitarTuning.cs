@@ -18,7 +18,7 @@ public sealed class DropDGuitarTuning : GenericTuning {
     /// </summary>
     public DropDGuitarTuning() : base(
         TuningNotes,
-        FrequencyCalculator.GetFrequency(NamedNotes.B, 2),
+        FrequencyCalculator.GetFrequency(NamedNotes.A, 1),
         FrequencyCalculator.GetFrequency(NamedNotes.G, 4)) {
     }
 
