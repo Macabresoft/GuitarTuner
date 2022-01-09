@@ -1,8 +1,11 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avaloniaEx="clr-namespace:Macabresoft.AvaloniaEx;assembly=Macabresoft.AvaloniaEx"
+             xmlns:library="clr-namespace:Macabresoft.GuitarTuner.Library;assembly=GuitarTuner.Library"
              xmlns:local="clr-namespace:Macabresoft.GuitarTuner.Desktop"
              x:Class="Macabresoft.GuitarTuner.Desktop.TunerReadout">
     <UserControl.Resources>
+        <avaloniaEx:EqualityConverter InvertResult="True" x:Key="NotEqualsConverter" />
         <local:HalfWidthPointConverter x:Key="HalfWidthPointConverter" />
         <local:NeedlePositionConverter x:Key="NeedlePositionConverter" />
         <local:NoteHighlightConverter x:Key="NoteHighlightConverter" />
@@ -11,6 +14,9 @@
     </UserControl.Resources>
     <Grid RowDefinitions="*, Auto, Auto, Auto"
           DataContext="{Binding $parent[local:TunerReadout]}">
+        <Design.DataContext>
+            <local:TunerReadout />
+        </Design.DataContext>
         <Grid Grid.Row="1"
               ColumnDefinitions="Auto, *, Auto">
             <TextBlock Grid.Column="0"
@@ -21,22 +27,6 @@
                        VerticalAlignment="Bottom">
                 <TextBlock.Foreground>
                     <MultiBinding Converter="{StaticResource FlatHighlightConverter}">
-                        <Binding Path="Note.DistanceFromBase" />
-                        <Binding Path="DistanceFromBase" />
-                        <Binding Source="{StaticResource WhiteBrush}" />
-                        <Binding Source="{StaticResource YellowBrush}" />
-                    </MultiBinding>
-                </TextBlock.Foreground>
-            </TextBlock>
-
-            <TextBlock Grid.Column="1"
-                       Text="{Binding SampleService.Note.Name}"
-                       FontSize="196"
-                       FontWeight="Bold"
-                       TextAlignment="Center"
-                       VerticalAlignment="Bottom">
-                <TextBlock.Foreground>
-                    <MultiBinding Converter="{StaticResource NoteHighlightConverter}">
                         <Binding Path="SampleService.Note.DistanceFromBase" />
                         <Binding Path="SampleService.DistanceFromBase" />
                         <Binding Source="{StaticResource WhiteBrush}" />
@@ -44,6 +34,44 @@
                     </MultiBinding>
                 </TextBlock.Foreground>
             </TextBlock>
+            
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        IsVisible="{Binding SampleService.Note, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Static library:Note.Empty}}">
+                <TextBlock Text="{Binding SampleService.Note.NamedNote}"
+                           FontSize="192"
+                           FontWeight="Bold"
+                           TextAlignment="Center"
+                           VerticalAlignment="Bottom"
+                           Margin="0">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource NoteHighlightConverter}">
+                            <Binding Path="SampleService.Note.DistanceFromBase" />
+                            <Binding Path="SampleService.DistanceFromBase" />
+                            <Binding Source="{StaticResource WhiteBrush}" />
+                            <Binding Source="{StaticResource YellowBrush}" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <TextBlock Text="{Binding SampleService.Note.Octave}"
+                           FontSize="64"
+                           FontWeight="Bold"
+                           TextAlignment="Center"
+                           VerticalAlignment="Bottom"
+                           Margin="0">
+                    <TextBlock.Foreground>
+                        <MultiBinding Converter="{StaticResource NoteHighlightConverter}">
+                            <Binding Path="SampleService.Note.DistanceFromBase" />
+                            <Binding Path="SampleService.DistanceFromBase" />
+                            <Binding Source="{StaticResource WhiteBrush}" />
+                            <Binding Source="{StaticResource YellowBrush}" />
+                        </MultiBinding>
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </StackPanel>
+
 
             <TextBlock Grid.Column="2"
                        Text="♯"
