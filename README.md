@@ -1,4 +1,6 @@
-# Guitar Tuner
+![Guitar Tuner by Macabresoft Logo](Icon/icon128.png "Guitar Tuner by Macabresoft Logo")
+
+# Guitar Tuner by Macabresoft
 
 A guitar tuning app for desktop.
 
