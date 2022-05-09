@@ -12,3 +12,7 @@ A guitar tuning app for desktop.
 * Change audio input devices
 * See exact frequency of current audio input
 * Indicator shows when a note is flat or sharp
+
+# Algorithm
+
+Uses an Average Magnitude Difference Function to determine the frequency from a set of samples.
