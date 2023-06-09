@@ -26,9 +26,10 @@
                 </MenuItem.Header>
 
                 <MenuItem Header="_Audio Device"
+                          Classes="predefined"
                           Items="{Binding AudioDeviceService.AvailableInputDevices}">
                     <MenuItem.Styles>
-                        <Style Selector="MenuItem">
+                        <Style Selector="MenuItem:not(.predefined)">
                             <Design.DataContext>
                                 <local:AudioDevice />
                             </Design.DataContext>
@@ -83,6 +84,7 @@
                 </MenuItem>
 
                 <MenuItem Header="_Tunings"
+                          Classes="predefined"
                           Items="{Binding TuningService.AvailableTunings}">
                     <MenuItem.Styles>
                         <Style Selector="MenuItem">
@@ -117,11 +119,13 @@
                 <Separator />
 
                 <MenuItem Click="ViewSource_Click"
+                          Classes="predefined"
                           Header="View _Source" />
 
                 <Separator />
 
                 <MenuItem Click="Exit_Click"
+                          Classes="predefined"
                           Header="_Exit" />
             </MenuItem>
         </Menu>
