@@ -1,3 +1,9 @@
+> [!WARNING]
+> This project is no longer supported and may not work at all in its current state.
+
+> [!NOTE]  
+> An alternative web guitar tuner can be found [here](https://github.com/Macabresoft/guitar-tuner).
+
 ![Guitar Tuner by Macabresoft Logo](Icon/icon128.png "Guitar Tuner by Macabresoft Logo")
 
 # Guitar Tuner by Macabresoft
